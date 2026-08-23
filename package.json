@@ -1,0 +1,17 @@
+{
+  "name": "mindmap",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "pnpm --filter @mindmap/studio dev",
+    "build": "pnpm --filter @mindmap/studio build",
+    "test": "pnpm -r --no-bail test",
+    "check": "biome check . && pnpm -r exec tsc --noEmit",
+    "format": "biome format --write ."
+  },
+  "packageManager": "pnpm@10.8.0",
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.10",
+    "typescript": "^7.0.2"
+  }
+}
