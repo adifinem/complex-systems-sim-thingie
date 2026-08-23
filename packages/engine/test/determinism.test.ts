@@ -99,6 +99,18 @@ describe('determinism', () => {
     expect(edited.getNode('tracker').value).toBe(control.getNode('tracker').value)
   })
 
+  it('editing a delay tau mid-run re-samples the buffer length', () => {
+    const sim = new Simulation(
+      flatModel([variable('src', 't'), variable('lagged', 'delay(src, 0.5, 0)')]),
+    )
+    sim.tick(50) // t=5; lagged tracks t−0.5
+    expect(sim.getNode('lagged').value).toBeCloseTo(4.9 - 0.5, 9)
+    const r = sim.setFormula('lagged', 'delay(src, 2, 0)')
+    expect(r.ok).toBe(true)
+    sim.tick(50) // buffer was re-seeded at swap; after 20 ticks it lags by 2
+    expect(sim.getNode('lagged').value).toBeCloseTo(9.9 - 2, 9)
+  })
+
   it('setFormula is atomic: a bad edit leaves the running program untouched', () => {
     const sim = new Simulation(flatModel([variable('x', 't * 2')]))
     sim.tick(10)

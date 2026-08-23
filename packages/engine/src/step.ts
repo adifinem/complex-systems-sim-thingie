@@ -454,6 +454,65 @@ export function restoreState(
       state.history.set(data.slice(0, len), slot * len)
     }
   }
+  resampleTaus(compiled, state)
   updateStats(compiled, state, false)
   return { state, unmatched }
+}
+
+/**
+ * Re-sample every stateful call site's time constant against the restored
+ * values and reconcile the carried state. For an unchanged model this is a
+ * no-op (same inputs → same tau), preserving bit-identical restore; after a
+ * formula/dial edit it implements the documented "delay times re-sample on
+ * hot-swap" behavior instead of silently keeping a stale buffer length.
+ */
+function resampleTaus(compiled: Compiled, state: SimState): void {
+  const ctx = makeCtx(state)
+  for (const e of compiled.recordEntries) {
+    if (!e.tauAst) continue
+    const st = state.funcState.get(e.callSiteId)
+    if (!st) continue
+    const cn = compiled.nodes[e.nodeSlot] as CompiledNode
+    setNodeCtx(ctx, state, compiled, cn)
+    const tauTicks = evalAst(e.tauAst, ctx) * cn.ratio
+    if (!Number.isFinite(tauTicks)) continue
+    const dt = compiled.dt
+    switch (st.kind) {
+      case 'ring': {
+        const len = Math.max(1, Math.round(tauTicks / dt))
+        if (len !== st.buf.length) {
+          // Length changed: re-seed with the current input value.
+          const x = evalAst(e.argAst, ctx)
+          const buf = new Float64Array(len)
+          buf.fill(x)
+          state.funcState.set(e.callSiteId, { kind: 'ring', buf, cursor: 0 })
+        }
+        break
+      }
+      case 'smooth':
+        st.k = Math.min(dt / Math.max(tauTicks, EPS), 1)
+        break
+      case 'd1': {
+        const newTau = Math.max(tauTicks, dt)
+        if (newTau !== st.tauTicks) {
+          // Preserve the visible output (level/tau) across the change.
+          st.level = (st.level / st.tauTicks) * newTau
+          st.tauTicks = newTau
+        }
+        break
+      }
+      case 'd3': {
+        const newTau3 = Math.max(tauTicks / 3, dt)
+        if (newTau3 !== st.tau3) {
+          st.l1 = (st.l1 / st.tau3) * newTau3
+          st.l2 = (st.l2 / st.tau3) * newTau3
+          st.l3 = (st.l3 / st.tau3) * newTau3
+          st.tau3 = newTau3
+        }
+        break
+      }
+      default:
+        break
+    }
+  }
 }
