@@ -253,8 +253,16 @@ body,
 .mm-node.module .pin-val {
   font-family: var(--mono);
   font-size: 10px;
-  color: var(--text);
+  /* The bridge sets --dev-color/--dev-abs per pin from the inner node's
+     deviation, so chip pins mirror the red/blue you see when zoomed in. */
+  color: var(--dev-color, var(--text));
+  text-shadow: 0 0 6px
+    color-mix(in srgb, var(--dev-color, transparent) calc(var(--dev-abs, 0) * 70%), transparent);
   min-width: 30px;
+}
+
+.mm-node.module .pin-name {
+  color: var(--text-dim);
 }
 
 .mm-node.module .hint-line {

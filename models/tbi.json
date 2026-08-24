@@ -1577,7 +1577,7 @@
             "y": 40
           },
           "name": "Injury Severity (at t0)",
-          "value": 35,
+          "value": 0,
           "dial": {
             "min": 0,
             "max": 100,
@@ -1738,7 +1738,7 @@
             "y": 60
           },
           "name": "how to drive this",
-          "notes": "1 tick = 1 day. Press play.\nDials: injury seeds the cellular tab at t0; the rest push continuously.\nTry: bad sleep + high stress -> watch inflammation & mood lock in.\nThen improve sleep env & support and see if it unwinds.\nDouble-click any chip for its live internals."
+          "notes": "1 tick = 1 day. Press play.\nDefaults are a stable, healthy system.\nSimulate a concussion: raise Injury Severity, press Reset (R) so it seeds t0, then play.\nOr skip injury entirely and just grind the psyche: bad sleep + high stress -> watch inflammation & mood lock in.\nDouble-click any chip for its live internals."
         }
       ],
       "edges": [
