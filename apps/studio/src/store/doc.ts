@@ -18,7 +18,7 @@ export interface DocState {
 
   setFileName: (name: string | null) => void
   replaceModel: (model: Model, fileName?: string | null) => void
-  addNode: (type: NodeType, pos: { x: number; y: number }) => string
+  addNode: (type: NodeType, pos: { x: number; y: number }, patch?: Partial<ModelNode>) => string
   /** Add a node with a caller-chosen id (quick-fix "create variable X"). */
   addNamedNode: (type: NodeType, id: string, pos: { x: number; y: number }) => boolean
   updateNode: (id: string, patch: Partial<ModelNode>) => void
@@ -80,7 +80,7 @@ export const useDoc = create<DocState>()(
           fileName: fileName === undefined ? s.fileName : fileName,
         })),
 
-      addNode: (type, pos) => {
+      addNode: (type, pos, patch) => {
         const { model, activeGraphId } = get()
         const g = activeGraph(model, activeGraphId)
         const base = type === 'stock' ? 'stock' : type === 'flow' ? 'flow' : type
@@ -93,6 +93,7 @@ export const useDoc = create<DocState>()(
           type,
           name: id.replace('_', ' '),
           ...RUNNABLE_DEFAULTS[type],
+          ...(patch ?? {}),
           ui: { x: Math.round(pos.x), y: Math.round(pos.y) },
         } as unknown as ModelNode
         set((s) => ({

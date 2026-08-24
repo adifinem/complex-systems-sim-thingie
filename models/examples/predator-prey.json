@@ -2,7 +2,7 @@
   "version": 1,
   "meta": {
     "name": "predator-prey",
-    "notes": "Lotka-Volterra: two stocks chasing each other in circles. Watch the colors cycle blue/red."
+    "notes": "Three-level food chain: vegetation → prey → predators. Defaults cycle. Crank Veg Capacity (enrichment) and the cycles grow violent; crank Grazing and the prey eat themselves out of house and home."
   },
   "sim": {
     "dt": 0.01,
@@ -14,14 +14,25 @@
       "name": "Main",
       "nodes": [
         {
+          "id": "veg",
+          "type": "stock",
+          "name": "Vegetation",
+          "initial": "150",
+          "nonNegative": true,
+          "ui": {
+            "x": 80,
+            "y": 200
+          }
+        },
+        {
           "id": "prey",
           "type": "stock",
           "name": "Prey",
           "initial": "40",
           "nonNegative": true,
           "ui": {
-            "x": 240,
-            "y": 160
+            "x": 460,
+            "y": 200
           }
         },
         {
@@ -31,116 +42,201 @@
           "initial": "8",
           "nonNegative": true,
           "ui": {
-            "x": 560,
-            "y": 360
+            "x": 840,
+            "y": 200
           }
         },
         {
-          "id": "prey_growth",
+          "id": "regrowth",
           "type": "flow",
-          "name": "Births",
-          "formula": "birth_rate * prey",
-          "to": "prey",
+          "name": "Regrowth",
+          "formula": "regrow * veg * (1 - veg / capacity)",
+          "to": "veg",
           "ui": {
-            "x": 40,
-            "y": 180
-          },
-          "uniflow": true
+            "x": -80,
+            "y": 220
+          }
+        },
+        {
+          "id": "grazing",
+          "type": "flow",
+          "name": "Grazing",
+          "formula": "intake * prey",
+          "from": "veg",
+          "uniflow": true,
+          "ui": {
+            "x": 260,
+            "y": 220
+          }
+        },
+        {
+          "id": "prey_births",
+          "type": "flow",
+          "name": "Prey Births",
+          "formula": "efficiency * intake * prey",
+          "to": "prey",
+          "uniflow": true,
+          "ui": {
+            "x": 330,
+            "y": 60
+          }
+        },
+        {
+          "id": "prey_deaths",
+          "type": "flow",
+          "name": "Prey Deaths",
+          "formula": "0.15 * prey",
+          "from": "prey",
+          "uniflow": true,
+          "ui": {
+            "x": 560,
+            "y": 60
+          }
         },
         {
           "id": "predation",
           "type": "flow",
           "name": "Predation",
-          "formula": "hunt_rate * prey * pred",
+          "formula": "hunt * prey * pred",
           "from": "prey",
+          "uniflow": true,
           "ui": {
-            "x": 420,
-            "y": 180
-          },
-          "uniflow": true
+            "x": 640,
+            "y": 220
+          }
         },
         {
-          "id": "pred_growth",
+          "id": "pred_births",
           "type": "flow",
           "name": "Pred Births",
-          "formula": "conversion * prey * pred",
+          "formula": "0.25 * hunt * prey * pred",
           "to": "pred",
+          "uniflow": true,
           "ui": {
-            "x": 380,
-            "y": 380
-          },
-          "uniflow": true
+            "x": 720,
+            "y": 60
+          }
         },
         {
-          "id": "pred_death",
+          "id": "pred_deaths",
           "type": "flow",
           "name": "Pred Deaths",
-          "formula": "death_rate * pred",
+          "formula": "pred_death * pred",
           "from": "pred",
+          "uniflow": true,
           "ui": {
-            "x": 740,
-            "y": 380
-          },
-          "uniflow": true
+            "x": 1020,
+            "y": 220
+          }
         },
         {
-          "id": "birth_rate",
+          "id": "intake",
+          "type": "variable",
+          "name": "Intake per Prey",
+          "formula": "graze * veg / (1 + graze * 2 * veg)",
+          "ui": {
+            "x": 260,
+            "y": 360
+          }
+        },
+        {
+          "id": "regrow",
           "type": "constant",
-          "name": "Birth Rate",
-          "value": 0.5,
+          "name": "Veg Regrowth",
+          "value": 0.8,
           "dial": {
-            "max": 2,
             "min": 0,
+            "max": 2,
             "step": 0.05
           },
           "ui": {
-            "x": 40,
+            "x": -80,
             "y": 60
           }
         },
         {
-          "id": "hunt_rate",
+          "id": "capacity",
           "type": "constant",
-          "name": "Hunt Rate",
-          "value": 0.05,
+          "name": "Veg Capacity",
+          "value": 200,
           "dial": {
-            "max": 0.2,
-            "min": 0,
-            "step": 0.005
+            "min": 50,
+            "max": 800,
+            "step": 10
           },
           "ui": {
-            "x": 420,
-            "y": 60
+            "x": -80,
+            "y": 380
           }
         },
         {
-          "id": "conversion",
+          "id": "graze",
           "type": "constant",
-          "name": "Conversion",
-          "value": 0.005,
+          "name": "Grazing Rate",
+          "value": 0.02,
           "dial": {
-            "max": 0.02,
             "min": 0,
-            "step": 0.0005
+            "max": 0.1,
+            "step": 0.002
           },
           "ui": {
-            "x": 240,
-            "y": 480
+            "x": 100,
+            "y": 460
           }
         },
         {
-          "id": "death_rate",
+          "id": "efficiency",
           "type": "constant",
-          "name": "Death Rate",
-          "value": 0.3,
+          "name": "Feed Efficiency",
+          "value": 0.6,
           "dial": {
+            "min": 0,
             "max": 1,
-            "min": 0,
             "step": 0.02
           },
           "ui": {
-            "x": 740,
-            "y": 500
+            "x": 460,
+            "y": 460
+          }
+        },
+        {
+          "id": "hunt",
+          "type": "constant",
+          "name": "Hunt Rate",
+          "value": 0.03,
+          "dial": {
+            "min": 0,
+            "max": 0.2,
+            "step": 0.005
+          },
+          "ui": {
+            "x": 640,
+            "y": 460
+          }
+        },
+        {
+          "id": "pred_death",
+          "type": "constant",
+          "name": "Pred Death",
+          "value": 0.25,
+          "dial": {
+            "min": 0.05,
+            "max": 1,
+            "step": 0.05
+          },
+          "ui": {
+            "x": 1020,
+            "y": 60
+          }
+        },
+        {
+          "id": "note1",
+          "type": "note",
+          "name": "try this",
+          "notes": "Paradox of enrichment: raise Veg Capacity toward 800 and stable cycles become boom-and-crash.\nRaise Grazing Rate: prey strip the vegetation and starve.\nDrop Pred Death: predators pin the prey down.",
+          "ui": {
+            "x": 900,
+            "y": 420
           }
         }
       ],
@@ -148,62 +244,116 @@
         {
           "id": "l1",
           "type": "link",
-          "from": "birth_rate",
-          "to": "prey_growth"
+          "from": "regrow",
+          "to": "regrowth"
         },
         {
           "id": "l2",
           "type": "link",
-          "from": "prey",
-          "to": "prey_growth"
+          "from": "veg",
+          "to": "regrowth"
         },
         {
           "id": "l3",
           "type": "link",
-          "from": "hunt_rate",
-          "to": "predation"
+          "from": "capacity",
+          "to": "regrowth"
         },
         {
           "id": "l4",
           "type": "link",
-          "from": "prey",
-          "to": "predation"
+          "from": "intake",
+          "to": "grazing"
         },
         {
           "id": "l5",
           "type": "link",
-          "from": "pred",
-          "to": "predation"
+          "from": "prey",
+          "to": "grazing"
         },
         {
           "id": "l6",
           "type": "link",
-          "from": "conversion",
-          "to": "pred_growth"
+          "from": "graze",
+          "to": "intake"
         },
         {
           "id": "l7",
           "type": "link",
-          "from": "prey",
-          "to": "pred_growth"
+          "from": "veg",
+          "to": "intake"
         },
         {
           "id": "l8",
           "type": "link",
-          "from": "pred",
-          "to": "pred_growth"
+          "from": "efficiency",
+          "to": "prey_births"
         },
         {
           "id": "l9",
           "type": "link",
-          "from": "death_rate",
-          "to": "pred_death"
+          "from": "intake",
+          "to": "prey_births"
         },
         {
           "id": "l10",
           "type": "link",
+          "from": "prey",
+          "to": "prey_births"
+        },
+        {
+          "id": "l11",
+          "type": "link",
+          "from": "prey",
+          "to": "prey_deaths"
+        },
+        {
+          "id": "l12",
+          "type": "link",
+          "from": "hunt",
+          "to": "predation"
+        },
+        {
+          "id": "l13",
+          "type": "link",
+          "from": "prey",
+          "to": "predation"
+        },
+        {
+          "id": "l14",
+          "type": "link",
           "from": "pred",
-          "to": "pred_death"
+          "to": "predation"
+        },
+        {
+          "id": "l15",
+          "type": "link",
+          "from": "hunt",
+          "to": "pred_births"
+        },
+        {
+          "id": "l16",
+          "type": "link",
+          "from": "prey",
+          "to": "pred_births"
+        },
+        {
+          "id": "l17",
+          "type": "link",
+          "from": "pred",
+          "to": "pred_births"
+        },
+        {
+          "id": "l18",
+          "type": "link",
+          "from": "pred_death",
+          "to": "pred_deaths"
+        },
+        {
+          "id": "l19",
+          "type": "link",
+          "from": "pred",
+          "to": "pred_deaths"
         }
       ]
     }

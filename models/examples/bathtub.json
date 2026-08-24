@@ -16,13 +16,14 @@
         {
           "id": "level",
           "type": "stock",
-          "name": "Water Level",
+          "name": "Water Level (tub holds 150)",
           "initial": "100",
           "nonNegative": true,
           "ui": {
             "x": 360,
             "y": 200
-          }
+          },
+          "max": 150
         },
         {
           "id": "faucet",

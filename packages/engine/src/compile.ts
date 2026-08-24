@@ -102,6 +102,8 @@ export interface StockFlowRef {
 export interface CompiledStock {
   slot: number
   nonNegative: boolean
+  /** Capacity clamp; +Infinity when unset. */
+  max: number
   frozen: boolean
   inflows: StockFlowRef[]
   outflows: StockFlowRef[]
@@ -382,6 +384,8 @@ export function compile(model: Model): CompileResult {
     const s: CompiledStock = {
       slot: cn.slot,
       nonNegative: cn.nonNegative,
+      max:
+        (flatBySlot[cn.slot]?.raw as { max?: number } | undefined)?.max ?? Number.POSITIVE_INFINITY,
       frozen: cn.frozen,
       inflows: [],
       outflows: [],

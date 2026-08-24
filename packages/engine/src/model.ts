@@ -53,6 +53,12 @@ export interface StockNode extends NodeBase {
   /** Formula evaluated at reset. */
   initial: string
   nonNegative?: boolean
+  /**
+   * Capacity: post-integration clamp (the tub stops at the rim). Like
+   * nonNegative, inflow rates can report more than actually entered while
+   * the clamp engages.
+   */
+  max?: number
 }
 
 export interface FlowNode extends NodeBase {

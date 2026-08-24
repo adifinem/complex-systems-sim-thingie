@@ -39,6 +39,18 @@ describe('tick semantics', () => {
     expect(sim.getNode('s').value).toBe(10)
   })
 
+  it('stock max caps the level (the tub stops at the rim)', () => {
+    const sim = new Simulation(
+      flatModel([
+        { id: 's', type: 'stock', initial: '90', max: 100 } as Parameters<typeof stock>[2] &
+          ReturnType<typeof stock>,
+        flow('f', '50', { to: 's' }),
+      ]),
+    )
+    sim.tick(100)
+    expect(sim.getNode('s').value).toBe(100)
+  })
+
   it('nonNegative stocks clamp at zero', () => {
     const sim = new Simulation(
       flatModel([stock('s', '1', { nonNegative: true }), flow('drain', '10', { from: 's' })]),

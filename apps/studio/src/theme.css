@@ -264,6 +264,21 @@ body,
   padding-bottom: 4px;
 }
 
+/* React Flow ships default styling for node types named "input"/"output" —
+   neutralize it so our custom pills aren't wrapped in white boxes. */
+.react-flow__node-input,
+.react-flow__node-output {
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  width: auto;
+  box-shadow: none;
+  color: inherit;
+  font-size: inherit;
+  text-align: left;
+}
+
 /* input/output port pills (inside module graphs) */
 .mm-node.port-node {
   min-width: 100px;

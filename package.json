@@ -7,7 +7,8 @@
     "build": "pnpm --filter @mindmap/studio build",
     "test": "pnpm -r --no-bail test",
     "check": "biome check . && pnpm -r exec tsc --noEmit",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "sim": "pnpm --filter @mindmap/engine sim"
   },
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {

@@ -3,10 +3,22 @@ import { useReactFlow } from '@xyflow/react'
 import { useDoc } from '../store/doc'
 import { useUi } from '../store/sim'
 
-const ITEMS: { type: NodeType; icon: string; title: string }[] = [
+const ITEMS: {
+  type: NodeType
+  icon: string
+  title: string
+  patch?: { name: string; formula: string }
+}[] = [
   { type: 'stock', icon: '▭', title: 'Stock — accumulates via flows' },
   { type: 'flow', icon: '⋈', title: 'Flow — rate into/out of stocks' },
   { type: 'variable', icon: '◯', title: 'Variable — formula' },
+  {
+    type: 'variable',
+    icon: '⑂',
+    title:
+      "Switch — if/else gate: wire inputs in, edit the condition. Only the taken branch's wires stay lit.",
+    patch: { name: 'switch', formula: 'if(x > 0.5, 1, 0)' },
+  },
   { type: 'constant', icon: '◉', title: 'Constant — dial' },
   { type: 'module', icon: '▣', title: 'Module — a graph as an IC chip' },
   { type: 'input', icon: '⮕', title: 'Input port (for graphs used as modules)' },
@@ -23,7 +35,7 @@ export function Palette() {
     <div className="palette">
       {ITEMS.map((it) => (
         <button
-          key={it.type}
+          key={it.icon}
           type="button"
           title={it.title}
           onClick={() => {
@@ -31,7 +43,9 @@ export function Palette() {
               x: window.innerWidth / 2 + (Math.random() - 0.5) * 120,
               y: window.innerHeight / 2 + (Math.random() - 0.5) * 80,
             })
-            select(it.type === 'module' ? addModuleNode(center) : addNode(it.type, center))
+            select(
+              it.type === 'module' ? addModuleNode(center) : addNode(it.type, center, it.patch),
+            )
           }}
         >
           {it.icon}

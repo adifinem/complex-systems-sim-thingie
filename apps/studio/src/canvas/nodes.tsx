@@ -82,11 +82,12 @@ function Head({ node }: { node: ModelNode }) {
 export const StockNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node as StockNode
   const dial = (node as unknown as { dial?: { min: number; max: number } }).dial
-  const { root, badge, fillEl, spark, onMouseEnter } = useBridgeRefs(
-    node.id,
-    dial ? { min: dial.min, max: dial.max } : { min: 0, max: 200 },
-    true,
-  )
+  const fillRange = node.max
+    ? { min: 0, max: node.max }
+    : dial
+      ? { min: dial.min, max: dial.max }
+      : { min: 0, max: 200 }
+  const { root, badge, fillEl, spark, onMouseEnter } = useBridgeRefs(node.id, fillRange, true)
   return (
     <div
       ref={root}

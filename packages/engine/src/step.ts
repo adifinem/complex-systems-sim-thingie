@@ -285,6 +285,7 @@ export function tick(compiled: Compiled, state: SimState): void {
     for (const f of stock.outflows) delta -= (values[f.slot] as number) * f.scale
     let v = (values[stock.slot] as number) + delta
     if (stock.nonNegative && v < 0) v = 0
+    if (v > stock.max) v = stock.max
     values[stock.slot] = v
     if (!Number.isFinite(v) && state.divergedSlot < 0) {
       state.divergedSlot = stock.slot

@@ -129,6 +129,22 @@ function NodePanel({ node }: { node: ModelNode }) {
 
       {node.type === 'constant' && <ConstantFields node={node as ConstantNode} />}
       {node.type === 'stock' && (
+        <>
+          <label>capacity (max, blank = none)</label>
+          <input
+            type="number"
+            step="any"
+            defaultValue={(node as StockNode).max ?? ''}
+            onBlur={(e) => {
+              const v = Number(e.target.value)
+              updateNode(node.id, {
+                max: e.target.value === '' || !Number.isFinite(v) ? undefined : v,
+              } as Partial<ModelNode>)
+            }}
+          />
+        </>
+      )}
+      {node.type === 'stock' && (
         <div className="checkbox-row">
           <input
             id="nonneg"
