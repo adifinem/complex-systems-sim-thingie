@@ -25,8 +25,10 @@ export function Inspector() {
   const graph = currentGraph({ model, activeGraphId } as Parameters<typeof currentGraph>[0])
   const node = graph.nodes.find((n) => n.id === selectedId)
 
-  if (!node) return <SimSettings />
-  return <NodePanel key={node.id} node={node} />
+  // Keyed so uncontrolled defaultValue fields refresh when another model loads.
+  const docKey = useDoc((s) => `${s.fileName ?? 'unsaved'}:${s.model.meta?.name ?? ''}`)
+  if (!node) return <SimSettings key={docKey} />
+  return <NodePanel key={`${docKey}:${node.id}`} node={node} />
 }
 
 function SimSettings() {

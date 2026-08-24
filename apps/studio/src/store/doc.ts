@@ -12,8 +12,11 @@ export interface DocState {
   activeGraphId: string
   /** Bumped on any change that affects simulation semantics. */
   semanticVersion: number
+  /** models/<fileName>.json this document belongs to; null = unsaved. */
+  fileName: string | null
 
-  replaceModel: (model: Model) => void
+  setFileName: (name: string | null) => void
+  replaceModel: (model: Model, fileName?: string | null) => void
   addNode: (type: NodeType, pos: { x: number; y: number }) => string
   updateNode: (id: string, patch: Partial<ModelNode>) => void
   moveNode: (id: string, pos: { x: number; y: number }) => void
@@ -51,12 +54,16 @@ export const useDoc = create<DocState>((set, get) => ({
   model: thermostatDemo,
   activeGraphId: thermostatDemo.mainGraph,
   semanticVersion: 0,
+  fileName: null,
 
-  replaceModel: (model) =>
+  setFileName: (name) => set({ fileName: name }),
+
+  replaceModel: (model, fileName) =>
     set((s) => ({
       model,
       activeGraphId: model.mainGraph,
       semanticVersion: s.semanticVersion + 1,
+      fileName: fileName === undefined ? s.fileName : fileName,
     })),
 
   addNode: (type, pos) => {

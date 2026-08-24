@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "shower-delay",
+    "notes": "Delayed feedback. gain\u00b7lag < \u03c0/2 settles; crank the gain and it oscillates harder instead of settling."
+  },
+  "sim": {
+    "dt": 0.02,
+    "seed": 1
+  },
+  "mainGraph": "main",
+  "graphs": {
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "temp",
+          "type": "stock",
+          "name": "Shower Temp",
+          "initial": "20",
+          "ui": {
+            "x": 420,
+            "y": 200
+          }
+        },
+        {
+          "id": "target",
+          "type": "constant",
+          "name": "Target",
+          "value": 40,
+          "dial": {
+            "max": 60,
+            "min": 10,
+            "step": 1
+          },
+          "ui": {
+            "x": 120,
+            "y": 80
+          }
+        },
+        {
+          "id": "gain",
+          "type": "constant",
+          "name": "Gain",
+          "value": 0.8,
+          "dial": {
+            "max": 6,
+            "min": 0,
+            "step": 0.1
+          },
+          "ui": {
+            "x": 120,
+            "y": 320
+          }
+        },
+        {
+          "id": "lag",
+          "type": "constant",
+          "name": "Pipe Lag",
+          "value": 1,
+          "dial": {
+            "max": 4,
+            "min": 0.1,
+            "step": 0.1
+          },
+          "ui": {
+            "x": 360,
+            "y": 380
+          }
+        },
+        {
+          "id": "adjust",
+          "type": "flow",
+          "name": "Valve Adjust",
+          "formula": "gain * (target - delay(temp, lag, 20))",
+          "to": "temp",
+          "ui": {
+            "x": 160,
+            "y": 220
+          }
+        },
+        {
+          "id": "note1",
+          "type": "note",
+          "name": "try this",
+          "notes": "You feel the water from a moment ago, not now.\nGain 0.8: settles. Gain 4: oscillates and grows.",
+          "ui": {
+            "x": 600,
+            "y": 60
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "l1",
+          "type": "link",
+          "from": "gain",
+          "to": "adjust"
+        },
+        {
+          "id": "l2",
+          "type": "link",
+          "from": "target",
+          "to": "adjust"
+        },
+        {
+          "id": "l3",
+          "type": "link",
+          "from": "temp",
+          "to": "adjust"
+        },
+        {
+          "id": "l4",
+          "type": "link",
+          "from": "lag",
+          "to": "adjust"
+        }
+      ]
+    }
+  }
+}

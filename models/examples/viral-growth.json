@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "viral-growth",
+    "notes": "SIR epidemic: reinforcing spread + saturation = S-curve. Try dragging infectivity mid-run."
+  },
+  "sim": {
+    "dt": 0.05,
+    "seed": 3
+  },
+  "mainGraph": "main",
+  "graphs": {
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "susceptible",
+          "type": "stock",
+          "name": "Susceptible",
+          "initial": "9990",
+          "nonNegative": true,
+          "ui": {
+            "x": 120,
+            "y": 220
+          }
+        },
+        {
+          "id": "infected",
+          "type": "stock",
+          "name": "Infected",
+          "initial": "10",
+          "nonNegative": true,
+          "ui": {
+            "x": 460,
+            "y": 220
+          }
+        },
+        {
+          "id": "recovered",
+          "type": "stock",
+          "name": "Recovered",
+          "initial": "0",
+          "nonNegative": true,
+          "ui": {
+            "x": 800,
+            "y": 220
+          }
+        },
+        {
+          "id": "infection",
+          "type": "flow",
+          "name": "Infection",
+          "formula": "infectivity * infected * susceptible / 10000",
+          "from": "susceptible",
+          "to": "infected",
+          "ui": {
+            "x": 300,
+            "y": 240
+          },
+          "uniflow": true
+        },
+        {
+          "id": "recovery",
+          "type": "flow",
+          "name": "Recovery",
+          "formula": "infected / recovery_days",
+          "from": "infected",
+          "to": "recovered",
+          "ui": {
+            "x": 640,
+            "y": 240
+          },
+          "uniflow": true
+        },
+        {
+          "id": "infectivity",
+          "type": "constant",
+          "name": "Infectivity",
+          "value": 0.4,
+          "dial": {
+            "max": 1.5,
+            "min": 0,
+            "step": 0.02
+          },
+          "ui": {
+            "x": 300,
+            "y": 80
+          }
+        },
+        {
+          "id": "recovery_days",
+          "type": "constant",
+          "name": "Recovery Days",
+          "value": 10,
+          "dial": {
+            "max": 30,
+            "min": 1,
+            "step": 0.5
+          },
+          "ui": {
+            "x": 640,
+            "y": 80
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "l1",
+          "type": "link",
+          "from": "infectivity",
+          "to": "infection"
+        },
+        {
+          "id": "l2",
+          "type": "link",
+          "from": "infected",
+          "to": "infection"
+        },
+        {
+          "id": "l3",
+          "type": "link",
+          "from": "susceptible",
+          "to": "infection"
+        },
+        {
+          "id": "l4",
+          "type": "link",
+          "from": "infected",
+          "to": "recovery"
+        },
+        {
+          "id": "l5",
+          "type": "link",
+          "from": "recovery_days",
+          "to": "recovery"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "predator-prey",
+    "notes": "Lotka-Volterra: two stocks chasing each other in circles. Watch the colors cycle blue/red."
+  },
+  "sim": {
+    "dt": 0.01,
+    "seed": 7
+  },
+  "mainGraph": "main",
+  "graphs": {
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "prey",
+          "type": "stock",
+          "name": "Prey",
+          "initial": "40",
+          "nonNegative": true,
+          "ui": {
+            "x": 240,
+            "y": 160
+          }
+        },
+        {
+          "id": "pred",
+          "type": "stock",
+          "name": "Predators",
+          "initial": "8",
+          "nonNegative": true,
+          "ui": {
+            "x": 560,
+            "y": 360
+          }
+        },
+        {
+          "id": "prey_growth",
+          "type": "flow",
+          "name": "Births",
+          "formula": "birth_rate * prey",
+          "to": "prey",
+          "ui": {
+            "x": 40,
+            "y": 180
+          },
+          "uniflow": true
+        },
+        {
+          "id": "predation",
+          "type": "flow",
+          "name": "Predation",
+          "formula": "hunt_rate * prey * pred",
+          "from": "prey",
+          "ui": {
+            "x": 420,
+            "y": 180
+          },
+          "uniflow": true
+        },
+        {
+          "id": "pred_growth",
+          "type": "flow",
+          "name": "Pred Births",
+          "formula": "conversion * prey * pred",
+          "to": "pred",
+          "ui": {
+            "x": 380,
+            "y": 380
+          },
+          "uniflow": true
+        },
+        {
+          "id": "pred_death",
+          "type": "flow",
+          "name": "Pred Deaths",
+          "formula": "death_rate * pred",
+          "from": "pred",
+          "ui": {
+            "x": 740,
+            "y": 380
+          },
+          "uniflow": true
+        },
+        {
+          "id": "birth_rate",
+          "type": "constant",
+          "name": "Birth Rate",
+          "value": 0.5,
+          "dial": {
+            "max": 2,
+            "min": 0,
+            "step": 0.05
+          },
+          "ui": {
+            "x": 40,
+            "y": 60
+          }
+        },
+        {
+          "id": "hunt_rate",
+          "type": "constant",
+          "name": "Hunt Rate",
+          "value": 0.05,
+          "dial": {
+            "max": 0.2,
+            "min": 0,
+            "step": 0.005
+          },
+          "ui": {
+            "x": 420,
+            "y": 60
+          }
+        },
+        {
+          "id": "conversion",
+          "type": "constant",
+          "name": "Conversion",
+          "value": 0.005,
+          "dial": {
+            "max": 0.02,
+            "min": 0,
+            "step": 0.0005
+          },
+          "ui": {
+            "x": 240,
+            "y": 480
+          }
+        },
+        {
+          "id": "death_rate",
+          "type": "constant",
+          "name": "Death Rate",
+          "value": 0.3,
+          "dial": {
+            "max": 1,
+            "min": 0,
+            "step": 0.02
+          },
+          "ui": {
+            "x": 740,
+            "y": 500
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "l1",
+          "type": "link",
+          "from": "birth_rate",
+          "to": "prey_growth"
+        },
+        {
+          "id": "l2",
+          "type": "link",
+          "from": "prey",
+          "to": "prey_growth"
+        },
+        {
+          "id": "l3",
+          "type": "link",
+          "from": "hunt_rate",
+          "to": "predation"
+        },
+        {
+          "id": "l4",
+          "type": "link",
+          "from": "prey",
+          "to": "predation"
+        },
+        {
+          "id": "l5",
+          "type": "link",
+          "from": "pred",
+          "to": "predation"
+        },
+        {
+          "id": "l6",
+          "type": "link",
+          "from": "conversion",
+          "to": "pred_growth"
+        },
+        {
+          "id": "l7",
+          "type": "link",
+          "from": "prey",
+          "to": "pred_growth"
+        },
+        {
+          "id": "l8",
+          "type": "link",
+          "from": "pred",
+          "to": "pred_growth"
+        },
+        {
+          "id": "l9",
+          "type": "link",
+          "from": "death_rate",
+          "to": "pred_death"
+        },
+        {
+          "id": "l10",
+          "type": "link",
+          "from": "pred",
+          "to": "pred_death"
+        }
+      ]
+    }
+  }
+}

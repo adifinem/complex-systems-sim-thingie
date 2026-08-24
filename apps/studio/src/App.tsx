@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { GraphCanvas } from './canvas/GraphCanvas'
 import { Palette } from './canvas/Palette'
 import { controller } from './engine/controller'
+import { FileBar } from './panels/FileBar'
 import { Inspector } from './panels/Inspector'
 import { Transport } from './panels/Transport'
 
@@ -37,6 +38,7 @@ export function App() {
         <Palette />
         <div className="canvas-wrap">
           <GraphCanvas />
+          <FileBar />
           <Transport />
         </div>
         <Inspector />

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "thermostat",
+    "notes": "Balancing loop: heating fights heat loss. Drag the dials mid-run."
+  },
+  "sim": {
+    "dt": 0.1,
+    "seed": 42
+  },
+  "mainGraph": "main",
+  "graphs": {
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "room_temp",
+          "type": "stock",
+          "name": "Room Temp",
+          "initial": "18",
+          "ui": {
+            "x": 340,
+            "y": 220
+          }
+        },
+        {
+          "id": "setpoint",
+          "type": "constant",
+          "name": "Setpoint",
+          "value": 20,
+          "dial": {
+            "max": 30,
+            "min": 10,
+            "step": 0.5
+          },
+          "ui": {
+            "x": 80,
+            "y": 80
+          }
+        },
+        {
+          "id": "outdoor",
+          "type": "constant",
+          "name": "Outdoor",
+          "value": 5,
+          "dial": {
+            "max": 25,
+            "min": -10,
+            "step": 0.5
+          },
+          "ui": {
+            "x": 640,
+            "y": 80
+          }
+        },
+        {
+          "id": "heating",
+          "type": "flow",
+          "name": "Heating",
+          "formula": "max(0, setpoint - room_temp) * 0.5",
+          "to": "room_temp",
+          "ui": {
+            "x": 120,
+            "y": 240
+          },
+          "uniflow": true
+        },
+        {
+          "id": "heat_loss",
+          "type": "flow",
+          "name": "Heat Loss",
+          "formula": "(room_temp - outdoor) * 0.1",
+          "from": "room_temp",
+          "ui": {
+            "x": 600,
+            "y": 240
+          }
+        },
+        {
+          "id": "note1",
+          "type": "note",
+          "name": "about",
+          "notes": "Balancing loop demo.\nPress ▶, then drag the Setpoint or Outdoor dials and watch the system re-balance.",
+          "ui": {
+            "x": 320,
+            "y": 40
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "l1",
+          "type": "link",
+          "from": "setpoint",
+          "to": "heating"
+        },
+        {
+          "id": "l2",
+          "type": "link",
+          "from": "room_temp",
+          "to": "heating"
+        },
+        {
+          "id": "l3",
+          "type": "link",
+          "from": "room_temp",
+          "to": "heat_loss"
+        },
+        {
+          "id": "l4",
+          "type": "link",
+          "from": "outdoor",
+          "to": "heat_loss"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "bathtub",
+    "notes": "The hello-world of stocks and flows."
+  },
+  "sim": {
+    "dt": 0.1,
+    "seed": 1
+  },
+  "mainGraph": "main",
+  "graphs": {
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "level",
+          "type": "stock",
+          "name": "Water Level",
+          "initial": "100",
+          "nonNegative": true,
+          "ui": {
+            "x": 360,
+            "y": 200
+          }
+        },
+        {
+          "id": "faucet",
+          "type": "flow",
+          "name": "Faucet",
+          "formula": "inflow_rate",
+          "to": "level",
+          "ui": {
+            "x": 140,
+            "y": 220
+          },
+          "uniflow": true
+        },
+        {
+          "id": "drain",
+          "type": "flow",
+          "name": "Drain",
+          "formula": "level * drain_rate",
+          "from": "level",
+          "ui": {
+            "x": 620,
+            "y": 220
+          },
+          "uniflow": true
+        },
+        {
+          "id": "inflow_rate",
+          "type": "constant",
+          "name": "Inflow",
+          "value": 2,
+          "dial": {
+            "max": 10,
+            "min": 0,
+            "step": 0.1
+          },
+          "ui": {
+            "x": 120,
+            "y": 60
+          }
+        },
+        {
+          "id": "drain_rate",
+          "type": "constant",
+          "name": "Drain %",
+          "value": 0.02,
+          "dial": {
+            "max": 0.2,
+            "min": 0,
+            "step": 0.005
+          },
+          "ui": {
+            "x": 640,
+            "y": 60
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "l1",
+          "type": "link",
+          "from": "inflow_rate",
+          "to": "faucet"
+        },
+        {
+          "id": "l2",
+          "type": "link",
+          "from": "level",
+          "to": "drain"
+        },
+        {
+          "id": "l3",
+          "type": "link",
+          "from": "drain_rate",
+          "to": "drain"
+        }
+      ]
+    }
+  }
+}
