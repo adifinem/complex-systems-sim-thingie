@@ -117,6 +117,13 @@ class Controller {
     if (!this.running) this.paintOnce()
   }
 
+  /** Reset a node to its authored default (constant default / stock initial). */
+  resetNodeToDefault(path: string): void {
+    this.sim?.resetNode(path)
+    this.markPerturbed(path)
+    this.paintOnce()
+  }
+
   /** Pin a computed node to a value; formula preserved (engine override). */
   pinNode(path: string, v: number): void {
     this.sim?.setOverride(path, v)

@@ -127,6 +127,41 @@ body,
   background: var(--amber);
 }
 
+/* hover controls (reset / pin) */
+.node-icons {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  display: none;
+  gap: 2px;
+  z-index: 3;
+}
+
+.mm-node:hover .node-icons {
+  display: flex;
+}
+
+.node-icons button {
+  background: #14141b;
+  border: 1px solid #30303c;
+  border-radius: 5px;
+  color: var(--text-dim);
+  font-size: 10px;
+  line-height: 1;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+
+.node-icons button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.node-icons button.active {
+  border-color: var(--amber);
+  background: #2a2418;
+}
+
 .mm-node.pinned {
   border-style: dashed;
   border-color: var(--amber);

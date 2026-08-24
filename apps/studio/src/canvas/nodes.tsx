@@ -60,6 +60,70 @@ function useBridgeRefs(id: string, fill?: { min: number; max: number }, withSpar
   return { root, badge, fillEl, spark, path, onMouseEnter }
 }
 
+/** Hover controls: ⟲ reset-to-default, 📌 pin/unpin against influence. */
+function NodeIcons({ node, path }: { node: ModelNode; path: string }) {
+  const updateNode = useDoc((s) => s.updateNode)
+  const [, bump] = useState(0)
+  const canReset =
+    node.type === 'stock' ||
+    (node.type === 'constant' && (node as ConstantNode).default !== undefined)
+  const canPin =
+    node.type === 'stock' ||
+    node.type === 'flow' ||
+    node.type === 'variable' ||
+    node.type === 'output'
+  const pinned = (() => {
+    try {
+      return controller.sim?.getNode(path).overridden ?? false
+    } catch {
+      return false
+    }
+  })()
+  if (!canReset && !canPin) return null
+  return (
+    <div className="node-icons nodrag">
+      {canReset && (
+        <button
+          type="button"
+          title="Reset to default"
+          onClick={(e) => {
+            e.stopPropagation()
+            controller.resetNodeToDefault(path)
+            if (node.type === 'constant') {
+              const dflt = (node as ConstantNode).default
+              if (dflt !== undefined) updateNode(node.id, { value: dflt } as Partial<ModelNode>)
+            }
+            bump((x) => x + 1)
+          }}
+        >
+          ⟲
+        </button>
+      )}
+      {canPin && (
+        <button
+          type="button"
+          title={pinned ? 'Release pin' : 'Pin at current value (ignore influences)'}
+          className={pinned ? 'active' : ''}
+          onClick={(e) => {
+            e.stopPropagation()
+            if (pinned) controller.unpinNode(path)
+            else {
+              try {
+                controller.pinNode(path, controller.sim?.getNode(path).value ?? 0)
+              } catch {
+                /* not simulated in this view */
+              }
+            }
+            bump((x) => x + 1)
+          }}
+        >
+          📌
+        </button>
+      )}
+    </div>
+  )
+}
+
 function Head({ node }: { node: ModelNode }) {
   const unit = node.time?.unit
   const every = node.time?.every
@@ -87,7 +151,7 @@ export const StockNodeView = memo(({ data, selected }: NodeProps) => {
     : dial
       ? { min: dial.min, max: dial.max }
       : { min: 0, max: 200 }
-  const { root, badge, fillEl, spark, onMouseEnter } = useBridgeRefs(node.id, fillRange, true)
+  const { root, badge, fillEl, spark, path, onMouseEnter } = useBridgeRefs(node.id, fillRange, true)
   return (
     <div
       ref={root}
@@ -99,6 +163,7 @@ export const StockNodeView = memo(({ data, selected }: NodeProps) => {
       <Handle type="target" id="wire-in" position={Position.Top} className="wire" />
       <Handle type="source" id="wire-out" position={Position.Bottom} className="wire" />
       <Head node={node} />
+      <NodeIcons node={node} path={path} />
       <div ref={badge} className="badge">
         —
       </div>
@@ -112,7 +177,7 @@ export const StockNodeView = memo(({ data, selected }: NodeProps) => {
 
 export const FlowNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
-  const { root, badge, onMouseEnter } = useBridgeRefs(node.id)
+  const { root, badge, path, onMouseEnter } = useBridgeRefs(node.id)
   return (
     <div
       ref={root}
@@ -124,6 +189,7 @@ export const FlowNodeView = memo(({ data, selected }: NodeProps) => {
       <Handle type="target" id="wire-in" position={Position.Top} className="wire" />
       <Handle type="source" id="wire-out" position={Position.Bottom} className="wire" />
       <Head node={node} />
+      <NodeIcons node={node} path={path} />
       <div ref={badge} className="badge">
         —
       </div>
@@ -133,7 +199,7 @@ export const FlowNodeView = memo(({ data, selected }: NodeProps) => {
 
 export const VariableNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
-  const { root, badge, onMouseEnter } = useBridgeRefs(node.id)
+  const { root, badge, path, onMouseEnter } = useBridgeRefs(node.id)
   return (
     <div
       ref={root}
@@ -143,6 +209,7 @@ export const VariableNodeView = memo(({ data, selected }: NodeProps) => {
       <Handle type="target" id="wire-in" position={Position.Top} className="wire" />
       <Handle type="source" id="wire-out" position={Position.Bottom} className="wire" />
       <Head node={node} />
+      <NodeIcons node={node} path={path} />
       <div ref={badge} className="badge">
         —
       </div>
@@ -161,6 +228,7 @@ export const ConstantNodeView = memo(({ data, selected }: NodeProps) => {
     <div ref={root} className={`mm-node constant ${selected ? 'selected' : ''}`}>
       <Handle type="source" id="wire-out" position={Position.Bottom} className="wire" />
       <Head node={node} />
+      <NodeIcons node={node} path={path} />
       <div ref={badge} className="badge">
         {shown}
       </div>

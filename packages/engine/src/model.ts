@@ -79,6 +79,8 @@ export interface VariableNode extends NodeBase {
 export interface ConstantNode extends NodeBase {
   type: 'constant'
   value: number
+  /** Reset-to-default target for the widget's ⟲ control. */
+  default?: number
   dial?: { min: number; max: number; step?: number }
 }
 

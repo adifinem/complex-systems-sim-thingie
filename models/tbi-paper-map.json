@@ -1,0 +1,2130 @@
+{
+  "source": "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2018.00203/full",
+  "note": "Deduplicated element/connection inventory extracted from the Kumu export (tmp/tbi.json). This is the reference for wiring models/tbi.json — polarity + means the factors move together, - opposite. Agents extending the model: check models/tbi.json meta.coverage for what is already represented.",
+  "elements": [
+    {
+      "label": "ability to work & complete daily tasks",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "ability to work and complete daily tasks",
+      "types": ["experiential"]
+    },
+    {
+      "label": "abnormal proteolysis",
+      "types": ["cellular", "misc. cellular"]
+    },
+    {
+      "label": "access to healthcare",
+      "types": ["social"]
+    },
+    {
+      "label": "adherence to treatment",
+      "types": ["coping & adaptation", "experiential"]
+    },
+    {
+      "label": "astrocyte & microglial activation",
+      "types": ["cellular", "misc. cellular"]
+    },
+    {
+      "label": "astrocyte and microglial activation",
+      "types": ["cellular"]
+    },
+    {
+      "label": "attentional filtering capacity",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "autonomic dysfunction",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "avoidance of overstimulation",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "axonal injury",
+      "types": ["axonal injury", "cellular"]
+    },
+    {
+      "label": "axonal transport defect",
+      "types": ["axonal injury", "cellular"]
+    },
+    {
+      "label": "background",
+      "types": ["unknown"]
+    },
+    {
+      "label": "background2",
+      "types": ["unknown"]
+    },
+    {
+      "label": "balance & gait problems",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "bdnf expression",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "biomechanical deformation of neurons, glia & vasculature",
+      "types": ["impact / LOC"]
+    },
+    {
+      "label": "blood-brain barrier permeability",
+      "types": ["cellular", "misc. cellular"]
+    },
+    {
+      "label": "cellular energy imbalance",
+      "types": ["cellular", "cellular energy imbalance"]
+    },
+    {
+      "label": "cellular repair processes",
+      "types": ["cellular", "misc. cellular"]
+    },
+    {
+      "label": "cerebral blood flow / perfusion",
+      "types": ["cellular", "cellular energy imbalance"]
+    },
+    {
+      "label": "cerebral blood flow/perfusion",
+      "types": ["cellular"]
+    },
+    {
+      "label": "cerebral edema",
+      "types": ["cellular", "pathological microenvironment"]
+    },
+    {
+      "label": "cognitive fatigue",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "cognitive load capacity",
+      "types": ["cognitive", "experiential"]
+    },
+    {
+      "label": "cognitive reserve",
+      "types": ["network"]
+    },
+    {
+      "label": "cognitive rest",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "comorbid pain & muscle tension",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "coping & adaptation",
+      "types": ["coping & adaptation", "experiential"]
+    },
+    {
+      "label": "cytokine response",
+      "types": ["cellular", "neuroinflammation"]
+    },
+    {
+      "label": "depression/anxiety/ mood disorders",
+      "types": ["stress / mood"]
+    },
+    {
+      "label": "depression/anxiety/mood disorders",
+      "types": ["experiential"]
+    },
+    {
+      "label": "disorientation & confusion",
+      "types": ["cognitive", "experiential"]
+    },
+    {
+      "label": "dizziness & vertigo",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "dizziness and vertigo",
+      "types": ["unknown"]
+    },
+    {
+      "label": "dyssomnias",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "emotional regulation",
+      "types": ["experiential", "stress / mood"]
+    },
+    {
+      "label": "error signaling",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "excess metabolites",
+      "types": ["cellular", "pathological microenvironment"]
+    },
+    {
+      "label": "excessive glutamate release",
+      "types": ["cellular", "neurometabolic cascade"]
+    },
+    {
+      "label": "exercise intolerance",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "failure to anticipate sensory cues",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "feeling out of sync",
+      "types": ["sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "glymphatic clearing processes",
+      "types": ["cellular", "pathological microenvironment"]
+    },
+    {
+      "label": "hub disruption",
+      "types": ["network"]
+    },
+    {
+      "label": "hyperglycolysis",
+      "types": ["cellular", "cellular energy imbalance"]
+    },
+    {
+      "label": "hypometabolic state",
+      "types": ["cellular", "cellular energy imbalance"]
+    },
+    {
+      "label": "immune response",
+      "types": ["cellular", "neuroinflammation"]
+    },
+    {
+      "label": "impact",
+      "types": ["impact"]
+    },
+    {
+      "label": "impaired neurotransmission",
+      "types": ["network"]
+    },
+    {
+      "label": "impaired vasoreactivity",
+      "types": ["cellular", "misc. cellular"]
+    },
+    {
+      "label": "impulsivity",
+      "types": ["experiential", "stress / mood"]
+    },
+    {
+      "label": "intrinsic connectivity network function & coordination",
+      "types": ["network"]
+    },
+    {
+      "label": "intrinsic connectivity network function and coordination",
+      "types": ["network"]
+    },
+    {
+      "label": "ionic na+:k+ dysregulation",
+      "types": ["cellular", "neurometabolic cascade"]
+    },
+    {
+      "label": "ionic na+:k+ pump activity",
+      "types": ["cellular", "neurometabolic cascade"]
+    },
+    {
+      "label": "irritability/ mood instability",
+      "types": ["stress / mood"]
+    },
+    {
+      "label": "irritability/mood instability",
+      "types": ["experiential"]
+    },
+    {
+      "label": "kinase activity",
+      "types": ["cellular", "neuroinflammation"]
+    },
+    {
+      "label": "light or sound sensitivity",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "limbic network dysfunction",
+      "types": ["network"]
+    },
+    {
+      "label": "long fiber tract damage",
+      "types": ["network"]
+    },
+    {
+      "label": "loss of consciousness",
+      "types": ["impact / LOC"]
+    },
+    {
+      "label": "migraine / headache",
+      "types": ["experiential", "misc. experiential"]
+    },
+    {
+      "label": "mitochondrial dysfunction",
+      "types": ["cellular", "neurometabolic cascade"]
+    },
+    {
+      "label": "nausea",
+      "types": ["sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "navigation guide",
+      "types": ["guide"]
+    },
+    {
+      "label": "need for cognitive rest",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "need for coping & adaptation",
+      "types": ["coping & adaptation", "experiential"]
+    },
+    {
+      "label": "need for rerouting/ reorganization",
+      "types": ["network", "unknown"]
+    },
+    {
+      "label": "neural reserve",
+      "types": ["network"]
+    },
+    {
+      "label": "neuroinflammation",
+      "types": ["cellular", "neuroinflammation"]
+    },
+    {
+      "label": "neuronal damage",
+      "types": ["cellular", "misc. cellular"]
+    },
+    {
+      "label": "neuroplasticity/ rerouting/ reorganization",
+      "types": ["network"]
+    },
+    {
+      "label": "neuroplasticity/rerouting /reorganization",
+      "types": ["network"]
+    },
+    {
+      "label": "neuroplasticity/rerouting/ reorganization",
+      "types": ["network"]
+    },
+    {
+      "label": "neuroplasticity/rerouting/reorganization",
+      "types": ["network"]
+    },
+    {
+      "label": "nmda activation",
+      "types": ["cellular", "neurometabolic cascade"]
+    },
+    {
+      "label": "nonspecific depolarization",
+      "types": ["neurometabolic cascade"]
+    },
+    {
+      "label": "nonspecific polarization",
+      "types": ["cellular"]
+    },
+    {
+      "label": "oxidative stress",
+      "types": ["cellular", "pathological microenvironment"]
+    },
+    {
+      "label": "pain processing network dysfuction",
+      "types": ["network"]
+    },
+    {
+      "label": "pain processing network dysfunction",
+      "types": ["network"]
+    },
+    {
+      "label": "pathological microenvironment",
+      "types": ["cellular", "pathological microenvironment"]
+    },
+    {
+      "label": "patient education",
+      "types": ["social"]
+    },
+    {
+      "label": "personal resilience",
+      "types": ["coping & adaptation", "experiential"]
+    },
+    {
+      "label": "physical exercise",
+      "types": ["coping & adaptation", "experiential"]
+    },
+    {
+      "label": "physical fatigue",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "positive outlook",
+      "types": ["coping & adaptation", "experiential"]
+    },
+    {
+      "label": "predictive brain state",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "processing speed",
+      "types": ["network"]
+    },
+    {
+      "label": "reaction time",
+      "types": ["network"]
+    },
+    {
+      "label": "resting",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "restorative sleep processes",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "risk for dementia & cte",
+      "types": ["misc. cellular"]
+    },
+    {
+      "label": "risk for dementia and cte",
+      "types": ["unknown"]
+    },
+    {
+      "label": "rotational forces transverse to brainstem",
+      "types": ["impact / LOC"]
+    },
+    {
+      "label": "rows",
+      "types": ["unknown"]
+    },
+    {
+      "label": "sensorimotor integration & vestibular function",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "sensorimotor integration and vestibular function",
+      "types": ["unknown"]
+    },
+    {
+      "label": "sleep",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "sleep debt",
+      "types": ["experiential", "sleep/fatigue"]
+    },
+    {
+      "label": "sleep network dysfunction",
+      "types": ["experiential", "network"]
+    },
+    {
+      "label": "social contact & community integration",
+      "types": ["social"]
+    },
+    {
+      "label": "social functioning ability",
+      "types": ["social"]
+    },
+    {
+      "label": "social pressure",
+      "types": ["social"]
+    },
+    {
+      "label": "social reserve",
+      "types": ["social"]
+    },
+    {
+      "label": "stress",
+      "types": ["experiential", "stress / mood"]
+    },
+    {
+      "label": "supportive relationships",
+      "types": ["social"]
+    },
+    {
+      "label": "tau deposition",
+      "types": ["cellular", "misc. cellular"]
+    },
+    {
+      "label": "visual/perceptual impairment",
+      "types": ["experiential", "sensorimotor / predictive brain state"]
+    },
+    {
+      "label": "vulnerability to future injury",
+      "types": ["misc. cellular"]
+    },
+    {
+      "label": "widespread calcium dysregulation & sequestration",
+      "types": ["cellular", "neurometabolic cascade"]
+    },
+    {
+      "label": "widespread calcium dysregulation and sequestration",
+      "types": ["unknown"]
+    },
+    {
+      "label": "working memory & executive function",
+      "types": ["cognitive", "experiential"]
+    }
+  ],
+  "connections": [
+    {
+      "from": "ability to work & complete daily tasks",
+      "to": "need for coping & adaptation",
+      "polarity": "-",
+      "source": "Schwab et al. 2015"
+    },
+    {
+      "from": "ability to work and complete daily tasks",
+      "to": "need for coping & adaptation",
+      "polarity": "?",
+      "source": "Schwab et al. 2015"
+    },
+    {
+      "from": "abnormal proteolysis",
+      "to": "neuronal damage",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35."
+    },
+    {
+      "from": "abnormal proteolysis",
+      "to": "tau deposition",
+      "polarity": "+",
+      "source": "McKee, Ann C., Robert C. Cantu, Christopher J. Nowinski, E. Tessa Hedley-Whyte, Brandon E. Gavett, Andrew E. Budson, Veronica E. Santini, Hyo-Soon Lee, Caroline A. Kubilus, and Robert A. Stern. 2009. “Chronic Traumatic Encephalopathy in Athletes: Progressive Tauopathy Following Repetitive Head Injury.” Journal of Neuropathology and Experimental Neurology 68 (7): 709–35. https://doi.org/10.1097/NEN.0b013e3181a9d503."
+    },
+    {
+      "from": "access to healthcare",
+      "to": "patient education",
+      "polarity": "+",
+      "source": "See Gruman et al. 2010 for a discussion of patient education and engagement\n\nGruman, Jessie, Margaret Holmes Rovner, Molly E. French, Dorothy Jeffress, Shoshanna Sofaer, Dale Shaller, and Denis J. Prager. 2010. “From Patient Education to Patient Engagement: Implications for the Field of Patient Education.” Patient Education and Counseling 78 (3): 350–56. https://doi.org/10.1016/j.pec.2010.02.002."
+    },
+    {
+      "from": "adherence to treatment",
+      "to": "cognitive rest",
+      "polarity": "+",
+      "source": "Reynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471."
+    },
+    {
+      "from": "adherence to treatment",
+      "to": "comorbid pain & muscle tension",
+      "polarity": "-",
+      "source": "Reynolds et al. 2014"
+    },
+    {
+      "from": "adherence to treatment",
+      "to": "depression/anxiety/ mood disorders",
+      "polarity": "-",
+      "source": "Reynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471."
+    },
+    {
+      "from": "adherence to treatment",
+      "to": "depression/anxiety/mood disorders",
+      "polarity": "-",
+      "source": "Reynolds et al. 2014"
+    },
+    {
+      "from": "adherence to treatment",
+      "to": "dyssomnias",
+      "polarity": "-",
+      "source": "Reynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471. \n\nSee Sandsmark et al. 2017 for discussion of treatment for sleep disorders in TBI\n\nSandsmark, Danielle K., Jonathan E. Elliott, and Miranda M. Lim. 2017. “Sleep-Wake Disturbances After Traumatic Brain Injury: Synthesis of Human and Animal Studies.” Sleep 40 (5). https://doi.org/10.1093/sleep/zsx044."
+    },
+    {
+      "from": "adherence to treatment",
+      "to": "migraine / headache",
+      "polarity": "-",
+      "source": "Reynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471."
+    },
+    {
+      "from": "adherence to treatment",
+      "to": "physical exercise",
+      "polarity": "+",
+      "source": "Reynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471."
+    },
+    {
+      "from": "astrocyte & microglial activation",
+      "to": "bdnf expression",
+      "polarity": "+",
+      "source": "Kou and VandeVord 2014"
+    },
+    {
+      "from": "astrocyte & microglial activation",
+      "to": "blood-brain barrier permeability",
+      "polarity": "+",
+      "source": "Fehily and Fitzgerald 2017 discuss damage mechanisms in mTBI, including BBB dysfunction\n\nFehily, Brooke, and Melinda Fitzgerald. 2017. “Repeated Mild Traumatic Brain Injury: Potential Mechanisms of Damage.” Cell Transplantation 26 (7): 1131–55. https://doi.org/10.1177/0963689717714092."
+    },
+    {
+      "from": "astrocyte & microglial activation",
+      "to": "cellular repair processes",
+      "polarity": "+",
+      "source": "Bergold 2016; Kou and VandeVord 2014"
+    },
+    {
+      "from": "astrocyte & microglial activation",
+      "to": "cytokine response",
+      "polarity": "+",
+      "source": "Collins-Praino & Corrigan 2017, Patterson and Holahan 2012, Algattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309."
+    },
+    {
+      "from": "astrocyte & microglial activation",
+      "to": "glymphatic clearing processes",
+      "polarity": "+",
+      "source": "Patterson, Zachary R., and Matthew R. Holahan. 2012. “Understanding the Neuroinflammatory Response Following Concussion to Develop Treatment Strategies.” Frontiers in Cellular Neuroscience 6 (December): 1–10. https://doi.org/10.3389/fncel.2012.00058.\n\nBigler, Erin D., and William L. Maxwell. 2012. “Neuropathology of Mild Traumatic Brain Injury: Relationship to Neuroimaging Findings.” Brain Imaging and Behavior 6 (2): 108–36. https://doi.org/10.1007/s11682-011-9145-0.\n\nSharp, David J., Gregory Scott, and Robert Leech. 2014. “Network Dysfunction after Traumatic Brain Injury.” Nature Reviews Neurology 10 (3): 156–66. https://doi.org/10.1038/nrneurol.2014.15.\n\nZiebell, Jenna M., P. David Adelson, and Jonathan Lifshitz. 2015. “Microglia: Dismantling and Rebuilding Circuits after Acute Neurological Injury.” Metabolic Brain Disease 30 (2): 393–400. https://doi.org/10.1007/s11011-014-9539-y."
+    },
+    {
+      "from": "astrocyte and microglial activation",
+      "to": "bdnf expression",
+      "polarity": "?",
+      "source": "Kou and VandeVord 2014"
+    },
+    {
+      "from": "astrocyte and microglial activation",
+      "to": "blood-brain barrier permeability",
+      "polarity": "?",
+      "source": "Fehily and Fitzgerald 2017 discuss damage mechanisms in mTBI, including BBB dysfunction"
+    },
+    {
+      "from": "astrocyte and microglial activation",
+      "to": "cellular repair processes",
+      "polarity": "?",
+      "source": "Bergold 2016; Kou and VandeVord 2014"
+    },
+    {
+      "from": "astrocyte and microglial activation",
+      "to": "cytokine response",
+      "polarity": "?",
+      "source": "Collins-Praino & Corrigan 2017, Patterson and Holahan 2012, Algattas and Huang 2013"
+    },
+    {
+      "from": "astrocyte and microglial activation",
+      "to": "glymphatic clearing processes",
+      "polarity": "?",
+      "source": "Patterson and Holahan 2012, Bigler and Maxwell 2012, Sharp et al. 2014, Ziebell et al. 2015"
+    },
+    {
+      "from": "attentional filtering capacity",
+      "to": "cognitive load capacity",
+      "polarity": "+",
+      "source": "Howell, David R., Louis R. Osternig, Michael C. Koester, and Li-Shan Chou. 2014. “The Effect of Cognitive Task Complexity on Gait Stability in Adolescents Following Concussion.” Experimental Brain Research 232 (6): 1773–82. https://doi.org/10.1007/s00221-014-3869-1."
+    },
+    {
+      "from": "attentional filtering capacity",
+      "to": "predictive brain state",
+      "polarity": "+",
+      "source": "Ghajar, Jamshid, and Richard B. Ivry. 2008. “The Predictive Brain State: Timing Deficiency in Traumatic Brain Injury?” Neurorehabilitation and Neural Repair 22 (3): 217–27. https://doi.org/10.1177/1545968308315600.\n\nDiwakar, Mithun, Deborah L. Harrington, Jun Maruta, Jamshid Ghajar, Fady El-Gabalawy, Laura Muzzatti, Maurizio Corbetta, Ming-Xiong Huang, and Roland R. Lee. 2015. “Filling in the Gaps: Anticipatory Control of Eye Movements in Chronic Mild Traumatic Brain Injury.” NeuroImage : Clinical 8 (April): 210–23. https://doi.org/10.1016/j.nicl.2015.04.011."
+    },
+    {
+      "from": "attentional filtering capacity",
+      "to": "sensorimotor integration & vestibular function",
+      "polarity": "+",
+      "source": "Ghajar and Ivry 2008; Diwakar et al 2015;"
+    },
+    {
+      "from": "autonomic dysfunction",
+      "to": "depression/anxiety/ mood disorders",
+      "polarity": "+",
+      "source": "Alvares, Gail A., Daniel S. Quintana, Ian B. Hickie, and Adam J. Guastella. 2016. “Autonomic Nervous System Dysfunction in Psychiatric Disorders and the Impact of Psychotropic Medications: A Systematic Review and Meta-Analysis.” Journal of Psychiatry & Neuroscience : JPN 41 (2): 89–104. https://doi.org/10.1503/jpn.140217."
+    },
+    {
+      "from": "autonomic dysfunction",
+      "to": "depression/anxiety/mood disorders",
+      "polarity": "+",
+      "source": "Alvares, Gail A., Daniel S. Quintana, Ian B. Hickie, and Adam J. Guastella. 2016. “Autonomic Nervous System Dysfunction in Psychiatric Disorders and the Impact of Psychotropic Medications: A Systematic Review and Meta-Analysis.” Journal of Psychiatry & Neuroscience : JPN 41 (2): 89–104. https://doi.org/10.1503/jpn.140217."
+    },
+    {
+      "from": "autonomic dysfunction",
+      "to": "exercise intolerance",
+      "polarity": "+",
+      "source": "Leddy et al. 2012; Leddy et al. 2016"
+    },
+    {
+      "from": "autonomic dysfunction",
+      "to": "light or sound sensitivity",
+      "polarity": "+",
+      "source": "See Weston et al. 2014 for a discussion of sensory processing and hyperarousal in PTSD"
+    },
+    {
+      "from": "avoidance of overstimulation",
+      "to": "cognitive fatigue",
+      "polarity": "-",
+      "source": "Cantor et al. 2013; Wiart et al. 2016; Levine and Greenwald 2009 discuss behavioral modifications to manage fatigue, such as avoiding multitasking, taking breaks, etc."
+    },
+    {
+      "from": "axonal injury",
+      "to": "impaired neurotransmission",
+      "polarity": "+",
+      "source": "Asken et al. 2017, Oehr and Anderson 2017, Johnson et al. 2013"
+    },
+    {
+      "from": "axonal injury",
+      "to": "long fiber tract damage",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "axonal injury",
+      "to": "tau deposition",
+      "polarity": "+",
+      "source": "Collins-Praino & Corrigan, 2017; Smith et al. 2013"
+    },
+    {
+      "from": "axonal transport defect",
+      "to": "axonal injury",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001; Asken, Breton Michael, Steven T. DeKosky, James R. Clugston, Michael S. Jaffee, and Russell M. Bauer. 2017. “Diffusion Tensor Imaging (DTI) Findings in Adult Civilian, Military, and Sport-Related Mild Traumatic Brain Injury (MTBI): A Systematic Critical Review.” Brain Imaging and Behavior, March, 1–28. https://doi.org/10.1007/s11682-017-9708-9., Oehr and Anderson 2017, Johnson et al. 2013"
+    },
+    {
+      "from": "axonal transport defect",
+      "to": "impaired neurotransmission",
+      "polarity": "+",
+      "source": "McGinn and Povlishock 2015; Meaney and Smith 2011"
+    },
+    {
+      "from": "balance & gait problems",
+      "to": "ability to work & complete daily tasks",
+      "polarity": "-",
+      "source": "Howe, J A, E L Inness, A Venturini, J I Williams, and M C Verrier. 2006. “The Community Balance and Mobility Scale-a Balance Measure for Individuals with Traumatic Brain Injury.” Clinical Rehabilitation 20 (10): 885–95. https://doi.org/10.1177/0269215506072183."
+    },
+    {
+      "from": "balance & gait problems",
+      "to": "ability to work and complete daily tasks",
+      "polarity": "?",
+      "source": "Howe et al. 2006"
+    },
+    {
+      "from": "bdnf expression",
+      "to": "autonomic dysfunction",
+      "polarity": "-",
+      "source": "Failla, Michelle D., Yvette P. Conley, and Amy K. Wagner. 2016. “Brain-Derived Neurotrophic Factor (BDNF) in Traumatic Brain Injury–Related Mortality: Interrelationships Between Genetics and Acute Systemic and Central Nervous System BDNF Profiles.” Neurorehabilitation and Neural Repair 30 (1): 83–93."
+    },
+    {
+      "from": "bdnf expression",
+      "to": "neuroplasticity/ rerouting/ reorganization",
+      "polarity": "?",
+      "source": ""
+    },
+    {
+      "from": "bdnf expression",
+      "to": "neuroplasticity/rerouting /reorganization",
+      "polarity": "?",
+      "source": "Calabrese et al. 2014"
+    },
+    {
+      "from": "bdnf expression",
+      "to": "neuroplasticity/rerouting/ reorganization",
+      "polarity": "+",
+      "source": "Calabrese, Francesca, Andrea C. Rossetti, Giorgio Racagni, Peter Gass, Marco A. Riva, and Raffaella Molteni. 2014. “Brain-Derived Neurotrophic Factor: A Bridge between Inflammation and Neuroplasticity.” Frontiers in Cellular Neuroscience 8 (December). https://doi.org/10.3389/fncel.2014.00430."
+    },
+    {
+      "from": "bdnf expression",
+      "to": "neuroplasticity/rerouting/reorganization",
+      "polarity": "+",
+      "source": "Calabrese et al. 2014"
+    },
+    {
+      "from": "bdnf expression",
+      "to": "working memory & executive function",
+      "polarity": "+",
+      "source": "Bekinschtein et al. 2008 discuss BDNF and memory in general; Hayes et al. 2017 discuss BDNF in mTBI\n\nBekinschtein, Pedro, Martin Cammarota, Ivan Izquierdo, and Jorge H. Medina. 2008. “Reviews: BDNF and Memory Formation and Storage.” The Neuroscientist 14 (2): 147–56. https://doi.org/10.1177/1073858407305850.\n\nHayes, J. P., A. Reagan, M. W. Logue, S. M. Hayes, N. Sadeh, D. R. Miller, M. Verfaellie, et al. 2017. “BDNF Genotype Is Associated with Hippocampal Volume in Mild Traumatic Brain Injury: BDNF Genotype, Hippocampal Volume and MTBI.” Genes, Brain and Behavior, August. https://doi.org/10.1111/gbb.12403."
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "astrocyte & microglial activation",
+      "polarity": "+",
+      "source": "Algattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309.; Lafrenaye et al., 2015;"
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "astrocyte and microglial activation",
+      "polarity": "?",
+      "source": "Algattas and Huang 2013; Lafrenaye et al., 2015;"
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "blood-brain barrier permeability",
+      "polarity": "+",
+      "source": "Gaetz 2004; Hayes and Dixon 1994"
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "impaired vasoreactivity",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001"
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "loss of consciousness",
+      "polarity": "+",
+      "source": "Johnson, Victoria E., William Stewart, and Douglas H. Smith. 2013. “Axonal Pathology in Traumatic Brain Injury.” Experimental Neurology 246 (August): 35–43. https://doi.org/10.1016/j.expneurol.2012.01.013.\n\nBrowne, Kevin D., Xiao-Han Chen, David F. Meaney, and Douglas H. Smith. 2011. “Mild Traumatic Brain Injury and Diffuse Axonal Injury in Swine.” Journal of Neurotrauma 28 (9): 1747–55. https://doi.org/10.1089/neu.2011.1913."
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "neuronal damage",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35."
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "nonspecific depolarization",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35. \n\nGiza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505.\n\nBetrus, Christopher, and Christian W. Kreipke. 2013. “Historical Perspectives in Understanding Traumatic Brain Injury and in Situating Disruption in CBF in the Pathotrajectory of Head Trauma.” In Cerebral Blood Flow, Metabolism, and Head Trauma, edited by Christian W. Kreipke and Jose A. Rafols, Chapter 1 excerpts:1–27. Springer New York. http://dx.doi.org/10.1007/978-1-4614-4148-9_1."
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "widespread calcium dysregulation & sequestration",
+      "polarity": "+",
+      "source": "Giza & Hovda 2014"
+    },
+    {
+      "from": "biomechanical deformation of neurons, glia & vasculature",
+      "to": "widespread calcium dysregulation and sequestration",
+      "polarity": "?",
+      "source": "Giza & Hovda 2014"
+    },
+    {
+      "from": "blood-brain barrier permeability",
+      "to": "cerebral edema",
+      "polarity": "+",
+      "source": "Bergold et al. 2016"
+    },
+    {
+      "from": "blood-brain barrier permeability",
+      "to": "pathological microenvironment",
+      "polarity": "+",
+      "source": "Kulbe, Jacqueline R., and James W. Geddes. 2016. “Current Status of Fluid Biomarkers in Mild Traumatic Brain Injury.” Experimental Neurology, Traumatic Brain Injury, 275, Part 3 (January): 334–52. https://doi.org/10.1016/j.expneurol.2015.05.004."
+    },
+    {
+      "from": "cellular energy imbalance",
+      "to": "excess metabolites",
+      "polarity": "+",
+      "source": "Betrus and Kreipke 2013; Algattas and Huang 2014; Fischer et al. 2016"
+    },
+    {
+      "from": "cellular energy imbalance",
+      "to": "hyperglycolysis",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35.; \n\nFischer, Tara D., Michael J. Hylin, Jing Zhao, Anthony N. Moore, M. Neal Waxham, and Pramod K. Dash. 2016. “Altered Mitochondrial Dynamics and TBI Pathophysiology.” Frontiers in Systems Neuroscience 10. https://doi.org/10.3389/fnsys.2016.00029."
+    },
+    {
+      "from": "cellular energy imbalance",
+      "to": "hypometabolic state",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35.; \n\nMcGinn, Melissa J., and John T. Povlishock. 2015. “Cellular and Molecular Mechanisms of Injury and Spontaneous Recovery.” Handbook of Clinical Neurology 127: 67–87. https://doi.org/10.1016/B978-0-444-52892-6.00005-2."
+    },
+    {
+      "from": "cellular repair processes",
+      "to": "neuronal damage",
+      "polarity": "-",
+      "source": "Assumed/internal logic"
+    },
+    {
+      "from": "cerebral blood flow / perfusion",
+      "to": "cellular energy imbalance",
+      "polarity": "-",
+      "source": "Algattas and Huang 2014; Len & Neary 2010; Len et al. 2011"
+    },
+    {
+      "from": "cerebral blood flow/perfusion",
+      "to": "cellular energy imbalance",
+      "polarity": "?",
+      "source": "Algattas and Huang 2014; Len & Neary 2010; Len et al. 2011"
+    },
+    {
+      "from": "cerebral edema",
+      "to": "impaired neurotransmission",
+      "polarity": "+",
+      "source": "Giza & Hovda 2014"
+    },
+    {
+      "from": "cognitive fatigue",
+      "to": "cognitive load capacity",
+      "polarity": "-",
+      "source": "See Cantor et al. 2013 for a discussion of cognitive fatigue and cognitive load and performance"
+    },
+    {
+      "from": "cognitive fatigue",
+      "to": "migraine / headache",
+      "polarity": "+",
+      "source": "Collins, Michael W., Anthony P. Kontos, Erin Reynolds, Christopher D. Murawski, and Freddie H. Fu. 2014. “A Comprehensive, Targeted Approach to the Clinical Care of Athletes Following Sport-Related Concussion.” Knee Surgery, Sports Traumatology, Arthroscopy 22 (2): 235–46. https://doi.org/10.1007/s00167-013-2791-6."
+    },
+    {
+      "from": "cognitive fatigue",
+      "to": "need for cognitive rest",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "cognitive load capacity",
+      "to": "need for coping & adaptation",
+      "polarity": "-",
+      "source": "Assumed"
+    },
+    {
+      "from": "cognitive reserve",
+      "to": "working memory & executive function",
+      "polarity": "+",
+      "source": "Bigler and Stern 2015"
+    },
+    {
+      "from": "cognitive rest",
+      "to": "cognitive fatigue",
+      "polarity": "-",
+      "source": "Thomas et al. 2015"
+    },
+    {
+      "from": "comorbid pain & muscle tension",
+      "to": "stress",
+      "polarity": "+",
+      "source": "See Asmundson et al. 2002 for a discussion of PTSD and pain. \n\nAsmundson, Gordon J. G., Michael J. Coons, Steven Taylor, and Joel Katz. 2002. “PTSD and the Experience of Pain: Research and Clinical Implications of Shared Vulnerability and Mutual Maintenance Models.” Canadian Journal of Psychiatry. Revue Canadienne De Psychiatrie 47 (10): 930–37. https://doi.org/10.1177/070674370204701004."
+    },
+    {
+      "from": "coping & adaptation",
+      "to": "ability to work & complete daily tasks",
+      "polarity": "+",
+      "source": "Mateer and Sira 2006"
+    },
+    {
+      "from": "coping & adaptation",
+      "to": "ability to work and complete daily tasks",
+      "polarity": "?",
+      "source": "Mateer and Sira 2006"
+    },
+    {
+      "from": "coping & adaptation",
+      "to": "adherence to treatment",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "coping & adaptation",
+      "to": "avoidance of overstimulation",
+      "polarity": "+",
+      "source": "Levine and Greenwald 2009 discuss behavioral modifications to manage fatigue, such as avoiding multitasking, taking breaks, etc."
+    },
+    {
+      "from": "coping & adaptation",
+      "to": "need for coping & adaptation",
+      "polarity": "-",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "cytokine response",
+      "to": "kinase activity",
+      "polarity": "+",
+      "source": "Collins-Praino, Lyndsey E., and Frances Corrigan. 2017. “Does Neuroinflammation Drive the Relationship between Tau Hyperphosphorylation and Dementia Development Following Traumatic Brain Injury?” Brain, Behavior, and Immunity 60 (February): 369–82. https://doi.org/10.1016/j.bbi.2016.09.027.\n\nGrafman, Jordan, and Andres M Salazar. 2015. “The Ebb and Flow of Traumatic Brain Injury Research.Pdf.” In Handbook of Clinical Neurology: Traumatic Brain Injury Part II, 128:795–802. 3rd."
+    },
+    {
+      "from": "cytokine response",
+      "to": "neuroinflammation",
+      "polarity": "+",
+      "source": "Algattas and Huang 2014; Mayer et al. 2013; Chiu et al. 2016; Su et al., 2014; Rathbone et al., 2015; Lafrenaye et al., 2015;"
+    },
+    {
+      "from": "depression/anxiety/ mood disorders",
+      "to": "need for coping & adaptation",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "depression/anxiety/ mood disorders",
+      "to": "positive outlook",
+      "polarity": "-",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "depression/anxiety/ mood disorders",
+      "to": "social functioning ability",
+      "polarity": "-",
+      "source": "Rhebergen, Didi, Aartjan T. F. Beekman, Ron de Graaf, Willem A. Nolen, Jan Spijker, Witte J. Hoogendijk, and Brenda W. J. H. Penninx. 2010. “Trajectories of Recovery of Social and Physical Functioning in Major Depression, Dysthymic Disorder and Double Depression: A 3-Year Follow-Up.” Journal of Affective Disorders 124 (1): 148–56. https://doi.org/10.1016/j.jad.2009.10.029.\n\nGomez-Hernandez, R., J. E. Max, T. Kosier, S. Paradiso, and R. G. Robinson. 1997. “Social Impairment and Depression after Traumatic Brain Injury.” Archives of Physical Medicine and Rehabilitation 78 (12): 1321–26."
+    },
+    {
+      "from": "depression/anxiety/mood disorders",
+      "to": "need for coping & adaptation",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "depression/anxiety/mood disorders",
+      "to": "positive outlook",
+      "polarity": "-",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "depression/anxiety/mood disorders",
+      "to": "social functioning ability",
+      "polarity": "-",
+      "source": "Rhebergen et al. 2010, Gomez-Hernandez 1997"
+    },
+    {
+      "from": "disorientation & confusion",
+      "to": "need for coping & adaptation",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "disorientation & confusion",
+      "to": "stress",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "dizziness & vertigo",
+      "to": "balance & gait problems",
+      "polarity": "+",
+      "source": "King, Laurie A., Fay B. Horak, Martina Mancini, Donald Pierce, Kelsey C. Priest, James Chesnutt, Patrick Sullivan, and Julie C. Chapman. 2014. “Instrumenting the Balance Error Scoring System for Use with Patients Reporting Persistent Balance Problems After Mild Traumatic Brain Injury.” Archives of Physical Medicine and Rehabilitation 95 (2): 353–59. https://doi.org/10.1016/j.apmr.2013.10.015."
+    },
+    {
+      "from": "dyssomnias",
+      "to": "restorative sleep processes",
+      "polarity": "-",
+      "source": "Mazwi et al. 2015"
+    },
+    {
+      "from": "dyssomnias",
+      "to": "sleep",
+      "polarity": "-",
+      "source": "See Sandsmark et al. 2017 for overview of sleep-wake disturbances in TBI"
+    },
+    {
+      "from": "emotional regulation",
+      "to": "irritability/ mood instability",
+      "polarity": "-",
+      "source": "Yamawaki, Shigeto, Go Okada, Yasumasa Okamoto, and Israel Liberzon. 2012. “Mood Dysregulation and Stabilization: Perspectives from Emotional Cognitive Neuroscience.” International Journal of Neuropsychopharmacology 15 (5): 681–94. https://doi.org/10.1017/S1461145711000757."
+    },
+    {
+      "from": "emotional regulation",
+      "to": "irritability/mood instability",
+      "polarity": "-",
+      "source": "Yamawaki et al., 2012;"
+    },
+    {
+      "from": "emotional regulation",
+      "to": "social functioning ability",
+      "polarity": "+",
+      "source": "See Gross 2002 for a discussion of social consequences of emotional expression and regulation, including negative social consequences of over-regulation of emotion."
+    },
+    {
+      "from": "emotional regulation",
+      "to": "stress",
+      "polarity": "-",
+      "source": "See Seligowski et al. 2015 for a discussion of emotional regulation in PTSD. \n\nSeligowski, Antonia V., Daniel J. Lee, Joseph R. Bardeen, and Holly K. Orcutt. 2015. “Emotion Regulation and Posttraumatic Stress Symptoms: A Meta-Analysis.” Cognitive Behaviour Therapy 44 (2): 87–102. https://doi.org/10.1080/16506073.2014.980753.\n\nSee Gross 2002 for a general discussion of emotional regulation.\n\nGross, James J. 2002. “Emotion Regulation: Affective, Cognitive, and Social Consequences.” Psychophysiology 39 (3): 281–91. https://doi.org/10.1017.S0048577201393198."
+    },
+    {
+      "from": "emotional regulation",
+      "to": "working memory & executive function",
+      "polarity": "+",
+      "source": "See Gross 2002 for a discussion of cognitive consequences of emotional regulation."
+    },
+    {
+      "from": "error signaling",
+      "to": "cognitive fatigue",
+      "polarity": "+",
+      "source": "Ghajar, Jamshid, and Richard B. Ivry. 2008. “The Predictive Brain State: Timing Deficiency in Traumatic Brain Injury?” Neurorehabilitation and Neural Repair 22 (3): 217–27. https://doi.org/10.1177/1545968308315600. (hypothesized)"
+    },
+    {
+      "from": "error signaling",
+      "to": "disorientation & confusion",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "error signaling",
+      "to": "feeling out of sync",
+      "polarity": "+",
+      "source": "Ghajar and Ivry 2008"
+    },
+    {
+      "from": "error signaling",
+      "to": "nausea",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "error signaling",
+      "to": "visual/perceptual impairment",
+      "polarity": "+",
+      "source": "Astafiev, Serguei V., Gordon L. Shulman, Nicholas V. Metcalf, Jennifer Rengachary, Christine L. MacDonald, Deborah L. Harrington, Jun Maruta, et al. 2015. “Abnormal White Matter Blood-Oxygen-Level-Dependent Signals in Chronic Mild Traumatic Brain Injury.” Journal of Neurotrauma 32 (16): 1254–71. https://doi.org/10.1089/neu.2014.3547., \n\nAstafiev, Serguei V., Kristina L. Zinn, Gordon L. Shulman, and Maurizio Corbetta. 2016. “Exploring the Physiological Correlates of Chronic Mild Traumatic Brain Injury Symptoms.” NeuroImage. Clinical 11: 10–19. https://doi.org/10.1016/j.nicl.2016.01.004."
+    },
+    {
+      "from": "excess metabolites",
+      "to": "pathological microenvironment",
+      "polarity": "+",
+      "source": "Algattas and Huang 2014; Fischer et al. 2016"
+    },
+    {
+      "from": "excessive glutamate release",
+      "to": "ionic na+:k+ dysregulation",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505.\n\nMcGinn, Melissa J., and John T. Povlishock. 2015. “Cellular and Molecular Mechanisms of Injury and Spontaneous Recovery.” Handbook of Clinical Neurology 127: 67–87. https://doi.org/10.1016/B978-0-444-52892-6.00005-2.\n\nPatterson, Zachary R., and Matthew R. Holahan. 2012. “Understanding the Neuroinflammatory Response Following Concussion to Develop Treatment Strategies.” Frontiers in Cellular Neuroscience 6 (December): 1–10. https://doi.org/10.3389/fncel.2012.00058."
+    },
+    {
+      "from": "excessive glutamate release",
+      "to": "nmda activation",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35., \n\nBetrus, Christopher, and Christian W. Kreipke. 2013. “Historical Perspectives in Understanding Traumatic Brain Injury and in Situating Disruption in CBF in the Pathotrajectory of Head Trauma.” In Cerebral Blood Flow, Metabolism, and Head Trauma, edited by Christian W. Kreipke and Jose A. Rafols, Chapter 1 excerpts:1–27. Springer New York. http://dx.doi.org/10.1007/978-1-4614-4148-9_1.\n\nMcGinn, Melissa J., and John T. Povlishock. 2015. “Cellular and Molecular Mechanisms of Injury and Spontaneous Recovery.” Handbook of Clinical Neurology 127: 67–87. https://doi.org/10.1016/B978-0-444-52892-6.00005-2."
+    },
+    {
+      "from": "exercise intolerance",
+      "to": "cognitive load capacity",
+      "polarity": "-",
+      "source": "Kozlowski et al. 2013 showed evidence of increased PCS symptoms, including difficulty concentrating, in patients experiencing exercise intolerance."
+    },
+    {
+      "from": "exercise intolerance",
+      "to": "physical exercise",
+      "polarity": "-",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "failure to anticipate sensory cues",
+      "to": "balance & gait problems",
+      "polarity": "+",
+      "source": "King et al 2014; Ghajar and Ivry 2008"
+    },
+    {
+      "from": "failure to anticipate sensory cues",
+      "to": "error signaling",
+      "polarity": "+",
+      "source": "Ghajar and Ivry 2008"
+    },
+    {
+      "from": "glymphatic clearing processes",
+      "to": "pathological microenvironment",
+      "polarity": "-",
+      "source": "Patterson and Holahan 2012; Bigler & Maxwell 2012; Sharp et al. 2014; Ziebell et al. 2015"
+    },
+    {
+      "from": "glymphatic clearing processes",
+      "to": "tau deposition",
+      "polarity": "-",
+      "source": "Iliff, J. J., M. J. Chen, B. A. Plog, D. M. Zeppenfeld, M. Soltero, L. Yang, I. Singh, R. Deane, and M. Nedergaard. 2014. “Impairment of Glymphatic Pathway Function Promotes Tau Pathology after Traumatic Brain Injury.” Journal of Neuroscience 34 (49): 16180–93. https://doi.org/10.1523/JNEUROSCI.3020-14.2014.\n\nXie, L., H. Kang, Q. Xu, M. J. Chen, Y. Liao, M. Thiyagarajan, J. O’Donnell, et al. 2013. “Sleep Drives Metabolite Clearance from the Adult Brain.” Science 342 (6156): 373–77. https://doi.org/10.1126/science.1241224."
+    },
+    {
+      "from": "hub disruption",
+      "to": "impaired neurotransmission",
+      "polarity": "+",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011;"
+    },
+    {
+      "from": "hub disruption",
+      "to": "need for rerouting/ reorganization",
+      "polarity": "+",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.; \n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011."
+    },
+    {
+      "from": "hyperglycolysis",
+      "to": "excess metabolites",
+      "polarity": "+",
+      "source": "Giza & Hovda 2014; Algattas and Huang 2014; Fischer et al. 2016"
+    },
+    {
+      "from": "hypometabolic state",
+      "to": "axonal injury",
+      "polarity": "+",
+      "source": "Fischer et al. 2016"
+    },
+    {
+      "from": "hypometabolic state",
+      "to": "impaired neurotransmission",
+      "polarity": "+",
+      "source": "Giza & Hovda 2014"
+    },
+    {
+      "from": "hypometabolic state",
+      "to": "vulnerability to future injury",
+      "polarity": "+",
+      "source": "MacFarlane, Matthew P., and Thomas C. Glenn. 2015. “Neurochemical Cascade of Concussion.” Brain Injury 29 (2): 139–53. https://doi.org/10.3109/02699052.2014.965208.\n\nBlennow, Kaj, John Hardy, and Henrik Zetterberg. 2012. “The Neuropathology and Neurobiology of Traumatic Brain Injury.” Neuron 76 (5): 886–99. https://doi.org/10.1016/j.neuron.2012.11.021."
+    },
+    {
+      "from": "immune response",
+      "to": "neuroinflammation",
+      "polarity": "-",
+      "source": "Mayer, Cynthia L., Bertrand R. Huber, and Elaine Peskind. 2013. “Traumatic Brain Injury, Neuroinflammation, and Post-Traumatic Headaches.” Headache 53 (9): 1523–30. https://doi.org/10.1111/head.12173.\n\nChiu, Chong-Chi, Yi-En Liao, Ling-Yu Yang, Jing-Ya Wang, David Tweedie, Hanuma K. Karnati, Nigel H. Greig, and Jia-Yi Wang. 2016. “Neuroinflammation in Animal Models of Traumatic Brain Injury.” Journal of Neuroscience Methods 272 (October): 38–49. https://doi.org/10.1016/j.jneumeth.2016.06.018."
+    },
+    {
+      "from": "impact",
+      "to": "biomechanical deformation of neurons, glia & vasculature",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505.\n\nGardner, Andrew, Grant L. Iverson, and Peter Stanwell. 2014. “A Systematic Review of Proton Magnetic Resonance Spectroscopy Findings in Sport-Related Concussion.” Journal of Neurotrauma 31 (1): 1–18. https://doi.org/10.1089/neu.2013.3079. \n\nChen, Yun, Wei Huang, and Shlomi Constantini. 2013. “The Differences between Blast-Induced and Sports-Related Brain Injuries.” Frontiers in Neurology 4 (August). https://doi.org/10.3389/fneur.2013.00119.\n\nBudinger, Thomas F. 2016. “An Overview of Concussion: History and Needed Research.” The Bridge: National Academy of Engineering 46 (1): 5–22.\n\nHenry, Luke C., Sébastien Tremblay, Yvan Boulanger, Dave Ellemberg, and Maryse Lassonde. 2010. “Neurometabolic Changes in the Acute Phase after Sports Concussions Correlate with Symptom Severity.” Journal of Neurotrauma 27 (1): 65–76. https://doi.org/10.1089/neu.2009.0962.  \n\nLing, G., J. M. Ecklund, and F. A. Bandak. 2015. “Brain Injury from Explosive Blast: Description and Clinical Management.” Handbook of Clinical Neurology 127: 173–80. https://doi.org/10.1016/B978-0-444-52892-6.00011-8.\n\nBigler, Erin D., and William L. Maxwell. 2012. “Neuropathology of Mild Traumatic Brain Injury: Relationship to Neuroimaging Findings.” Brain Imaging and Behavior 6 (2): 108–36. https://doi.org/10.1007/s11682-011-9145-0."
+    },
+    {
+      "from": "impact",
+      "to": "comorbid pain & muscle tension",
+      "polarity": "+",
+      "source": "Gironda, Ronald J., Michael E. Clark, Robert L. Ruff, Sari Chait, Michael Craine, Robyn Walker, and Joel Scholten. 2009. “Traumatic Brain Injury, Polytrauma, and Pain: Challenges and Treatment Strategies for the Polytrauma Rehabilitation.” Rehabilitation Psychology 54 (3): 247–58. https://doi.org/10.1037/a0016906."
+    },
+    {
+      "from": "impact",
+      "to": "rotational forces transverse to brainstem",
+      "polarity": "+",
+      "source": "Johnson, Victoria E., William Stewart, and Douglas H. Smith. 2013. “Axonal Pathology in Traumatic Brain Injury.” Experimental Neurology 246 (August): 35–43. https://doi.org/10.1016/j.expneurol.2012.01.013.\n\nBrowne, Kevin D., Xiao-Han Chen, David F. Meaney, and Douglas H. Smith. 2011. “Mild Traumatic Brain Injury and Diffuse Axonal Injury in Swine.” Journal of Neurotrauma 28 (9): 1747–55. https://doi.org/10.1089/neu.2011.1913.\n\nMeaney, David F., and Douglas H. Smith. 2011. “Biomechanics of Concussion.” Clinics in Sports Medicine 30 (1): 19–31. https://doi.org/10.1016/j.csm.2010.08.009."
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "attentional filtering capacity",
+      "polarity": "-",
+      "source": "Barbey et al., 2015"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "cognitive fatigue",
+      "polarity": "+",
+      "source": "Chaudhuri and Behan 2004 discuss disruption of the striatal–thalamic–frontal cortical system in fatigue"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "intrinsic connectivity network function & coordination",
+      "polarity": "-",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nJohnson, Brian, Kai Zhang, Michael Gay, Silvina Horovitz, Mark Hallett, Wayne Sebastianelli, and Semyon Slobounov. 2012. “Alteration of Brain Default Network in Subacute Phase of Injury in Concussed Individuals: Resting-State FMRI Study.” NeuroImage 59 (1): 511–18. https://doi.org/10.1016/j.neuroimage.2011.07.081.\n\nSours, Chandler, Jiachen Zhuo, Jacqueline Janowich, Bizhan Aarabi, Kathirkamanthan Shanmuganathan, and Rao P Gullapalli. 2013. “Default Mode Network Interference in Mild Traumatic Brain Injury – A Pilot Resting State Study.” Brain Research 1537 (November). https://doi.org/10.1016/j.brainres.2013.08.034.\n\nRaichle, M. E., A. M. MacLeod, A. Z. Snyder, W. J. Powers, D. A. Gusnard, and G. L. Shulman. 2001. “A Default Mode of Brain Function.” Proceedings of the National Academy of Sciences of the United States of America 98 (2): 676–82. https://doi.org/10.1073/pnas.98.2.676.\n\nShumskaya et al., 2012; Han, Kihwan, Christine L. Mac Donald, Ann M. Johnson, Yolanda Barnes, Linda Wierzechowski, David Zonies, John Oh, et al. 2014. “Disrupted Modular Organization of Resting-State Cortical Functional Connectivity in U.S. Military Personnel Following Concussive ‘mild’ Blast-Related Traumatic Brain Injury.” NeuroImage 84 (January): 76–96. https://doi.org/10.1016/j.neuroimage.2013.08.017.\n\nAlhourani, Ahmad, Thomas A. Wozny, Deepa Krishnaswamy, Sudhir Pathak, Shawn A. Walls, Avniel S. Ghuman, Donald N. Krieger, David O. Okonkwo, R. Mark Richardson, and Ajay Niranjan. 2016. “Magnetoencephalography-Based Identification of Functional Connectivity Network Disruption Following Mild Traumatic Brain Injury.” Journal of Neurophysiology 116 (4): 1840–47. https://doi.org/10.1152/jn.00513.2016.;"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "intrinsic connectivity network function and coordination",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014; Alhourani et al., 2016;"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "limbic network dysfunction",
+      "polarity": "+",
+      "source": "Iliff, J. J., M. J. Chen, B. A. Plog, D. M. Zeppenfeld, M. Soltero, L. Yang, I. Singh, R. Deane, and M. Nedergaard. 2014. “Impairment of Glymphatic Pathway Function Promotes Tau Pathology after Traumatic Brain Injury.” Journal of Neuroscience 34 (49): 16180–93. https://doi.org/10.1523/JNEUROSCI.3020-14.2014."
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "need for rerouting/ reorganization",
+      "polarity": "+",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "pain processing network dysfunction",
+      "polarity": "+",
+      "source": "Monteith and Borsook 2014"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "processing speed",
+      "polarity": "-",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nJohnson, Brian, Kai Zhang, Michael Gay, Silvina Horovitz, Mark Hallett, Wayne Sebastianelli, and Semyon Slobounov. 2012. “Alteration of Brain Default Network in Subacute Phase of Injury in Concussed Individuals: Resting-State FMRI Study.” NeuroImage 59 (1): 511–18. https://doi.org/10.1016/j.neuroimage.2011.07.081.\n\nSours, Chandler, Jiachen Zhuo, Jacqueline Janowich, Bizhan Aarabi, Kathirkamanthan Shanmuganathan, and Rao P Gullapalli. 2013. “Default Mode Network Interference in Mild Traumatic Brain Injury – A Pilot Resting State Study.” Brain Research 1537 (November). https://doi.org/10.1016/j.brainres.2013.08.034.\n\nRaichle, M. E., A. M. MacLeod, A. Z. Snyder, W. J. Powers, D. A. Gusnard, and G. L. Shulman. 2001. “A Default Mode of Brain Function.” Proceedings of the National Academy of Sciences of the United States of America 98 (2): 676–82. https://doi.org/10.1073/pnas.98.2.676.\n\nShumskaya, E., T. M. J. C. Andriessen, D. G. Norris, and P. E. Vos. 2012. “Abnormal Whole-Brain Functional Networks in Homogeneous Acute Mild Traumatic Brain Injury.” Neurology 79 (2): 175–82. https://doi.org/10.1212/WNL.0b013e31825f04fb.\n\nHan, Kihwan, Christine L. Mac Donald, Ann M. Johnson, Yolanda Barnes, Linda Wierzechowski, David Zonies, John Oh, et al. 2014. “Disrupted Modular Organization of Resting-State Cortical Functional Connectivity in U.S. Military Personnel Following Concussive ‘mild’ Blast-Related Traumatic Brain Injury.” NeuroImage 84 (January): 76–96. https://doi.org/10.1016/j.neuroimage.2013.08.017. \n\nWolf, John A., and Paul F. Koch. 2016. “Disruption of Network Synchrony and Cognitive Dysfunction After Traumatic Brain Injury.” Frontiers in Systems Neuroscience 10. https://doi.org/10.3389/fnsys.2016.00043."
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "sensorimotor integration & vestibular function",
+      "polarity": "-",
+      "source": "Barbey et al., 2015"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "sensorimotor integration and vestibular function",
+      "polarity": "?",
+      "source": "Barbey et al., 2015"
+    },
+    {
+      "from": "impaired neurotransmission",
+      "to": "sleep network dysfunction",
+      "polarity": "+",
+      "source": "Krueger et al. 2008; Skopin et al. 2014"
+    },
+    {
+      "from": "impaired vasoreactivity",
+      "to": "cerebral blood flow / perfusion",
+      "polarity": "-",
+      "source": "Kreipke 2013; Giza and Hovda 2001, Algattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309.; Len et al. 2011"
+    },
+    {
+      "from": "impaired vasoreactivity",
+      "to": "cerebral blood flow/perfusion",
+      "polarity": "?",
+      "source": "Kreipke 2013; Giza and Hovda 2001, Algattas and Huang 2013; Len et al. 2011"
+    },
+    {
+      "from": "impaired vasoreactivity",
+      "to": "exercise intolerance",
+      "polarity": "+",
+      "source": "Ellis, Michael J., John J. Leddy, and Barry Willer. 2015. “Physiological, Vestibulo-Ocular and Cervicogenic Post-Concussion Disorders: An Evidence-Based Classification System with Directions for Treatment.” Brain Injury 29 (2): 238–48. https://doi.org/10.3109/02699052.2014.965207."
+    },
+    {
+      "from": "impaired vasoreactivity",
+      "to": "vulnerability to future injury",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001"
+    },
+    {
+      "from": "impulsivity",
+      "to": "coping & adaptation",
+      "polarity": "-",
+      "source": "Assumed"
+    },
+    {
+      "from": "impulsivity",
+      "to": "depression/anxiety/ mood disorders",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "impulsivity",
+      "to": "depression/anxiety/mood disorders",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "impulsivity",
+      "to": "social functioning ability",
+      "polarity": "-",
+      "source": "Gordon, Wayne A., Joshua Cantor, Dams-o’connor Kristen, and Theodore Tsaousides. 2015. “Long-Term Social Integration and Community Support.” Handbook of Clinical Neurology 127: 423–31. https://doi.org/10.1016/B978-0-444-52892-6.00027-1."
+    },
+    {
+      "from": "intrinsic connectivity network function & coordination",
+      "to": "emotional regulation",
+      "polarity": "+",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.; \n\nDosenbach, Nico U. F., Damien A. Fair, Francis M. Miezin, Alexander L. Cohen, Kristin K. Wenger, Ronny A. T. Dosenbach, Michael D. Fox, et al. 2007. “Distinct Brain Networks for Adaptive and Stable Task Control in Humans.” Proceedings of the National Academy of Sciences 104 (26): 11073–78. https://doi.org/10.1073/pnas.0704320104.\n\nKim, Sang Hee, and Stephan Hamann. 2007. “Neural Correlates of Positive and Negative Emotion Regulation.” Journal of Cognitive Neuroscience 19 (5): 776–98. https://doi.org/10.1162/jocn.2007.19.5.776."
+    },
+    {
+      "from": "intrinsic connectivity network function & coordination",
+      "to": "impulsivity",
+      "polarity": "-",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.; \n\nDosenbach, Nico U. F., Damien A. Fair, Francis M. Miezin, Alexander L. Cohen, Kristin K. Wenger, Ronny A. T. Dosenbach, Michael D. Fox, et al. 2007. “Distinct Brain Networks for Adaptive and Stable Task Control in Humans.” Proceedings of the National Academy of Sciences 104 (26): 11073–78. https://doi.org/10.1073/pnas.0704320104."
+    },
+    {
+      "from": "intrinsic connectivity network function & coordination",
+      "to": "social functioning ability",
+      "polarity": "+",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nDosenbach, Nico U. F., Damien A. Fair, Francis M. Miezin, Alexander L. Cohen, Kristin K. Wenger, Ronny A. T. Dosenbach, Michael D. Fox, et al. 2007. “Distinct Brain Networks for Adaptive and Stable Task Control in Humans.” Proceedings of the National Academy of Sciences 104 (26): 11073–78. https://doi.org/10.1073/pnas.0704320104."
+    },
+    {
+      "from": "intrinsic connectivity network function & coordination",
+      "to": "working memory & executive function",
+      "polarity": "+",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014; Alhourani, Ahmad, Thomas A. Wozny, Deepa Krishnaswamy, Sudhir Pathak, Shawn A. Walls, Avniel S. Ghuman, Donald N. Krieger, David O. Okonkwo, R. Mark Richardson, and Ajay Niranjan. 2016. “Magnetoencephalography-Based Identification of Functional Connectivity Network Disruption Following Mild Traumatic Brain Injury.” Journal of Neurophysiology 116 (4): 1840–47. https://doi.org/10.1152/jn.00513.2016."
+    },
+    {
+      "from": "intrinsic connectivity network function and coordination",
+      "to": "emotional regulation",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; Dosenbach et al., 2007; Kim & Hamann, 2007"
+    },
+    {
+      "from": "intrinsic connectivity network function and coordination",
+      "to": "impulsivity",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; Dosenbach et al., 2007"
+    },
+    {
+      "from": "intrinsic connectivity network function and coordination",
+      "to": "social functioning ability",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; Dosenbach et al., 2007"
+    },
+    {
+      "from": "intrinsic connectivity network function and coordination",
+      "to": "working memory & executive function",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014; Alhourani et al., 2016;"
+    },
+    {
+      "from": "ionic na+:k+ dysregulation",
+      "to": "ionic na+:k+ pump activity",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35.;  \n\nGiza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505.;  \n\nAlgattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309. \n\nLafrenaye, Audrey D., Masaki Todani, Susan A. Walker, and John T. Povlishock. 2015. “Microglia Processes Associate with Diffusely Injured Axons Following Mild Traumatic Brain Injury in the Micro Pig.” Journal of Neuroinflammation 12 (October). https://doi.org/10.1186/s12974-015-0405-6."
+    },
+    {
+      "from": "ionic na+:k+ dysregulation",
+      "to": "widespread calcium dysregulation & sequestration",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001; Algattas and Huang 2014; McGinn and Povlishock 2015"
+    },
+    {
+      "from": "ionic na+:k+ pump activity",
+      "to": "cellular energy imbalance",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35.\n\nGiza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505.\n\nAlgattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309.;\n\nLafrenaye, Audrey D., Masaki Todani, Susan A. Walker, and John T. Povlishock. 2015. “Microglia Processes Associate with Diffusely Injured Axons Following Mild Traumatic Brain Injury in the Micro Pig.” Journal of Neuroinflammation 12 (October). https://doi.org/10.1186/s12974-015-0405-6.\n\nBlennow, Kaj, John Hardy, and Henrik Zetterberg. 2012. “The Neuropathology and Neurobiology of Traumatic Brain Injury.” Neuron 76 (5): 886–99. https://doi.org/10.1016/j.neuron.2012.11.021."
+    },
+    {
+      "from": "ionic na+:k+ pump activity",
+      "to": "ionic na+:k+ dysregulation",
+      "polarity": "-",
+      "source": "Algattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309. \n\nLafrenaye, Audrey D., Masaki Todani, Susan A. Walker, and John T. Povlishock. 2015. “Microglia Processes Associate with Diffusely Injured Axons Following Mild Traumatic Brain Injury in the Micro Pig.” Journal of Neuroinflammation 12 (October). https://doi.org/10.1186/s12974-015-0405-6."
+    },
+    {
+      "from": "irritability/ mood instability",
+      "to": "depression/anxiety/ mood disorders",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "irritability/ mood instability",
+      "to": "impulsivity",
+      "polarity": "+",
+      "source": "Rath, Joseph F., Dvorah Simon, Donna M. Langenbahn, Rose Lynn Sherr, and Leonard Diller. 2003. “Group Treatment of Problem‐solving Deficits in Outpatients with Traumatic Brain Injury: A Randomised Outcome Study.” Neuropsychological Rehabilitation 13 (4): 461–88. https://doi.org/10.1080/09602010343000039."
+    },
+    {
+      "from": "irritability/ mood instability",
+      "to": "stress",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "irritability/mood instability",
+      "to": "depression/anxiety/mood disorders",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "irritability/mood instability",
+      "to": "impulsivity",
+      "polarity": "+",
+      "source": "Rath et al. 2003"
+    },
+    {
+      "from": "irritability/mood instability",
+      "to": "stress",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "kinase activity",
+      "to": "tau deposition",
+      "polarity": "+",
+      "source": "Collins-Praino & Corrigan 2017; Grafman and Salazar 2015"
+    },
+    {
+      "from": "light or sound sensitivity",
+      "to": "cognitive fatigue",
+      "polarity": "+",
+      "source": "Johansson, Birgitta, and Lars Rönnbäck. 2017. “Assessment and Treatment of Mental Fatigue after a Traumatic Brain Injury.” Neuropsychological Rehabilitation 27 (7): 1047–55. https://doi.org/10.1080/09602011.2017.1292921."
+    },
+    {
+      "from": "light or sound sensitivity",
+      "to": "disorientation & confusion",
+      "polarity": "+",
+      "source": "Stern 2011"
+    },
+    {
+      "from": "light or sound sensitivity",
+      "to": "migraine / headache",
+      "polarity": "+",
+      "source": "Reynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471."
+    },
+    {
+      "from": "light or sound sensitivity",
+      "to": "need for coping & adaptation",
+      "polarity": "+",
+      "source": "Clark et al., 2017"
+    },
+    {
+      "from": "limbic network dysfunction",
+      "to": "emotional regulation",
+      "polarity": "-",
+      "source": "Kim & Hamann, 2007; Yamawaki et al, 2012;"
+    },
+    {
+      "from": "long fiber tract damage",
+      "to": "hub disruption",
+      "polarity": "+",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nJohnson, Brian, Kai Zhang, Michael Gay, Silvina Horovitz, Mark Hallett, Wayne Sebastianelli, and Semyon Slobounov. 2012. “Alteration of Brain Default Network in Subacute Phase of Injury in Concussed Individuals: Resting-State FMRI Study.” NeuroImage 59 (1): 511–18. https://doi.org/10.1016/j.neuroimage.2011.07.081.\n\nSours, Chandler, Jiachen Zhuo, Jacqueline Janowich, Bizhan Aarabi, Kathirkamanthan Shanmuganathan, and Rao P Gullapalli. 2013. “Default Mode Network Interference in Mild Traumatic Brain Injury – A Pilot Resting State Study.” Brain Research 1537 (November). https://doi.org/10.1016/j.brainres.2013.08.034.\n\nRaichle, M. E., A. M. MacLeod, A. Z. Snyder, W. J. Powers, D. A. Gusnard, and G. L. Shulman. 2001. “A Default Mode of Brain Function.” Proceedings of the National Academy of Sciences of the United States of America 98 (2): 676–82. https://doi.org/10.1073/pnas.98.2.676.\n\nShumskaya et al., 2012; Han, Kihwan, Christine L. Mac Donald, Ann M. Johnson, Yolanda Barnes, Linda Wierzechowski, David Zonies, John Oh, et al. 2014. “Disrupted Modular Organization of Resting-State Cortical Functional Connectivity in U.S. Military Personnel Following Concussive ‘mild’ Blast-Related Traumatic Brain Injury.” NeuroImage 84 (January): 76–96. https://doi.org/10.1016/j.neuroimage.2013.08.017."
+    },
+    {
+      "from": "long fiber tract damage",
+      "to": "impaired neurotransmission",
+      "polarity": "+",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "migraine / headache",
+      "to": "need for cognitive rest",
+      "polarity": "+",
+      "source": "Reynolds et al. 2014"
+    },
+    {
+      "from": "mitochondrial dysfunction",
+      "to": "axonal transport defect",
+      "polarity": "+",
+      "source": "Barkhoudarian et al. 2011"
+    },
+    {
+      "from": "mitochondrial dysfunction",
+      "to": "cellular energy imbalance",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35.; \n\nFischer, Tara D., Michael J. Hylin, Jing Zhao, Anthony N. Moore, M. Neal Waxham, and Pramod K. Dash. 2016. “Altered Mitochondrial Dynamics and TBI Pathophysiology.” Frontiers in Systems Neuroscience 10. https://doi.org/10.3389/fnsys.2016.00029."
+    },
+    {
+      "from": "need for cognitive rest",
+      "to": "resting",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "need for cognitive rest",
+      "to": "social contact & community integration",
+      "polarity": "-",
+      "source": "Gordon, Wayne A., Joshua Cantor, Dams-o’connor Kristen, and Theodore Tsaousides. 2015. “Long-Term Social Integration and Community Support.” Handbook of Clinical Neurology 127: 423–31. https://doi.org/10.1016/B978-0-444-52892-6.00027-1."
+    },
+    {
+      "from": "need for coping & adaptation",
+      "to": "coping & adaptation",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "need for rerouting/ reorganization",
+      "to": "neuroplasticity/ rerouting/ reorganization",
+      "polarity": "+",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nJohnson, Brian, Kai Zhang, Michael Gay, Silvina Horovitz, Mark Hallett, Wayne Sebastianelli, and Semyon Slobounov. 2012. “Alteration of Brain Default Network in Subacute Phase of Injury in Concussed Individuals: Resting-State FMRI Study.” NeuroImage 59 (1): 511–18. https://doi.org/10.1016/j.neuroimage.2011.07.081.\n\nSours, Chandler, Jiachen Zhuo, Jacqueline Janowich, Bizhan Aarabi, Kathirkamanthan Shanmuganathan, and Rao P Gullapalli. 2013. “Default Mode Network Interference in Mild Traumatic Brain Injury – A Pilot Resting State Study.” Brain Research 1537 (November). https://doi.org/10.1016/j.brainres.2013.08.034.\n\nRaichle, M. E., A. M. MacLeod, A. Z. Snyder, W. J. Powers, D. A. Gusnard, and G. L. Shulman. 2001. “A Default Mode of Brain Function.” Proceedings of the National Academy of Sciences of the United States of America 98 (2): 676–82. https://doi.org/10.1073/pnas.98.2.676.\n\nShumskaya, E., T. M. J. C. Andriessen, D. G. Norris, and P. E. Vos. 2012. “Abnormal Whole-Brain Functional Networks in Homogeneous Acute Mild Traumatic Brain Injury.” Neurology 79 (2): 175–82. https://doi.org/10.1212/WNL.0b013e31825f04fb.\n\nHan, Kihwan, Christine L. Mac Donald, Ann M. Johnson, Yolanda Barnes, Linda Wierzechowski, David Zonies, John Oh, et al. 2014. “Disrupted Modular Organization of Resting-State Cortical Functional Connectivity in U.S. Military Personnel Following Concussive ‘mild’ Blast-Related Traumatic Brain Injury.” NeuroImage 84 (January): 76–96. https://doi.org/10.1016/j.neuroimage.2013.08.017."
+    },
+    {
+      "from": "need for rerouting/ reorganization",
+      "to": "neuroplasticity/rerouting /reorganization",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "need for rerouting/ reorganization",
+      "to": "neuroplasticity/rerouting/ reorganization",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "need for rerouting/ reorganization",
+      "to": "neuroplasticity/rerouting/reorganization",
+      "polarity": "+",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "neural reserve",
+      "to": "cognitive reserve",
+      "polarity": "+",
+      "source": "Bigler, Erin D., and Yaakov Stern. 2015. “Traumatic Brain Injury and Reserve.” In Handbook of Clinical Neurology, edited by Jordan Grafman and Andres M. Salazar, 128:691–710. Traumatic Brain Injury, Part II. Elsevier.\n\nWook Yoo, Sang, Cheol E. Han, Joseph S. Shin, Sang Won Seo, Duk L. Na, Marcus Kaiser, Yong Jeong, and Joon-Kyung Seong. 2015. “A Network Flow-Based Analysis of Cognitive Reserve in Normal Ageing and Alzheimer’s Disease.” Scientific Reports 5 (May). https://doi.org/10.1038/srep10057."
+    },
+    {
+      "from": "neural reserve",
+      "to": "need for rerouting/ reorganization",
+      "polarity": "-",
+      "source": "Bigler, Erin D., and Yaakov Stern. 2015. “Traumatic Brain Injury and Reserve.” In Handbook of Clinical Neurology, edited by Jordan Grafman and Andres M. Salazar, 128:691–710. Traumatic Brain Injury, Part II. Elsevier.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nWook Yoo, Sang, Cheol E. Han, Joseph S. Shin, Sang Won Seo, Duk L. Na, Marcus Kaiser, Yong Jeong, and Joon-Kyung Seong. 2015. “A Network Flow-Based Analysis of Cognitive Reserve in Normal Ageing and Alzheimer’s Disease.” Scientific Reports 5 (May). https://doi.org/10.1038/srep10057."
+    },
+    {
+      "from": "neuroinflammation",
+      "to": "blood-brain barrier permeability",
+      "polarity": "+",
+      "source": "Mayer et al. 2013; Patterson & Holahan 2012"
+    },
+    {
+      "from": "neuroinflammation",
+      "to": "cytokine response",
+      "polarity": "+",
+      "source": "Algattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309.\n\nMayer, Cynthia L., Bertrand R. Huber, and Elaine Peskind. 2013. “Traumatic Brain Injury, Neuroinflammation, and Post-Traumatic Headaches.” Headache 53 (9): 1523–30. https://doi.org/10.1111/head.12173.\n\nChiu, Chong-Chi, Yi-En Liao, Ling-Yu Yang, Jing-Ya Wang, David Tweedie, Hanuma K. Karnati, Nigel H. Greig, and Jia-Yi Wang. 2016. “Neuroinflammation in Animal Models of Traumatic Brain Injury.” Journal of Neuroscience Methods 272 (October): 38–49. https://doi.org/10.1016/j.jneumeth.2016.06.018."
+    },
+    {
+      "from": "neuroinflammation",
+      "to": "immune response",
+      "polarity": "+",
+      "source": "Mayer et al. 2013; Chiu et al. 2016"
+    },
+    {
+      "from": "neuroinflammation",
+      "to": "pathological microenvironment",
+      "polarity": "+",
+      "source": "Mayer, Cynthia L., Bertrand R. Huber, and Elaine Peskind. 2013. “Traumatic Brain Injury, Neuroinflammation, and Post-Traumatic Headaches.” Headache 53 (9): 1523–30. https://doi.org/10.1111/head.12173.\n\nChiu, Chong-Chi, Yi-En Liao, Ling-Yu Yang, Jing-Ya Wang, David Tweedie, Hanuma K. Karnati, Nigel H. Greig, and Jia-Yi Wang. 2016. “Neuroinflammation in Animal Models of Traumatic Brain Injury.” Journal of Neuroscience Methods 272 (October): 38–49. https://doi.org/10.1016/j.jneumeth.2016.06.018.\n\nSu, Y., W. Fan, Z. Ma, X. Wen, W. Wang, Q. Wu, and H. Huang. 2014. “Taurine Improves Functional and Histological Outcomes and Reduces Inflammation in Traumatic Brain Injury.” Neuroscience 266 (April): 56–65. https://doi.org/10.1016/j.neuroscience.2014.02.006.\n\nRathbone, Alasdair, Surejini Tharmaradinam, Shucui Jiang, Michel Rathbone, and Dinesh A Kumbhare. 2015. “A Review of the Neuro- and Systemic Inflammatory Responses in Post Concussion Symptoms: Introduction of the ‘Post-Inflammatory Brain Syndrome’ PIBS.” Brain Behavior and Immunity 46 (February). https://doi.org/10.1016/j.bbi.2015.02.009.\n\nLafrenaye, Audrey D., Masaki Todani, Susan A. Walker, and John T. Povlishock. 2015. “Microglia Processes Associate with Diffusely Injured Axons Following Mild Traumatic Brain Injury in the Micro Pig.” Journal of Neuroinflammation 12 (October). https://doi.org/10.1186/s12974-015-0405-6."
+    },
+    {
+      "from": "neuronal damage",
+      "to": "axonal injury",
+      "polarity": "+",
+      "source": "Asken, Breton Michael, Steven T. DeKosky, James R. Clugston, Michael S. Jaffee, and Russell M. Bauer. 2017. “Diffusion Tensor Imaging (DTI) Findings in Adult Civilian, Military, and Sport-Related Mild Traumatic Brain Injury (MTBI): A Systematic Critical Review.” Brain Imaging and Behavior, March, 1–28. https://doi.org/10.1007/s11682-017-9708-9., \n\nOehr, Lucy, and Jacqueline Anderson. 2017. “Diffusion-Tensor Imaging Findings and Cognitive Function Following Hospitalised Mixed-Mechanism Mild Traumatic Brain Injury: A Systematic Review and Meta-Analysis.” Archives of Physical Medicine and Rehabilitation, April. https://doi.org/10.1016/j.apmr.2017.03.019.\n\nJohnson, Victoria E., William Stewart, and Douglas H. Smith. 2013. “Axonal Pathology in Traumatic Brain Injury.” Experimental Neurology 246 (August): 35–43. https://doi.org/10.1016/j.expneurol.2012.01.013."
+    },
+    {
+      "from": "neuronal damage",
+      "to": "axonal transport defect",
+      "polarity": "+",
+      "source": "Barkhoudarian, Garni, David A. Hovda, and Christopher C. Giza. 2011. “The Molecular Pathophysiology of Concussive Brain Injury.” Clinics in Sports Medicine 30 (1): 33–48. https://doi.org/10.1016/j.csm.2010.09.001."
+    },
+    {
+      "from": "neuronal damage",
+      "to": "cellular repair processes",
+      "polarity": "+",
+      "source": "Assumed/internal logic"
+    },
+    {
+      "from": "neuronal damage",
+      "to": "impaired neurotransmission",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505."
+    },
+    {
+      "from": "neuronal damage",
+      "to": "ionic na+:k+ dysregulation",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35. \n\nGiza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505."
+    },
+    {
+      "from": "neuroplasticity/ rerouting/ reorganization",
+      "to": "hub disruption",
+      "polarity": "-",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nJohnson, Brian, Kai Zhang, Michael Gay, Silvina Horovitz, Mark Hallett, Wayne Sebastianelli, and Semyon Slobounov. 2012. “Alteration of Brain Default Network in Subacute Phase of Injury in Concussed Individuals: Resting-State FMRI Study.” NeuroImage 59 (1): 511–18. https://doi.org/10.1016/j.neuroimage.2011.07.081.\n\nSours, Chandler, Jiachen Zhuo, Jacqueline Janowich, Bizhan Aarabi, Kathirkamanthan Shanmuganathan, and Rao P Gullapalli. 2013. “Default Mode Network Interference in Mild Traumatic Brain Injury – A Pilot Resting State Study.” Brain Research 1537 (November). https://doi.org/10.1016/j.brainres.2013.08.034.\n\nRaichle, M. E., A. M. MacLeod, A. Z. Snyder, W. J. Powers, D. A. Gusnard, and G. L. Shulman. 2001. “A Default Mode of Brain Function.” Proceedings of the National Academy of Sciences of the United States of America 98 (2): 676–82. https://doi.org/10.1073/pnas.98.2.676.\n\nShumskaya, E., T. M. J. C. Andriessen, D. G. Norris, and P. E. Vos. 2012. “Abnormal Whole-Brain Functional Networks in Homogeneous Acute Mild Traumatic Brain Injury.” Neurology 79 (2): 175–82. https://doi.org/10.1212/WNL.0b013e31825f04fb.\n\nHan, Kihwan, Christine L. Mac Donald, Ann M. Johnson, Yolanda Barnes, Linda Wierzechowski, David Zonies, John Oh, et al. 2014. “Disrupted Modular Organization of Resting-State Cortical Functional Connectivity in U.S. Military Personnel Following Concussive ‘mild’ Blast-Related Traumatic Brain Injury.” NeuroImage 84 (January): 76–96. https://doi.org/10.1016/j.neuroimage.2013.08.017."
+    },
+    {
+      "from": "neuroplasticity/ rerouting/ reorganization",
+      "to": "impaired neurotransmission",
+      "polarity": "-",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nJohnson et al, 2012; Sours, Chandler, Jiachen Zhuo, Jacqueline Janowich, Bizhan Aarabi, Kathirkamanthan Shanmuganathan, and Rao P Gullapalli. 2013. “Default Mode Network Interference in Mild Traumatic Brain Injury – A Pilot Resting State Study.” Brain Research 1537 (November). https://doi.org/10.1016/j.brainres.2013.08.034.\n\nRaichle, M. E., A. M. MacLeod, A. Z. Snyder, W. J. Powers, D. A. Gusnard, and G. L. Shulman. 2001. “A Default Mode of Brain Function.” Proceedings of the National Academy of Sciences of the United States of America 98 (2): 676–82. https://doi.org/10.1073/pnas.98.2.676.\n\nShumskaya, E., T. M. J. C. Andriessen, D. G. Norris, and P. E. Vos. 2012. “Abnormal Whole-Brain Functional Networks in Homogeneous Acute Mild Traumatic Brain Injury.” Neurology 79 (2): 175–82. https://doi.org/10.1212/WNL.0b013e31825f04fb.\n\nHan, Kihwan, Christine L. Mac Donald, Ann M. Johnson, Yolanda Barnes, Linda Wierzechowski, David Zonies, John Oh, et al. 2014. “Disrupted Modular Organization of Resting-State Cortical Functional Connectivity in U.S. Military Personnel Following Concussive ‘mild’ Blast-Related Traumatic Brain Injury.” NeuroImage 84 (January): 76–96. https://doi.org/10.1016/j.neuroimage.2013.08.017."
+    },
+    {
+      "from": "neuroplasticity/rerouting /reorganization",
+      "to": "hub disruption",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "neuroplasticity/rerouting /reorganization",
+      "to": "impaired neurotransmission",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "neuroplasticity/rerouting/ reorganization",
+      "to": "hub disruption",
+      "polarity": "?",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "neuroplasticity/rerouting/ reorganization",
+      "to": "impaired neurotransmission",
+      "polarity": "-",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102.\n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nJohnson et al, 2012; Sours, Chandler, Jiachen Zhuo, Jacqueline Janowich, Bizhan Aarabi, Kathirkamanthan Shanmuganathan, and Rao P Gullapalli. 2013. “Default Mode Network Interference in Mild Traumatic Brain Injury – A Pilot Resting State Study.” Brain Research 1537 (November). https://doi.org/10.1016/j.brainres.2013.08.034.\n\nRaichle, M. E., A. M. MacLeod, A. Z. Snyder, W. J. Powers, D. A. Gusnard, and G. L. Shulman. 2001. “A Default Mode of Brain Function.” Proceedings of the National Academy of Sciences of the United States of America 98 (2): 676–82. https://doi.org/10.1073/pnas.98.2.676.\n\nShumskaya, E., T. M. J. C. Andriessen, D. G. Norris, and P. E. Vos. 2012. “Abnormal Whole-Brain Functional Networks in Homogeneous Acute Mild Traumatic Brain Injury.” Neurology 79 (2): 175–82. https://doi.org/10.1212/WNL.0b013e31825f04fb.\n\nHan, Kihwan, Christine L. Mac Donald, Ann M. Johnson, Yolanda Barnes, Linda Wierzechowski, David Zonies, John Oh, et al. 2014. “Disrupted Modular Organization of Resting-State Cortical Functional Connectivity in U.S. Military Personnel Following Concussive ‘mild’ Blast-Related Traumatic Brain Injury.” NeuroImage 84 (January): 76–96. https://doi.org/10.1016/j.neuroimage.2013.08.017."
+    },
+    {
+      "from": "neuroplasticity/rerouting/reorganization",
+      "to": "hub disruption",
+      "polarity": "-",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "neuroplasticity/rerouting/reorganization",
+      "to": "impaired neurotransmission",
+      "polarity": "-",
+      "source": "Barbey et al., 2015; van den Heuvel & Sporns, 2011; Johnson et al, 2012; Sours et al., 2013; Raichle et al., 2001; Shumskaya et al., 2012; Han et al., 2014;"
+    },
+    {
+      "from": "nmda activation",
+      "to": "ionic na+:k+ dysregulation",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35."
+    },
+    {
+      "from": "nmda activation",
+      "to": "nonspecific depolarization",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001, McGinn and Povlishock 2015"
+    },
+    {
+      "from": "nmda activation",
+      "to": "widespread calcium dysregulation & sequestration",
+      "polarity": "+",
+      "source": "Betrus, Christopher, and ChristianW. Kreipke. 2013. “Historical Perspectives in Understanding Traumatic Brain Injury and in Situating Disruption in CBF in the Pathotrajectory of Head Trauma.” In Cerebral Blood Flow, Metabolism, and Head Trauma, edited by Christian W. Kreipke and Jose A. Rafols, Chapter 1 excerpts:1–27. Springer New York. http://dx.doi.org/10.1007/978-1-4614-4148-9_1."
+    },
+    {
+      "from": "nonspecific depolarization",
+      "to": "excessive glutamate release",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001; Giza & Hovda 2014; Betrus and Kreipke 2013; Lin et al. 2015"
+    },
+    {
+      "from": "nonspecific polarization",
+      "to": "excessive glutamate release",
+      "polarity": "?",
+      "source": "Giza and Hovda 2001; Giza & Hovda 2014; Betrus and Kreipke 2013; Lin et al. 2015"
+    },
+    {
+      "from": "oxidative stress",
+      "to": "abnormal proteolysis",
+      "polarity": "+",
+      "source": "See Dasuri et al. 2013 for a general discussion of oxidative stress and proteolysis\n\nDasuri, Kalavathi, Le Zhang, and Jeffrey N. Keller. 2013. “Oxidative Stress, Neurodegeneration, and the Balance of Protein Degradation and Protein Synthesis.” Free Radical Biology and Medicine, Neurodegeneration, 62 (September): 170–85. https://doi.org/10.1016/j.freeradbiomed.2012.09.016."
+    },
+    {
+      "from": "oxidative stress",
+      "to": "mitochondrial dysfunction",
+      "polarity": "+",
+      "source": "Bramlett, Helen M., and W. Dalton Dietrich. 2004. “Pathophysiology of Cerebral Ischemia and Brain Trauma: Similarities and Differences.” Journal of Cerebral Blood Flow and Metabolism: Official Journal of the International Society of Cerebral Blood Flow and Metabolism 24 (2): 133–50. https://doi.org/10.1097/01.WCB.0000111614.19196.04."
+    },
+    {
+      "from": "oxidative stress",
+      "to": "neuroinflammation",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505."
+    },
+    {
+      "from": "pain processing network dysfuction",
+      "to": "migraine / headache",
+      "polarity": "?",
+      "source": "Monteith and Borsook 2014"
+    },
+    {
+      "from": "pain processing network dysfunction",
+      "to": "migraine / headache",
+      "polarity": "+",
+      "source": "Monteith and Borsook 2014"
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "cerebral blood flow / perfusion",
+      "polarity": "-",
+      "source": "Mayer, Cynthia L., Bertrand R. Huber, and Elaine Peskind. 2013. “Traumatic Brain Injury, Neuroinflammation, and Post-Traumatic Headaches.” Headache 53 (9): 1523–30. https://doi.org/10.1111/head.12173."
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "cerebral edema",
+      "polarity": "+",
+      "source": "Barkhoudarian, Garni, David A. Hovda, and Christopher C. Giza. 2011. “The Molecular Pathophysiology of Concussive Brain Injury.” Clinics in Sports Medicine 30 (1): 33–48. https://doi.org/10.1016/j.csm.2010.09.001."
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "neuroinflammation",
+      "polarity": "+",
+      "source": "Patterson and Holahan 2012; Bigler & Maxwell 2012; Sharp et al. 2014; Ziebell et al. 2015"
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "neuroplasticity/ rerouting/ reorganization",
+      "polarity": "-",
+      "source": "Calabrese, Francesca, Andrea C. Rossetti, Giorgio Racagni, Peter Gass, Marco A. Riva, and Raffaella Molteni. 2014. “Brain-Derived Neurotrophic Factor: A Bridge between Inflammation and Neuroplasticity.” Frontiers in Cellular Neuroscience 8 (December). https://doi.org/10.3389/fncel.2014.00430."
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "neuroplasticity/rerouting /reorganization",
+      "polarity": "?",
+      "source": "Calabrese et al. 2014"
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "neuroplasticity/rerouting/ reorganization",
+      "polarity": "?",
+      "source": "Calabrese et al. 2014"
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "neuroplasticity/rerouting/reorganization",
+      "polarity": "-",
+      "source": "Calabrese et al. 2014"
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "oxidative stress",
+      "polarity": "+",
+      "source": "Mayer et al. 2013"
+    },
+    {
+      "from": "pathological microenvironment",
+      "to": "rows",
+      "polarity": "?",
+      "source": "Calabrese et al. 2014"
+    },
+    {
+      "from": "patient education",
+      "to": "adherence to treatment",
+      "polarity": "+",
+      "source": "See Gruman et al. 2010 for a discussion of patient education and engagement"
+    },
+    {
+      "from": "patient education",
+      "to": "coping & adaptation",
+      "polarity": "+",
+      "source": "Mittenberg, Wiley, Geoffrey Tremont, Renee E. Zielinski, Sharon Fichera, and Katrina R. Rayls. 1996. “Cognitive-Behavioral Prevention of Postconcussion Syndrome.” Archives of Clinical Neuropsychology 11 (2): 139–45. https://doi.org/10.1016/0887-6177(95)00006-2.\n\nMateer, Catherine A., and Claire S. Sira. 2006. “Cognitive and Emotional Consequences of TBI: Intervention Strategies for Vocational Rehabilitation.” NeuroRehabilitation 21 (4): 315–326."
+    },
+    {
+      "from": "personal resilience",
+      "to": "coping & adaptation",
+      "polarity": "+",
+      "source": "Sullivan, Karen A., Chloe B. Kempe, Shannon L. Edmed, and George A. Bonanno. 2016. “Resilience and Other Possible Outcomes After Mild Traumatic Brain Injury: A Systematic Review.” Neuropsychology Review 26 (2): 173–85. https://doi.org/10.1007/s11065-016-9317-1.\n\nLosoi, Heidi, Noah D. Silverberg, Minna Wäljas, Senni Turunen, Eija Rosti-Otajärvi, Mika Helminen, Teemu Miikka Artturi Luoto, Juhani Julkunen, Juha Öhman, and Grant L. Iverson. 2015. “Resilience Is Associated with Outcome from Mild Traumatic Brain Injury.” Journal of Neurotrauma 32 (13): 942–49. https://doi.org/10.1089/neu.2014.3799."
+    },
+    {
+      "from": "personal resilience",
+      "to": "positive outlook",
+      "polarity": "+",
+      "source": "Sullivan et al, 2016"
+    },
+    {
+      "from": "physical exercise",
+      "to": "bdnf expression",
+      "polarity": "+",
+      "source": "Leddy et al. 2007, Ferris et al. 2007"
+    },
+    {
+      "from": "physical exercise",
+      "to": "impaired vasoreactivity",
+      "polarity": "-",
+      "source": "Leddy, John, Andrea Hinds, Dan Sirica, and Barry Willer. 2016. “The Role of Controlled Exercise in Concussion Management.” PM&R, Advanced Sports Medicine Concepts and Controversies, 8 (3, Supplement): S91–100. https://doi.org/10.1016/j.pmrj.2015.10.017."
+    },
+    {
+      "from": "physical exercise",
+      "to": "irritability/ mood instability",
+      "polarity": "-",
+      "source": "Leddy, John J., Karl Kozlowski, Michael Fung, David R. Pendergast, and Barry Willer. 2007. “Regulatory and Autoregulatory Physiological Dysfunction as a Primary Characteristic of Post Concussion Syndrome: Implications for Treatment.” NeuroRehabilitation 22 (3): 199–205.\n\nScully, D., J. Kremer, M. M. Meade, R. Graham, and K. Dudgeon. 1998. “Physical Exercise and Psychological Well Being: A Critical Review.” British Journal of Sports Medicine 32 (2): 111–20. http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1756084/."
+    },
+    {
+      "from": "physical exercise",
+      "to": "irritability/mood instability",
+      "polarity": "-",
+      "source": "Leddy et al. 2007; Scully et al. 1998"
+    },
+    {
+      "from": "physical exercise",
+      "to": "sleep",
+      "polarity": "+",
+      "source": "Leddy et al. 2007; Youngstedt 2005"
+    },
+    {
+      "from": "physical fatigue",
+      "to": "resting",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "positive outlook",
+      "to": "social contact & community integration",
+      "polarity": "+",
+      "source": "Andrewes et al. 2014 discuss the use of positive psychology interventions for TBI Andrewes, H. E., V. Walker, and B. O’Neill. 2014. “Exploring the Use of Positive Psychology Interventions in Brain Injury Survivors with Challenging Behaviour.” Brain Injury 28 (7): 965–71. https://doi.org/10.3109/02699052.2014.888764."
+    },
+    {
+      "from": "positive outlook",
+      "to": "stress",
+      "polarity": "-",
+      "source": "Andrewes et al. 2014 discuss the use of positive psychology interventions for TBI Andrewes, H. E., V. Walker, and B. O’Neill. 2014. “Exploring the Use of Positive Psychology Interventions in Brain Injury Survivors with Challenging Behaviour.” Brain Injury 28 (7): 965–71. https://doi.org/10.3109/02699052.2014.888764."
+    },
+    {
+      "from": "predictive brain state",
+      "to": "failure to anticipate sensory cues",
+      "polarity": "+",
+      "source": "Ghajar and Ivry 2008, 2009"
+    },
+    {
+      "from": "processing speed",
+      "to": "cognitive load capacity",
+      "polarity": "+",
+      "source": "Rath et al. 2003 \"information overload\"; Howell et al. 2014"
+    },
+    {
+      "from": "processing speed",
+      "to": "reaction time",
+      "polarity": "+",
+      "source": "Barbey, Aron K., Antonio Belli, Ann Logan, Rachael Rubin, Marta Zamroziewicz, and Joachim T. Operskalski. 2015. “Network Topology and Dynamics in Traumatic Brain Injury.” Current Opinion in Behavioral Sciences 4 (May): 92–102. \n\nvan den Heuvel, M. P., and O. Sporns. 2011. “Rich-Club Organization of the Human Connectome.” Journal of Neuroscience 31 (44): 15775–86. https://doi.org/10.1523/JNEUROSCI.3539-11.2011.\n\nNiogi, S.N., P. Mukherjee, J. Ghajar, C. Johnson, R.A. Kolster, R. Sarkar, H. Lee, et al. 2008. “Extent of Microstructural White Matter Injury in Postconcussive Syndrome Correlates with Impaired Cognitive Reaction Time: A 3T Diffusion Tensor Imaging Study of Mild Traumatic Brain Injury.” American Journal of Neuroradiology 29 (5): 967–73. https://doi.org/10.3174/ajnr.A0970."
+    },
+    {
+      "from": "processing speed",
+      "to": "sensorimotor integration & vestibular function",
+      "polarity": "+",
+      "source": "Ghajar, Jamshid, and Richard B. Ivry. 2008. “The Predictive Brain State: Timing Deficiency in Traumatic Brain Injury?” Neurorehabilitation and Neural Repair 22 (3): 217–27. https://doi.org/10.1177/1545968308315600."
+    },
+    {
+      "from": "processing speed",
+      "to": "sensorimotor integration and vestibular function",
+      "polarity": "?",
+      "source": "Ghajar & Ivry 2008;"
+    },
+    {
+      "from": "resting",
+      "to": "cognitive rest",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "resting",
+      "to": "sleep",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "restorative sleep processes",
+      "to": "autonomic dysfunction",
+      "polarity": "-",
+      "source": "Baglioni et al., 2010"
+    },
+    {
+      "from": "restorative sleep processes",
+      "to": "cognitive fatigue",
+      "polarity": "-",
+      "source": "Assumed"
+    },
+    {
+      "from": "restorative sleep processes",
+      "to": "glymphatic clearing processes",
+      "polarity": "+",
+      "source": "Xie, L., H. Kang, Q. Xu, M. J. Chen, Y. Liao, M. Thiyagarajan, J. O’Donnell, et al. 2013. “Sleep Drives Metabolite Clearance from the Adult Brain.” Science 342 (6156): 373–77. https://doi.org/10.1126/science.1241224.\n\nMiyamoto, Akiko, Hiroaki Wake, Andrew J. Moorhouse, and Junichi Nabekura. 2013. “Microglia and Synapse Interactions: Fine Tuning Neural Circuits and Candidate Molecules.” Frontiers in Cellular Neuroscience 7: 70. https://doi.org/10.3389/fncel.2013.00070.\n\nZemek, Roger L., Ken J. Farion, Margaret Sampson, and Candice McGahern. 2013. “Prognosticators of Persistent Symptoms Following Pediatric Concussion: A Systematic Review.” JAMA Pediatrics 167 (3): 259–65. https://doi.org/10.1001/2013.jamapediatrics.216."
+    },
+    {
+      "from": "restorative sleep processes",
+      "to": "physical fatigue",
+      "polarity": "-",
+      "source": "Assumed"
+    },
+    {
+      "from": "rotational forces transverse to brainstem",
+      "to": "loss of consciousness",
+      "polarity": "+",
+      "source": "Johnson, Victoria E., William Stewart, and Douglas H. Smith. 2013. “Axonal Pathology in Traumatic Brain Injury.” Experimental Neurology 246 (August): 35–43. https://doi.org/10.1016/j.expneurol.2012.01.013.\n\nBrowne, Kevin D., Xiao-Han Chen, David F. Meaney, and Douglas H. Smith. 2011. “Mild Traumatic Brain Injury and Diffuse Axonal Injury in Swine.” Journal of Neurotrauma 28 (9): 1747–55. https://doi.org/10.1089/neu.2011.1913.\n\nMeaney, David F., and Douglas H. Smith. 2011. “Biomechanics of Concussion.” Clinics in Sports Medicine 30 (1): 19–31. https://doi.org/10.1016/j.csm.2010.08.009."
+    },
+    {
+      "from": "sensorimotor integration & vestibular function",
+      "to": "balance & gait problems",
+      "polarity": "-",
+      "source": "King, Laurie A., Fay B. Horak, Martina Mancini, Donald Pierce, Kelsey C. Priest, James Chesnutt, Patrick Sullivan, and Julie C. Chapman. 2014. “Instrumenting the Balance Error Scoring System for Use with Patients Reporting Persistent Balance Problems After Mild Traumatic Brain Injury.” Archives of Physical Medicine and Rehabilitation 95 (2): 353–59. https://doi.org/10.1016/j.apmr.2013.10.015.\n\nReynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471."
+    },
+    {
+      "from": "sensorimotor integration & vestibular function",
+      "to": "dizziness & vertigo",
+      "polarity": "-",
+      "source": "Reynolds, Erin, Michael W. Collins, Anne Mucha, and Cara Troutman-Ensecki. 2014. “Establishing a Clinical Service for the Management of Sports-Related Concussions:” Neurosurgery 75 (October): S71–81. https://doi.org/10.1227/NEU.0000000000000471."
+    },
+    {
+      "from": "sensorimotor integration & vestibular function",
+      "to": "dizziness and vertigo",
+      "polarity": "?",
+      "source": "Reynolds et al. 2014"
+    },
+    {
+      "from": "sensorimotor integration & vestibular function",
+      "to": "light or sound sensitivity",
+      "polarity": "-",
+      "source": "Astafiev et al., 2016"
+    },
+    {
+      "from": "sensorimotor integration & vestibular function",
+      "to": "predictive brain state",
+      "polarity": "+",
+      "source": "Ghajar and Ivry 2008; Diwakar et al 2015;"
+    },
+    {
+      "from": "sleep",
+      "to": "restorative sleep processes",
+      "polarity": "+",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "sleep",
+      "to": "sleep debt",
+      "polarity": "-",
+      "source": "Assumed / internal logic"
+    },
+    {
+      "from": "sleep debt",
+      "to": "irritability/ mood instability",
+      "polarity": "+",
+      "source": "Van Someren, Eus J. W., and Rixt F. Riemersma-Van Der Lek. 2007. “Live to the Rhythm, Slave to the Rhythm.” Sleep Medicine Reviews 11 (6): 465–84. https://doi.org/10.1016/j.smrv.2007.07.003."
+    },
+    {
+      "from": "sleep debt",
+      "to": "irritability/mood instability",
+      "polarity": "+",
+      "source": "Van Someren and Riemersma-Van der Lek 2007"
+    },
+    {
+      "from": "sleep debt",
+      "to": "resting",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "sleep network dysfunction",
+      "to": "dyssomnias",
+      "polarity": "+",
+      "source": "Krueger et al 2008, 2013; Sandsmark et al. 2017; Lim and Szymusiak 2015; Skopin et al. 2014"
+    },
+    {
+      "from": "social contact & community integration",
+      "to": "depression/anxiety/ mood disorders",
+      "polarity": "-",
+      "source": "Gordon, Wayne A., Joshua Cantor, Dams-o’connor Kristen, and Theodore Tsaousides. 2015. “Long-Term Social Integration and Community Support.” Handbook of Clinical Neurology 127: 423–31. https://doi.org/10.1016/B978-0-444-52892-6.00027-1.\n\nHorner, Michael D., Anbesaw W. Selassie, Lee Lineberry, Pamela L. Ferguson, and Lawrence A. Labbate. 2008. “Predictors of Psychological Symptoms 1 Year After Traumatic Brain Injury: A Population‐Based, Epidemiological Study.” The Journal of Head Trauma Rehabilitation 23 (2): 74–83. https://doi.org/10.1097/01.HTR.0000314526.01006.c8.\n\nGomez-Hernandez, R., J. E. Max, T. Kosier, S. Paradiso, and R. G. Robinson. 1997. “Social Impairment and Depression after Traumatic Brain Injury.” Archives of Physical Medicine and Rehabilitation 78 (12): 1321–26."
+    },
+    {
+      "from": "social contact & community integration",
+      "to": "depression/anxiety/mood disorders",
+      "polarity": "-",
+      "source": "Gordon et al. 2015; Horner et al 2008; Gomez-Hernandez et al. 1997"
+    },
+    {
+      "from": "social contact & community integration",
+      "to": "stress",
+      "polarity": "-",
+      "source": "Wiart et al. 2016 discuss role of family in helping injured person avoid stress\n\nWiart, Laurent, Jacques Luauté, Angélique Stefan, David Plantier, and Julia Hamonet. 2016. “Non Pharmacological Treatments for Psychological and Behavioural Disorders Following Traumatic Brain Injury (TBI). A Systematic Literature Review and Expert Opinion Leading to Recommendations.” Annals of Physical and Rehabilitation Medicine, Behavioral Disorders after Traumatic Brain Injury. Special issue coordinated By Prof Jacques Luauté and Philippe Azouvi., 59 (1): 31–41. https://doi.org/10.1016/j.rehab.2015.12.001."
+    },
+    {
+      "from": "social functioning ability",
+      "to": "ability to work & complete daily tasks",
+      "polarity": "+",
+      "source": "Mateer and Sira 2006"
+    },
+    {
+      "from": "social functioning ability",
+      "to": "ability to work and complete daily tasks",
+      "polarity": "?",
+      "source": "Mateer and Sira 2006"
+    },
+    {
+      "from": "social functioning ability",
+      "to": "social contact & community integration",
+      "polarity": "+",
+      "source": "Gordon, Wayne A., Joshua Cantor, Dams-o’connor Kristen, and Theodore Tsaousides. 2015. “Long-Term Social Integration and Community Support.” Handbook of Clinical Neurology 127: 423–31. https://doi.org/10.1016/B978-0-444-52892-6.00027-1."
+    },
+    {
+      "from": "social functioning ability",
+      "to": "supportive relationships",
+      "polarity": "+",
+      "source": "Hinzey, Adam, Monica M. Gaudier-Diaz, Maryam B. Lustberg, and A. Courtney DeVries. 2016. “Breast Cancer and Social Environment: Getting by with a Little Help from Our Friends.” Breast Cancer Research: BCR 18 (1): 54. https://doi.org/10.1186/s13058-016-0700-x.\n\nYeates, Giles N., Michael Luckie, Zach De Beer, and Parmjit Khela. 2010. “Elucidating the Psychosocial Context of ‘Post-Concussion Syndrome’ (PCS): A Case Study from Post-Milan Systemic Family Therapy.” Journal of Family Therapy 32 (2): 186–202. https://doi.org/10.1111/j.1467-6427.2010.00493.x."
+    },
+    {
+      "from": "social pressure",
+      "to": "adherence to treatment",
+      "polarity": "-",
+      "source": "Kroshus et al. 2015 discuss social pressure in the context of youth sports concussion."
+    },
+    {
+      "from": "social pressure",
+      "to": "stress",
+      "polarity": "+",
+      "source": "Henry et al. 1985; LaRoche et al 2016; McCrea et al. 2010"
+    },
+    {
+      "from": "social reserve",
+      "to": "access to healthcare",
+      "polarity": "+",
+      "source": "Term social reserve introduced in Kenzie et al. 2017.\n\nKenzie, Erin S., Elle L. Parks, Erin D. Bigler, Miranda M. Lim, James C. Chesnutt, and Wayne Wakeland. 2017. “Concussion As a Multi-Scale Complex System: An Interdisciplinary Synthesis of Current Knowledge.” Frontiers in Neurology 8. https://doi.org/10.3389/fneur.2017.00513."
+    },
+    {
+      "from": "social reserve",
+      "to": "social contact & community integration",
+      "polarity": "+",
+      "source": "Term social reserve introduced in Kenzie et al. 2017.\n\nKenzie, Erin S., Elle L. Parks, Erin D. Bigler, Miranda M. Lim, James C. Chesnutt, and Wayne Wakeland. 2017. “Concussion As a Multi-Scale Complex System: An Interdisciplinary Synthesis of Current Knowledge.” Frontiers in Neurology 8. https://doi.org/10.3389/fneur.2017.00513."
+    },
+    {
+      "from": "stress",
+      "to": "autonomic dysfunction",
+      "polarity": "+",
+      "source": "Lee, Sung W., Lee Gerdes, Catherine L. Tegeler, Hossam A. Shaltout, and Charles H. Tegeler. 2014. “A Bihemispheric Autonomic Model for Traumatic Stress Effects on Health and Behavior.” Frontiers in Psychology 5 (August). https://doi.org/10.3389/fpsyg.2014.00843.\n\nBrown, Juliette A., Hillary L. Woodworth, and Gina M. Leinninger. 2015. “To Ingest or Rest? Specialized Roles of Lateral Hypothalamic Area Neurons in Coordinating Energy Balance.” Frontiers in Systems Neuroscience 9 (February). https://doi.org/10.3389/fnsys.2015.00009."
+    },
+    {
+      "from": "stress",
+      "to": "bdnf expression",
+      "polarity": "-",
+      "source": "Calabrese et al. 2014"
+    },
+    {
+      "from": "stress",
+      "to": "depression/anxiety/ mood disorders",
+      "polarity": "+",
+      "source": "See Roszell et al. 1991 for a discussion of anxiety and mood disorders in PTSD patients. \n\nRoszell, D. K., M. E. McFall, and K. L. Malas. 1991. “Frequency of Symptoms and Concurrent Psychiatric Disorder in Vietnam Veterans with Chronic PTSD.” Hospital & Community Psychiatry 42 (3): 293–96.\n\nLuis and Mittenberg 2002 discuss the contribution of stress to the development of mood disorders in a pediatric population.\n\nLuis, Cheryl A., and Wiley Mittenberg. 2002. “Mood and Anxiety Disorders Following Pediatric Traumatic Brain Injury: A Prospective Study.” Journal of Clinical and Experimental Neuropsychology (Neuropsychology, Development and Cognition: Section A) 24 (3): 270–79. https://doi.org/10.1076/jcen.24.3.270.982."
+    },
+    {
+      "from": "stress",
+      "to": "depression/anxiety/mood disorders",
+      "polarity": "+",
+      "source": "See Roszell et al. 1991 for a discussion of anxiety and mood disorders in PTSD patients. Luis and Mittenberg 2002 discuss the contribution of stress to the development of mood disorders in a pediatric population."
+    },
+    {
+      "from": "stress",
+      "to": "dyssomnias",
+      "polarity": "+",
+      "source": "See Khazaie et al. 2016 for a discussion of PTSD and sleep disorders"
+    },
+    {
+      "from": "stress",
+      "to": "need for coping & adaptation",
+      "polarity": "+",
+      "source": "Assumed"
+    },
+    {
+      "from": "supportive relationships",
+      "to": "social reserve",
+      "polarity": "+",
+      "source": "Term social reserve introduced in Kenzie et al. 2017.\n\nKenzie, Erin S., Elle L. Parks, Erin D. Bigler, Miranda M. Lim, James C. Chesnutt, and Wayne Wakeland. 2017. “Concussion As a Multi-Scale Complex System: An Interdisciplinary Synthesis of Current Knowledge.” Frontiers in Neurology 8. https://doi.org/10.3389/fneur.2017.00513."
+    },
+    {
+      "from": "tau deposition",
+      "to": "risk for dementia & cte",
+      "polarity": "+",
+      "source": "McKee et al, 2009; Collins-Praino & Corrigan 2017; Koerte et al 2015, Omalu 2014; Grafman and Salazar 2015"
+    },
+    {
+      "from": "tau deposition",
+      "to": "risk for dementia and cte",
+      "polarity": "?",
+      "source": "McKee et al, 2009; Collins-Praino & Corrigan 2017; Koerte et al 2015, Omalu 2014; Grafman and Salazar 2015"
+    },
+    {
+      "from": "visual/perceptual impairment",
+      "to": "balance & gait problems",
+      "polarity": "+",
+      "source": "Kaufman et al. 2006"
+    },
+    {
+      "from": "widespread calcium dysregulation & sequestration",
+      "to": "abnormal proteolysis",
+      "polarity": "+",
+      "source": "Farkas, Orsolya, and John T. Povlishock. 2007. “Cellular and Subcellular Change Evoked by Diffuse Traumatic Brain Injury: A Complex Web of Change Extending Far beyond Focal Damage.” In Progress in Brain Research, 161:43–59. Elsevier. http://linkinghub.elsevier.com/retrieve/pii/S0079612306610042."
+    },
+    {
+      "from": "widespread calcium dysregulation & sequestration",
+      "to": "axonal transport defect",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001"
+    },
+    {
+      "from": "widespread calcium dysregulation & sequestration",
+      "to": "cellular energy imbalance",
+      "polarity": "+",
+      "source": "Algattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309.\n\nLafrenaye, Audrey D., Masaki Todani, Susan A. Walker, and John T. Povlishock. 2015. “Microglia Processes Associate with Diffusely Injured Axons Following Mild Traumatic Brain Injury in the Micro Pig.” Journal of Neuroinflammation 12 (October). https://doi.org/10.1186/s12974-015-0405-6."
+    },
+    {
+      "from": "widespread calcium dysregulation & sequestration",
+      "to": "mitochondrial dysfunction",
+      "polarity": "+",
+      "source": "Giza and Hovda 2001; McGinn and Povlishock 2015"
+    },
+    {
+      "from": "widespread calcium dysregulation & sequestration",
+      "to": "neuronal damage",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2001. “The Neurometabolic Cascade of Concussion.” Journal of Athletic Training 36 (3): 228–35.\n\nBetrus, Christopher, and Christian W. Kreipke. 2013. “Historical Perspectives in Understanding Traumatic Brain Injury and in Situating Disruption in CBF in the Pathotrajectory of Head Trauma.” In Cerebral Blood Flow, Metabolism, and Head Trauma, edited by Christian W. Kreipke and Jose A. Rafols, Chapter 1 excerpts:1–27. Springer New York. http://dx.doi.org/10.1007/978-1-4614-4148-9_1."
+    },
+    {
+      "from": "widespread calcium dysregulation & sequestration",
+      "to": "oxidative stress",
+      "polarity": "+",
+      "source": "Giza, Christopher C., and David A. Hovda. 2014. “The New Neurometabolic Cascade of Concussion.” Neurosurgery 75 (October): S24–33. https://doi.org/10.1227/NEU.0000000000000505.\n\nCalabrese, Francesca, Andrea C. Rossetti, Giorgio Racagni, Peter Gass, Marco A. Riva, and Raffaella Molteni. 2014. “Brain-Derived Neurotrophic Factor: A Bridge between Inflammation and Neuroplasticity.” Frontiers in Cellular Neuroscience 8 (December). https://doi.org/10.3389/fncel.2014.00430.\n\nAlgattas, Hanna, and Jason H. Huang. 2013. “Traumatic Brain Injury Pathophysiology and Treatments: Early, Intermediate, and Late Phases Post-Injury.” International Journal of Molecular Sciences 15 (1): 309–41. https://doi.org/10.3390/ijms15010309. \n\nLafrenaye, Audrey D., Masaki Todani, Susan A. Walker, and John T. Povlishock. 2015. “Microglia Processes Associate with Diffusely Injured Axons Following Mild Traumatic Brain Injury in the Micro Pig.” Journal of Neuroinflammation 12 (October). https://doi.org/10.1186/s12974-015-0405-6.\n\nXiong, Ye, Asim Mahmood, and Michael Chopp. 2013. “Animal Models of Traumatic Brain Injury.” Nature Reviews Neuroscience 14 (2): 128–42. https://doi.org/10.1038/nrn3407."
+    },
+    {
+      "from": "working memory & executive function",
+      "to": "ability to work & complete daily tasks",
+      "polarity": "+",
+      "source": "Drake, A. I., N. Gray, S. Yoder, M. Pramuka, and M. Llewellyn. 2000. “Factors Predicting Return to Work Following Mild Traumatic Brain Injury: A Discriminant Analysis.” The Journal of Head Trauma Rehabilitation 15 (5): 1103–12.\n\nGordon, Wayne A., Joshua Cantor, Dams-o’connor Kristen, and Theodore Tsaousides. 2015. “Long-Term Social Integration and Community Support.” Handbook of Clinical Neurology 127: 423–31. https://doi.org/10.1016/B978-0-444-52892-6.00027-1.\n\nSchwab, Karen A., Larus S. Gudmudsson, and Henry L. Lew. 2015. “Long-Term Functional Outcomes of Traumatic Brain Injury.” Handbook of Clinical Neurology 128: 649–59. https://doi.org/10.1016/B978-0-444-63521-1.00040-6.\n\nMateer, Catherine A., and Claire S. Sira. 2006. “Cognitive and Emotional Consequences of TBI: Intervention Strategies for Vocational Rehabilitation.” NeuroRehabilitation 21 (4): 315–326."
+    },
+    {
+      "from": "working memory & executive function",
+      "to": "ability to work and complete daily tasks",
+      "polarity": "?",
+      "source": "Drake et al. 2000; Gordon et al. 2015; Schwab et al. 2015, Mateer and Sira 2006"
+    },
+    {
+      "from": "working memory & executive function",
+      "to": "cognitive load capacity",
+      "polarity": "+",
+      "source": "Paas, Fred, and Paul Ayres. 2014. “Cognitive Load Theory: A Broader View on the Role of Memory in Learning and Education.” Educational Psychology Review 26 (2): 191–95. https://doi.org/10.1007/s10648-014-9263-5."
+    },
+    {
+      "from": "working memory & executive function",
+      "to": "coping & adaptation",
+      "polarity": "+",
+      "source": "Canty et al. 2014"
+    },
+    {
+      "from": "working memory & executive function",
+      "to": "disorientation & confusion",
+      "polarity": "-",
+      "source": "Assumed"
+    },
+    {
+      "from": "working memory & executive function",
+      "to": "impulsivity",
+      "polarity": "-",
+      "source": "See Spinella 2005 for discussion of impulse control as a component of executive function\n\nSpinella, Marcello. 2005. “Self-Rated Executive Function: Development of the Executive Function Index.” The International Journal of Neuroscience 115 (5): 649–67. https://doi.org/10.1080/00207450590524304."
+    },
+    {
+      "from": "working memory & executive function",
+      "to": "social functioning ability",
+      "polarity": "+",
+      "source": "Gordon et al. 2015"
+    }
+  ]
+}

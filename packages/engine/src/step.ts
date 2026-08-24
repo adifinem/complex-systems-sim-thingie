@@ -325,6 +325,13 @@ function pushHistory(compiled: Compiled, state: SimState): void {
   state.historyCount = Math.min(state.historyCount + 1, len)
 }
 
+/** Evaluate a stock's initial formula against the CURRENT state (resetNode). */
+export function evalInitial(compiled: Compiled, state: SimState, cn: CompiledNode): number {
+  const ctx = makeCtx(state)
+  setNodeCtx(ctx, state, compiled, cn)
+  return evalAst(cn.initAst as Ast, ctx)
+}
+
 /** Reused scratch buffer for the record-phase gather pass. */
 const recordInputs: number[] = []
 

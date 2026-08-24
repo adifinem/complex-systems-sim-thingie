@@ -13,7 +13,15 @@ import {
 } from './compile'
 import type { Model, ModuleMode } from './model'
 import { validateModel } from './model'
-import { initState, restoreState, type SimState, type Snapshot, snapshotState, tick } from './step'
+import {
+  evalInitial,
+  initState,
+  restoreState,
+  type SimState,
+  type Snapshot,
+  snapshotState,
+  tick,
+} from './step'
 
 export interface Frame {
   t: number
@@ -209,6 +217,30 @@ export class Simulation {
       return
     }
     throw new Error(`setValue: "${path}" is a ${cn.type} — pin computed nodes with setOverride`)
+  }
+
+  /**
+   * Reset one node to its authored default: constants return to their
+   * `default` (when present), stocks re-evaluate their initial formula
+   * against current values, computed nodes release any override.
+   */
+  resetNode(path: string): void {
+    const slot = this.slot(path)
+    const cn = this.compiled.nodes[slot] as CompiledNode
+    if (cn.type === 'constant') {
+      const raw = this.findModelNode(path)
+      const dflt = raw && raw.type === 'constant' ? raw.default : undefined
+      if (dflt !== undefined) this.setValue(path, dflt)
+      return
+    }
+    if (cn.type === 'stock' && cn.initAst) {
+      const v = evalInitial(this.compiled, this.state, cn)
+      this.setValue(path, v)
+      this.state.overrides.delete(slot)
+      this.state.overriddenMask[slot] = 0
+      return
+    }
+    this.clearOverride(path)
   }
 
   /** Pin any node to a constant; its formula is preserved. Lives in run state. */
