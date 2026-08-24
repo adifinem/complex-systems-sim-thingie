@@ -2288,7 +2288,7 @@
             "y": 40
           },
           "name": "Predictive Brain State",
-          "initial": "clamp(netfunc_in * 0.85, 0, 100)",
+          "initial": "clamp(63.19 + netfunc_in * 0.85, 0, 100)",
           "nonNegative": true,
           "max": 100,
           "notes": "R-loop: bad predictions → error storms → worse calibration"
@@ -2443,12 +2443,6 @@
           "to": "sensitivity_adj"
         },
         {
-          "id": "e_dizziness_sensorimot",
-          "type": "link",
-          "from": "dizziness",
-          "to": "sensorimotor_out"
-        },
-        {
           "id": "e_visual_imp_sensorimot",
           "type": "link",
           "from": "visual_imp",
@@ -2458,6 +2452,12 @@
           "id": "e_nausea_sensorimot",
           "type": "link",
           "from": "nausea",
+          "to": "sensorimotor_out"
+        },
+        {
+          "id": "e_dizziness_sensorimot",
+          "type": "link",
+          "from": "dizziness",
           "to": "sensorimotor_out"
         },
         {
@@ -2674,6 +2674,16 @@
           "default": "75"
         },
         {
+          "id": "activation_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 950
+          },
+          "name": "activation",
+          "default": "47"
+        },
+        {
           "id": "dyssomnia",
           "type": "variable",
           "ui": {
@@ -2681,7 +2691,8 @@
             "y": 40
           },
           "name": "Dyssomnias",
-          "formula": "clamp(0.5 * sleepnet_in + 0.45 * max(stress_in - 30, 0) + 0.3 * autonomic_in - 12, 0, 100)"
+          "formula": "clamp(0.5 * sleepnet_in + 0.45 * max(stress_in - 30, 0) + 0.3 * autonomic_in + 0.4 * max(activation_in - 60, 0) - 12, 0, 100)",
+          "notes": "racing activation erodes sleep — the mania→sleep-loss→crash pathway"
         },
         {
           "id": "sleep_quality",
@@ -2711,7 +2722,7 @@
             "y": 40
           },
           "name": "Sleep Debt",
-          "initial": "clamp((55 - env_in) / 2, 0, 40)",
+          "initial": "clamp(5.88 + (55 - env_in) / 2, 0, 100)",
           "nonNegative": true,
           "max": 100
         },
@@ -2765,7 +2776,7 @@
             "y": 170
           },
           "name": "Cognitive Fatigue",
-          "initial": "20",
+          "initial": "9.05",
           "nonNegative": true,
           "max": 100,
           "notes": "load vs capacity; B-loop through resting & cognitive rest"
@@ -2789,7 +2800,7 @@
             "y": 300
           },
           "name": "Physical Fatigue",
-          "initial": "18",
+          "initial": "9.14",
           "nonNegative": true,
           "max": 100
         },
@@ -2832,7 +2843,7 @@
             "y": 170
           },
           "name": "Comorbid Pain & Muscle Tension",
-          "initial": "0",
+          "initial": "0.0",
           "nonNegative": true,
           "max": 100
         },
@@ -2852,7 +2863,7 @@
           "type": "output",
           "ui": {
             "x": 40,
-            "y": 950
+            "y": 1080
           },
           "name": "quality",
           "formula": "sleep_quality"
@@ -2862,7 +2873,7 @@
           "type": "output",
           "ui": {
             "x": 40,
-            "y": 1080
+            "y": 1210
           },
           "name": "fatigue",
           "formula": "clamp(0.55 * phys_fatigue + 0.45 * cog_fatigue, 0, 100)"
@@ -2872,7 +2883,7 @@
           "type": "output",
           "ui": {
             "x": 40,
-            "y": 1210
+            "y": 1340
           },
           "name": "pain",
           "formula": "clamp(0.6 * migraine + 0.4 * pain_tension, 0, 100)"
@@ -2882,7 +2893,7 @@
           "type": "output",
           "ui": {
             "x": 40,
-            "y": 1340
+            "y": 1470
           },
           "name": "intolerance",
           "formula": "intolerance"
@@ -2926,15 +2937,15 @@
           "to": "fatigue_out"
         },
         {
-          "id": "e_pain_tensi_pain_out",
-          "type": "link",
-          "from": "pain_tension",
-          "to": "pain_out"
-        },
-        {
           "id": "e_migraine_pain_out",
           "type": "link",
           "from": "migraine",
+          "to": "pain_out"
+        },
+        {
+          "id": "e_pain_tensi_pain_out",
+          "type": "link",
+          "from": "pain_tension",
           "to": "pain_out"
         },
         {
@@ -2959,6 +2970,12 @@
           "id": "e_autonomic__dyssomnia",
           "type": "link",
           "from": "autonomic_in",
+          "to": "dyssomnia"
+        },
+        {
+          "id": "e_activation_dyssomnia",
+          "type": "link",
+          "from": "activation_in",
           "to": "dyssomnia"
         },
         {
@@ -3249,7 +3266,7 @@
             "y": 104
           },
           "name": "Stress adj",
-          "formula": "((clamp(0.55 * lifestress_in + 0.3 * fatigue_in + 0.25 * (60 - social_in) + 0.2 * mood_dis + 0.2 * pain_in + if(mood_dis > 65, 12, 0) - 0.25 * emotional_reg - 0.25 * coping_in, 0, 100)) - stress) / 3",
+          "formula": "((clamp(0.55 * lifestress_in + 0.3 * fatigue_in + 0.25 * (60 - social_in) + 0.2 * mood_dis + 0.2 * pain_in + if(mood_dis > 65, 12, 0) + 0.15 * max(activation - 70, 0) - 0.25 * emotional_reg - 0.25 * coping_in, 0, 100)) - stress) / 3",
           "to": "stress"
         },
         {
@@ -3260,7 +3277,7 @@
             "y": 170
           },
           "name": "Depression / Anxiety",
-          "initial": "15",
+          "initial": "0.0",
           "nonNegative": true,
           "max": 100
         },
@@ -3272,7 +3289,7 @@
             "y": 234
           },
           "name": "Depression / Anxiety adj",
-          "formula": "((clamp(0.45 * stress + 0.3 * fatigue_in + 0.3 * (60 - social_in) + 0.15 * (85 - cognition_in) + 0.15 * pain_in - 0.2 * emotional_reg - 0.1 * coping_in, 0, 100)) - mood_dis) / 14",
+          "formula": "((clamp(0.45 * stress + 0.3 * fatigue_in + 0.3 * (60 - social_in) + 0.15 * (85 - cognition_in) + 0.15 * pain_in + 0.75 * max(42 - activation, 0) + 0.5 * max(45 - energy_reserve, 0) - 0.2 * emotional_reg - 0.1 * coping_in, 0, 100)) - mood_dis) / 14",
           "to": "mood_dis"
         },
         {
@@ -3283,7 +3300,7 @@
             "y": 40
           },
           "name": "Irritability / Mood Instability",
-          "formula": "clamp(0.35 * stress + 0.3 * mood_dis + 0.3 * fatigue_in - 0.2 * emotional_reg - 8, 0, 100)"
+          "formula": "clamp(0.35 * stress + 0.3 * mood_dis + 0.3 * fatigue_in + 0.45 * max(activation - 65, 0) - 0.2 * emotional_reg - 8, 0, 100)"
         },
         {
           "id": "impulsivity",
@@ -3296,11 +3313,76 @@
           "formula": "clamp(0.4 * irritability + 0.3 * (85 - cognition_in) - 12, 0, 100)"
         },
         {
+          "id": "mood_instability",
+          "type": "constant",
+          "ui": {
+            "x": 40,
+            "y": 820
+          },
+          "name": "Mood Loop Gain (instability)",
+          "value": 15,
+          "default": 15,
+          "dial": {
+            "min": 0,
+            "max": 100,
+            "step": 5
+          },
+          "notes": "Self-excitation gain of behavioral activation. Measured regimes: <=55 stable · 65-80 bipolar-like cycling (~2-month irregular episodes, anti-phase mood/activation, sleep erosion during highs) · >=85 capture in one pole (depressive at 85, manic at 90). Defaults stay stable."
+        },
+        {
+          "id": "activation",
+          "type": "stock",
+          "ui": {
+            "x": 1120,
+            "y": 40
+          },
+          "name": "Behavioral Activation / Neural Excitation",
+          "initial": "46.82",
+          "nonNegative": true,
+          "max": 100,
+          "notes": "Self-excitatory when the loop-gain dial exceeds ~50: drive feeds drive. Fast variable of the mood oscillator."
+        },
+        {
+          "id": "activation_adj",
+          "type": "flow",
+          "ui": {
+            "x": 1180,
+            "y": 104
+          },
+          "name": "Behavioral Activation / Neural Excitation adj",
+          "formula": "((clamp(45 + (mood_instability / 50) * (activation - 45) + 0.75 * (energy_reserve - 50) - 0.25 * mood_dis, 0, 100)) - activation) / 3",
+          "to": "activation"
+        },
+        {
+          "id": "energy_reserve",
+          "type": "stock",
+          "ui": {
+            "x": 1120,
+            "y": 170
+          },
+          "name": "Physiological Energy Reserve",
+          "initial": "52.13",
+          "nonNegative": true,
+          "max": 100,
+          "notes": "Slow variable: sustained high activation drains it; rest rebuilds it. The drain is what ends a manic run."
+        },
+        {
+          "id": "energy_reserve_adj",
+          "type": "flow",
+          "ui": {
+            "x": 1180,
+            "y": 234
+          },
+          "name": "Physiological Energy Reserve adj",
+          "formula": "((clamp(52 + 0.9 * (50 - activation) - 0.3 * fatigue_in, 0, 100)) - energy_reserve) / 15",
+          "to": "energy_reserve"
+        },
+        {
           "id": "stress_out",
           "type": "output",
           "ui": {
             "x": 40,
-            "y": 820
+            "y": 950
           },
           "name": "stress",
           "formula": "stress"
@@ -3310,10 +3392,30 @@
           "type": "output",
           "ui": {
             "x": 40,
-            "y": 950
+            "y": 1080
           },
           "name": "mood",
           "formula": "mood_dis"
+        },
+        {
+          "id": "activation_out",
+          "type": "output",
+          "ui": {
+            "x": 40,
+            "y": 1210
+          },
+          "name": "activation",
+          "formula": "activation"
+        },
+        {
+          "id": "irritability_out",
+          "type": "output",
+          "ui": {
+            "x": 40,
+            "y": 1340
+          },
+          "name": "irritability",
+          "formula": "irritability"
         }
       ],
       "edges": [
@@ -3330,6 +3432,18 @@
           "to": "mood_dis_adj"
         },
         {
+          "id": "e_activation_activation",
+          "type": "link",
+          "from": "activation",
+          "to": "activation_adj"
+        },
+        {
+          "id": "e_energy_res_energy_res",
+          "type": "link",
+          "from": "energy_reserve",
+          "to": "energy_reserve_adj"
+        },
+        {
           "id": "e_stress_stress_out",
           "type": "link",
           "from": "stress",
@@ -3340,6 +3454,54 @@
           "type": "link",
           "from": "mood_dis",
           "to": "mood_out"
+        },
+        {
+          "id": "e_activation_activation_1",
+          "type": "link",
+          "from": "activation",
+          "to": "activation_out"
+        },
+        {
+          "id": "e_irritabili_irritabili",
+          "type": "link",
+          "from": "irritability",
+          "to": "irritability_out"
+        },
+        {
+          "id": "e_mood_insta_activation",
+          "type": "link",
+          "from": "mood_instability",
+          "to": "activation_adj"
+        },
+        {
+          "id": "e_activation_stress_adj",
+          "type": "link",
+          "from": "activation",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e_energy_res_activation",
+          "type": "link",
+          "from": "energy_reserve",
+          "to": "activation_adj"
+        },
+        {
+          "id": "e_mood_dis_activation",
+          "type": "link",
+          "from": "mood_dis",
+          "to": "activation_adj"
+        },
+        {
+          "id": "e_activation_energy_res",
+          "type": "link",
+          "from": "activation",
+          "to": "energy_reserve_adj"
+        },
+        {
+          "id": "e_fatigue_in_energy_res",
+          "type": "link",
+          "from": "fatigue_in",
+          "to": "energy_reserve_adj"
         },
         {
           "id": "e_coping_in_emotional_",
@@ -3412,6 +3574,24 @@
           "type": "link",
           "from": "fatigue_in",
           "to": "mood_dis_adj"
+        },
+        {
+          "id": "e_activation_mood_dis_a",
+          "type": "link",
+          "from": "activation",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e_energy_res_mood_dis_a",
+          "type": "link",
+          "from": "energy_reserve",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e_activation_irritabili",
+          "type": "link",
+          "from": "activation",
+          "to": "irritability"
         },
         {
           "id": "e_social_in_mood_dis_a",
@@ -3595,7 +3775,7 @@
             "y": 170
           },
           "name": "Social Contact & Integration",
-          "initial": "60",
+          "initial": "64.71",
           "nonNegative": true,
           "max": 100
         },
@@ -3618,7 +3798,7 @@
             "y": 40
           },
           "name": "Social Reserve",
-          "initial": "55",
+          "initial": "55.55",
           "nonNegative": true,
           "max": 100
         },
@@ -3918,7 +4098,7 @@
             "y": 170
           },
           "name": "Coping & Adaptation",
-          "initial": "30",
+          "initial": "23.86",
           "nonNegative": true,
           "max": 100,
           "notes": "B-loop: symptoms create the need; adherence turns need into skills"
@@ -4348,7 +4528,7 @@
             "y": 330
           },
           "name": "Symptom Burden",
-          "formula": "clamp(0.24 * fatigue + 0.16 * pain + 0.22 * (90 - cognition) + 0.16 * mood + 0.22 * sensorimotor, 0, 100)",
+          "formula": "clamp(0.24 * fatigue + 0.16 * pain + 0.22 * (90 - cognition) + 0.16 * mood + 0.22 * sensorimotor + 0.1 * irritability, 0, 100)",
           "baseline": {
             "mode": "fixed",
             "value": 25,
@@ -4715,6 +4895,14 @@
           "toPort": "stress_in"
         },
         {
+          "id": "e_m_mood_m_sleep_1",
+          "type": "link",
+          "from": "m_mood",
+          "to": "m_sleep",
+          "fromPort": "activation_out",
+          "toPort": "activation_in"
+        },
+        {
           "id": "e_m_mood_m_social",
           "type": "link",
           "from": "m_mood",
@@ -4817,6 +5005,14 @@
           "to": "symptom_burden",
           "fromPort": "mood_out",
           "alias": "mood"
+        },
+        {
+          "id": "e_m_mood_symptom_bu_1",
+          "type": "link",
+          "from": "m_mood",
+          "to": "symptom_burden",
+          "fromPort": "irritability_out",
+          "alias": "irritability"
         },
         {
           "id": "e_m_sensorim_symptom_bu",
