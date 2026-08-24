@@ -31,6 +31,8 @@ export interface DocState {
   setActiveGraph: (id: string) => void
   /** Add a module node; references `refGraph` or a freshly created graph. */
   addModuleNode: (pos: { x: number; y: number }, refGraph?: string) => string
+  /** Paste a copied node into the active graph with a fresh id. Works across tabs. */
+  pasteNode: (node: ModelNode, offset?: { x: number; y: number }) => string
   deleteEdges: (edgeIds: string[]) => void
   setFlowAnchor: (flowId: string, side: 'from' | 'to', stockId: string | null) => void
   setSim: (patch: Partial<SimConfig>) => void
@@ -286,6 +288,38 @@ export const useDoc = create<DocState>()(
           model: { ...s.model, sim: { ...(s.model.sim ?? {}), ...patch } },
           semanticVersion: s.semanticVersion + 1,
         })),
+
+      pasteNode: (source, offset = { x: 40, y: 40 }) => {
+        const { model, activeGraphId } = get()
+        const g = activeGraph(model, activeGraphId)
+        const taken = new Set(g.nodes.map((x) => x.id))
+        let n = 1
+        let id = `${source.id}_copy`
+        while (taken.has(id)) id = `${source.id}_copy${++n}`
+        const clone = JSON.parse(JSON.stringify(source)) as ModelNode
+        clone.id = id
+        clone.name = `${source.name ?? source.id} copy`
+        clone.ui = {
+          ...(clone.ui ?? {}),
+          x: (((source.ui?.x as number) ?? 0) + offset.x) | 0,
+          y: (((source.ui?.y as number) ?? 0) + offset.y) | 0,
+        }
+        // Flow anchors only survive if the target graph has those stocks.
+        if (clone.type === 'flow') {
+          const has = (sid: string | null | undefined) =>
+            sid != null && g.nodes.some((x) => x.id === sid && x.type === 'stock')
+          clone.from = has(clone.from) ? clone.from : null
+          clone.to = has(clone.to) ? clone.to : null
+        }
+        set((s) => ({
+          model: withGraph(s.model, activeGraphId, (gr) => ({
+            ...gr,
+            nodes: [...gr.nodes, clone],
+          })),
+          semanticVersion: s.semanticVersion + 1,
+        }))
+        return id
+      },
     }),
     {
       // Undo/redo covers the document only (model + which graph is open).

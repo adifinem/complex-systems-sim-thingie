@@ -27,23 +27,37 @@ const ICONS: Record<string, string> = {
   note: '✎',
 }
 
-function useBridgeRefs(id: string, fill?: { min: number; max: number }) {
+function useBridgeRefs(id: string, fill?: { min: number; max: number }, withSpark = false) {
   const prefix = usePathPrefix()
   const path = prefix + id
   const root = useRef<HTMLDivElement>(null)
   const badge = useRef<HTMLDivElement>(null)
   const fillEl = useRef<HTMLDivElement>(null)
+  const spark = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     if (!root.current) return
     bridge.registerNode(path, {
       root: root.current,
       badge: badge.current,
       fill: fill && fillEl.current ? { el: fillEl.current, ...fill } : undefined,
+      spark: withSpark ? (spark.current ?? undefined) : undefined,
     })
     controller.paintOnce()
     return () => bridge.unregisterNode(path)
-  }, [path, fill])
-  return { root, badge, fillEl, path }
+  }, [path, fill, withSpark])
+
+  // Hover info: value / baseline / trend, computed once on mouseenter.
+  const onMouseEnter = () => {
+    const sim = controller.sim
+    if (!sim || !root.current) return
+    try {
+      const nv = sim.getNode(path)
+      root.current.title = `${path}\nvalue ${nv.value.toPrecision(4)} · baseline ${nv.baseline.toPrecision(4)}\n${nv.overridden ? '📌 pinned · ' : ''}deviation ${nv.deviation.toFixed(2)}`
+    } catch {
+      root.current.title = `${path} (not simulated in this view)`
+    }
+  }
+  return { root, badge, fillEl, spark, path, onMouseEnter }
 }
 
 function Head({ node }: { node: ModelNode }) {
@@ -68,12 +82,17 @@ function Head({ node }: { node: ModelNode }) {
 export const StockNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node as StockNode
   const dial = (node as unknown as { dial?: { min: number; max: number } }).dial
-  const { root, badge, fillEl } = useBridgeRefs(
+  const { root, badge, fillEl, spark, onMouseEnter } = useBridgeRefs(
     node.id,
     dial ? { min: dial.min, max: dial.max } : { min: 0, max: 200 },
+    true,
   )
   return (
-    <div ref={root} className={`mm-node stock ${selected ? 'selected' : ''}`}>
+    <div
+      ref={root}
+      className={`mm-node stock ${selected ? 'selected' : ''}`}
+      onMouseEnter={onMouseEnter}
+    >
       <Handle type="target" id="pipe-in" position={Position.Left} className="pipe" />
       <Handle type="source" id="pipe-out" position={Position.Right} className="pipe" />
       <Handle type="target" id="wire-in" position={Position.Top} className="wire" />
@@ -82,6 +101,7 @@ export const StockNodeView = memo(({ data, selected }: NodeProps) => {
       <div ref={badge} className="badge">
         —
       </div>
+      <canvas ref={spark} className="spark" width={140} height={20} />
       <div className="fill-bar" ref={fillEl}>
         <div />
       </div>
@@ -91,9 +111,13 @@ export const StockNodeView = memo(({ data, selected }: NodeProps) => {
 
 export const FlowNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
-  const { root, badge } = useBridgeRefs(node.id)
+  const { root, badge, onMouseEnter } = useBridgeRefs(node.id)
   return (
-    <div ref={root} className={`mm-node flow ${selected ? 'selected' : ''}`}>
+    <div
+      ref={root}
+      className={`mm-node flow ${selected ? 'selected' : ''}`}
+      onMouseEnter={onMouseEnter}
+    >
       <Handle type="target" id="pipe-in" position={Position.Left} className="pipe" />
       <Handle type="source" id="pipe-out" position={Position.Right} className="pipe" />
       <Handle type="target" id="wire-in" position={Position.Top} className="wire" />
@@ -108,9 +132,13 @@ export const FlowNodeView = memo(({ data, selected }: NodeProps) => {
 
 export const VariableNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
-  const { root, badge } = useBridgeRefs(node.id)
+  const { root, badge, onMouseEnter } = useBridgeRefs(node.id)
   return (
-    <div ref={root} className={`mm-node variable ${selected ? 'selected' : ''}`}>
+    <div
+      ref={root}
+      className={`mm-node variable ${selected ? 'selected' : ''}`}
+      onMouseEnter={onMouseEnter}
+    >
       <Handle type="target" id="wire-in" position={Position.Top} className="wire" />
       <Handle type="source" id="wire-out" position={Position.Bottom} className="wire" />
       <Head node={node} />

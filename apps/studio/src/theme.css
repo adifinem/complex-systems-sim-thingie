@@ -146,6 +146,14 @@ body,
   border-radius: 6px;
 }
 
+.mm-node.stock .spark {
+  display: block;
+  width: calc(100% - 8px);
+  height: 20px;
+  margin: 0 4px 2px;
+  opacity: 0.9;
+}
+
 .mm-node.stock .fill-bar {
   height: 4px;
   margin: 0 2px 2px;

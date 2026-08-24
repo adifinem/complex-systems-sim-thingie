@@ -13,6 +13,8 @@ export interface NodeRefs {
   badge: HTMLElement | null
   /** Stocks: fill-bar element plus its configured [min,max] range. */
   fill?: { el: HTMLElement; min: number; max: number }
+  /** Sparkline canvas (stocks by default). Painted ~10Hz, zoom-gated. */
+  spark?: HTMLCanvasElement
 }
 
 export interface EdgeRefs {
@@ -61,6 +63,13 @@ export class AnimationBridge {
   /** Toggle a class on a node's root element (perturbed markers etc.). */
   setNodeClass(id: string, cls: string, on: boolean): void {
     this.nodes.get(id)?.root.classList.toggle(cls, on)
+  }
+
+  private zoom = 1
+
+  /** Canvas zoom, fed by the graph view — sparklines pause below 0.5. */
+  setZoom(zoom: number): void {
+    this.zoom = zoom
   }
 
   /** Paint the current engine frame into the DOM. dtSeconds = real elapsed time. */
@@ -127,7 +136,63 @@ export class AnimationBridge {
     if (this.timeEl && (force || this.frameCount % 6 === 0)) {
       this.timeEl.textContent = `t = ${frame.t.toFixed(1)}`
     }
+
+    // Sparklines: ~10Hz, only when zoomed in enough to read them.
+    if ((force || this.frameCount % 6 === 0) && this.zoom >= 0.5) {
+      for (const [id, refs] of this.nodes) {
+        if (!refs.spark) continue
+        const slot = info.slotOf.get(id)
+        if (slot === undefined) continue
+        drawSparkline(
+          refs.spark,
+          sim.history(id, 140),
+          frame.baselines[slot] as number,
+          devColor(frame.deviations[slot] as number),
+        )
+      }
+    }
   }
+}
+
+function drawSparkline(
+  canvas: HTMLCanvasElement,
+  h: Float64Array,
+  baseline: number,
+  color: string,
+): void {
+  const ctx = canvas.getContext('2d')
+  if (!ctx || h.length < 2) return
+  const w = canvas.width
+  const height = canvas.height
+  ctx.clearRect(0, 0, w, height)
+  let lo = Number.POSITIVE_INFINITY
+  let hi = Number.NEGATIVE_INFINITY
+  for (const v of h) {
+    if (v < lo) lo = v
+    if (v > hi) hi = v
+  }
+  if (baseline < lo) lo = baseline
+  if (baseline > hi) hi = baseline
+  const span = hi - lo || 1
+  const y = (v: number) => height - 2 - ((v - lo) / span) * (height - 4)
+  // baseline as a faint dashed midline
+  ctx.strokeStyle = 'rgba(139,143,152,0.35)'
+  ctx.setLineDash([3, 3])
+  ctx.beginPath()
+  ctx.moveTo(0, y(baseline))
+  ctx.lineTo(w, y(baseline))
+  ctx.stroke()
+  ctx.setLineDash([])
+  // trace, tinted by current deviation
+  ctx.strokeStyle = color
+  ctx.lineWidth = 1.2
+  ctx.beginPath()
+  for (let i = 0; i < h.length; i++) {
+    const x = (i / (h.length - 1)) * w
+    if (i === 0) ctx.moveTo(x, y(h[i] as number))
+    else ctx.lineTo(x, y(h[i] as number))
+  }
+  ctx.stroke()
 }
 
 export const bridge = new AnimationBridge()

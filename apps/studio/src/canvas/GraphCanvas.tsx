@@ -14,6 +14,7 @@ import {
   useReactFlow,
 } from '@xyflow/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { bridge } from '../engine/bridge'
 import { currentGraph, useDoc } from '../store/doc'
 import { useUi } from '../store/sim'
 import { edgeTypes } from './edges'
@@ -220,6 +221,7 @@ export function GraphCanvas() {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       onNodeDoubleClick={onNodeDoubleClick}
+      onMove={(_e, viewport) => bridge.setZoom(viewport.zoom)}
       isValidConnection={isValidConnection}
       onPaneClick={() => select(null)}
       deleteKeyCode={['Backspace', 'Delete']}

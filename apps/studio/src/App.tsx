@@ -10,6 +10,9 @@ import { Transport } from './panels/Transport'
 import { redoDoc, undoDoc, useDoc } from './store/doc'
 import { useUi } from './store/sim'
 
+/** Single-node clipboard; survives tab switches so paste works across graphs. */
+let clipboard: import('@mindmap/engine').ModelNode | null = null
+
 export function App() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -27,6 +30,31 @@ export function App() {
         controller.toggle()
       } else if (e.key === '.') {
         controller.stepOnce()
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
+        const doc = useDoc.getState()
+        const sel = useUi.getState().selectedNodeId
+        const node = sel
+          ? doc.model.graphs[doc.activeGraphId]?.nodes.find((n) => n.id === sel)
+          : undefined
+        if (node) {
+          clipboard = JSON.parse(JSON.stringify(node))
+          e.preventDefault()
+        }
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v') {
+        if (clipboard) {
+          e.preventDefault()
+          useUi.getState().select(useDoc.getState().pasteNode(clipboard))
+        }
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') {
+        const doc = useDoc.getState()
+        const sel = useUi.getState().selectedNodeId
+        const node = sel
+          ? doc.model.graphs[doc.activeGraphId]?.nodes.find((n) => n.id === sel)
+          : undefined
+        if (node) {
+          e.preventDefault()
+          useUi.getState().select(doc.pasteNode(node))
+        }
       } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
         e.preventDefault()
         if (e.shiftKey) redoDoc()
