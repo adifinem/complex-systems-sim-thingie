@@ -5,8 +5,10 @@ import { Palette } from './canvas/Palette'
 import { controller } from './engine/controller'
 import { FileBar } from './panels/FileBar'
 import { Inspector } from './panels/Inspector'
+import { TabBar } from './panels/TabBar'
 import { Transport } from './panels/Transport'
-import { redoDoc, undoDoc } from './store/doc'
+import { redoDoc, undoDoc, useDoc } from './store/doc'
+import { useUi } from './store/sim'
 
 export function App() {
   useEffect(() => {
@@ -34,6 +36,19 @@ export function App() {
         redoDoc()
       } else if (e.key === 'r' || e.key === 'R') {
         controller.reset()
+      } else if (e.key === 'Escape') {
+        // go up one level of the module breadcrumb
+        const ui = useUi.getState()
+        if (ui.breadcrumb.length > 0) {
+          const doc = useDoc.getState()
+          const next = ui.breadcrumb.slice(0, -1)
+          ui.popToCrumb(next.length)
+          doc.setActiveGraph(
+            next.length > 0
+              ? (next[next.length - 1]?.graphId ?? doc.model.mainGraph)
+              : doc.model.mainGraph,
+          )
+        }
       }
     }
     window.addEventListener('keydown', onKey)
@@ -47,6 +62,7 @@ export function App() {
         <div className="canvas-wrap">
           <GraphCanvas />
           <FileBar />
+          <TabBar />
           <Transport />
         </div>
         <Inspector />

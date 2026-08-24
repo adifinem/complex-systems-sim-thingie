@@ -10,13 +10,13 @@
  * - Compilation never touches run state: a bad edit is rejected atomically.
  */
 
+import { type FlatNode, flatten } from './flatten'
 import { checkCalls } from './interp'
 import {
   type BaselineConfig,
   DEFAULT_SIM,
   DEFAULT_TIME_UNITS,
   type FlowNode,
-  type Graph,
   type Model,
   type ModelNode,
 } from './model'
@@ -74,6 +74,12 @@ export interface CompiledNode {
    * verbatim" from "edited formula → re-sample taus".
    */
   formulaSrc: string
+  /** Instance prefix ("", "econ/") — sibling references resolve inside it. */
+  instancePrefix: string
+  /** Frozen module member: initialized but excluded from evaluation. */
+  frozen: boolean
+  /** `${graphId}:${nodeId}` of the underlying document node (shared across instances). */
+  sourceKey: string
 }
 
 export interface CompiledEdge {
@@ -96,6 +102,7 @@ export interface StockFlowRef {
 export interface CompiledStock {
   slot: number
   nonNegative: boolean
+  frozen: boolean
   inflows: StockFlowRef[]
   outflows: StockFlowRef[]
 }
@@ -113,6 +120,8 @@ export interface RecordEntry {
   initAst: Ast | null
   /** Slot of the node owning the formula (supplies time unit + call-site prefix). */
   nodeSlot: number
+  /** Frozen nodes stop recording (their delay/smooth histories hold). */
+  frozen: boolean
 }
 
 export interface InitStep {
@@ -176,40 +185,36 @@ export function compile(model: Model): CompileResult {
     }
   }
 
-  const graph: Graph | undefined = model.graphs[model.mainGraph]
-  if (!graph) {
+  if (!model.graphs[model.mainGraph]) {
     errors.push({ severity: 'error', message: `mainGraph "${model.mainGraph}" not found` })
     return { ok: false, errors, warnings }
   }
 
-  // ---- slots ----
+  // ---- flatten modules, then assign slots ----
+  const { nodes: flatNodes, edges: flatEdges } = flatten(model, errors)
+  if (errors.length > 0) return { ok: false, errors, warnings }
+
   const nodes: CompiledNode[] = []
   const slotOf = new Map<string, number>()
   const paths: string[] = []
+  const flatBySlot: FlatNode[] = []
   const baselineDefault = { ...DEFAULT_SIM.baselineDefault, ...(sim.baselineDefault ?? {}) }
 
-  for (const n of graph.nodes) {
-    if (n.type === 'note') continue
-    if (n.type === 'module') {
-      errors.push({
-        severity: 'error',
-        message: `node "${n.id}": module nodes are not supported yet (planned milestone M5)`,
-        path: n.id,
-      })
-      continue
-    }
-    if (slotOf.has(n.id)) continue // duplicate ids reported by validateModel
+  for (const fn of flatNodes) {
+    const n = fn.raw
+    if (slotOf.has(fn.path)) continue // duplicate ids reported by validateModel
     const slot = nodes.length
-    slotOf.set(n.id, slot)
-    paths.push(n.id)
+    slotOf.set(fn.path, slot)
+    paths.push(fn.path)
+    flatBySlot.push(fn)
 
-    const unitName = n.time?.unit ?? 'tick'
+    const unitName = n.time?.unit ?? fn.unitDefault ?? 'tick'
     const ratio = timeUnits[unitName]
     if (ratio === undefined) {
       errors.push({
         severity: 'error',
-        message: `node "${n.id}": unknown time unit "${unitName}"`,
-        path: n.id,
+        message: `node "${fn.path}": unknown time unit "${unitName}"`,
+        path: fn.path,
       })
     }
     let everyTicks = 0
@@ -220,8 +225,8 @@ export function compile(model: Model): CompileResult {
         if (r === undefined) {
           errors.push({
             severity: 'error',
-            message: `node "${n.id}": unknown time unit "${every}" in time.every`,
-            path: n.id,
+            message: `node "${fn.path}": unknown time unit "${every}" in time.every`,
+            path: fn.path,
           })
         } else everyTicks = r
       } else if (typeof every === 'number' && every > 0) {
@@ -229,15 +234,15 @@ export function compile(model: Model): CompileResult {
       } else {
         errors.push({
           severity: 'error',
-          message: `node "${n.id}": time.every must be a positive number or unit name`,
-          path: n.id,
+          message: `node "${fn.path}": time.every must be a positive number or unit name`,
+          path: fn.path,
         })
       }
       if (everyTicks > 0 && everyTicks < dt) {
         warnings.push({
           severity: 'warning',
-          message: `node "${n.id}": time.every (${everyTicks} ticks) is shorter than dt (${dt}) — treating it as every-tick`,
-          path: n.id,
+          message: `node "${fn.path}": time.every (${everyTicks} ticks) is shorter than dt (${dt}) — treating it as every-tick`,
+          path: fn.path,
         })
         everyTicks = 0 // behavior matches the message exactly
       }
@@ -245,7 +250,7 @@ export function compile(model: Model): CompileResult {
 
     nodes.push({
       slot,
-      path: n.id,
+      path: fn.path,
       type: n.type,
       name: n.name ?? n.id,
       ast: null,
@@ -258,6 +263,9 @@ export function compile(model: Model): CompileResult {
       constValue: n.type === 'constant' ? n.value : 0,
       inEdges: [],
       formulaSrc: '',
+      instancePrefix: fn.prefix,
+      frozen: fn.frozen,
+      sourceKey: fn.sourceKey,
     })
   }
 
@@ -288,29 +296,32 @@ export function compile(model: Model): CompileResult {
     }
   }
 
-  for (const n of graph.nodes) {
-    const slot = slotOf.get(n.id)
+  for (const fn of flatBySlot) {
+    const slot = slotOf.get(fn.path)
     if (slot === undefined) continue
     const cn = nodes[slot] as CompiledNode
+    const n = fn.raw
     switch (n.type) {
       case 'stock':
         cn.initAst = parseInto(slot, n.initial, 'initial')
         if (cn.initAst && collectStatefulCalls(cn.initAst).length > 0) {
           errors.push({
             severity: 'error',
-            message: `node "${n.id}": stateful builtins (delay/smooth/…) are not allowed in initial values`,
-            path: n.id,
+            message: `node "${fn.path}": stateful builtins (delay/smooth/…) are not allowed in initial values`,
+            path: fn.path,
             field: 'initial',
           })
         }
         break
       case 'flow':
       case 'variable':
+        cn.ast = parseInto(slot, fn.formulaOverride ?? n.formula, 'formula')
+        break
       case 'output':
-        cn.ast = parseInto(slot, n.formula, 'formula')
+        cn.ast = parseInto(slot, fn.formulaOverride ?? n.formula, 'formula')
         break
       case 'input':
-        cn.ast = parseInto(slot, n.default ?? '0', 'default')
+        cn.ast = parseInto(slot, fn.formulaOverride ?? n.default ?? '0', 'default')
         break
       case 'constant':
         break
@@ -325,7 +336,7 @@ export function compile(model: Model): CompileResult {
   /** targetSlot → alias → edge idx */
   const aliasMaps = new Map<number, Map<string, number>>()
 
-  for (const e of graph.edges) {
+  for (const e of flatEdges) {
     const sourceSlot = slotOf.get(e.from)
     const targetSlot = slotOf.get(e.to)
     if (sourceSlot === undefined || targetSlot === undefined) {
@@ -336,7 +347,7 @@ export function compile(model: Model): CompileResult {
       })
       continue
     }
-    const alias = e.alias ?? e.from
+    const alias = e.alias ?? (e.from.split('/').pop() as string)
     let aliasMap = aliasMaps.get(targetSlot)
     if (!aliasMap) {
       aliasMap = new Map()
@@ -371,16 +382,17 @@ export function compile(model: Model): CompileResult {
     const s: CompiledStock = {
       slot: cn.slot,
       nonNegative: cn.nonNegative,
+      frozen: cn.frozen,
       inflows: [],
       outflows: [],
     }
     stocks.push(s)
     stockBySlot.set(cn.slot, s)
   }
-  for (const n of graph.nodes) {
-    if (n.type !== 'flow') continue
-    const f = n as FlowNode
-    const slot = slotOf.get(n.id)
+  for (const fn of flatBySlot) {
+    if (fn.raw.type !== 'flow') continue
+    const f = fn.raw as FlowNode
+    const slot = slotOf.get(fn.path)
     if (slot === undefined) continue
     const scale = dt / (nodes[slot] as CompiledNode).ratio
     for (const [anchor, list] of [
@@ -388,13 +400,13 @@ export function compile(model: Model): CompileResult {
       [f.to, 'inflows'],
     ] as const) {
       if (anchor === undefined || anchor === null) continue
-      const stockSlot = slotOf.get(anchor)
+      const stockSlot = slotOf.get(`${fn.prefix}${anchor}`)
       const stock = stockSlot !== undefined ? stockBySlot.get(stockSlot) : undefined
       if (!stock) {
         errors.push({
           severity: 'error',
-          message: `flow "${n.id}": ${list === 'outflows' ? 'from' : 'to'} must reference a stock (got "${anchor}")`,
-          path: n.id,
+          message: `flow "${fn.path}": ${list === 'outflows' ? 'from' : 'to'} must reference a stock (got "${anchor}")`,
+          path: fn.path,
         })
         continue
       }
@@ -431,19 +443,21 @@ export function compile(model: Model): CompileResult {
             a.edgeIdx = edgeIdx
             return
           }
-          const sibling = slotOf.get(a.name)
+          const sibling = slotOf.get(cn.instancePrefix + a.name)
           if (sibling !== undefined) {
             a.slot = sibling
             a.edgeIdx = -1
             const key = `${a.name}→${cn.path}`
-            if (a.name !== cn.path && !missingLinkSeen.has(key)) {
+            if (cn.instancePrefix + a.name !== cn.path && !missingLinkSeen.has(key)) {
               missingLinkSeen.add(key)
               warnings.push({
                 severity: 'warning',
                 message: `node "${cn.path}" references "${a.name}" without a link edge — the UI should create one`,
                 path: cn.path,
                 pos: a.pos,
-                missingLink: { from: a.name, to: cn.path },
+                // Structured auto-create payload only for the root scope; the
+                // UI edits the active (root) graph's edge list.
+                ...(cn.instancePrefix === '' ? { missingLink: { from: a.name, to: cn.path } } : {}),
               })
             }
             return
@@ -464,7 +478,14 @@ export function compile(model: Model): CompileResult {
             a.slot = -5
             return
           }
-          const known = [...(aliasMap?.keys() ?? []), ...slotOf.keys()]
+          // Suggest scope-local names: aliases + siblings in this instance.
+          const prefixLen = cn.instancePrefix.length
+          const known = [
+            ...(aliasMap?.keys() ?? []),
+            ...[...slotOf.keys()]
+              .filter((p) => p.startsWith(cn.instancePrefix) && !p.includes('/', prefixLen))
+              .map((p) => p.slice(prefixLen)),
+          ]
           const suggestion = suggest(a.name, known)
           errors.push({
             severity: 'error',
@@ -521,7 +542,7 @@ export function compile(model: Model): CompileResult {
     const aliasMap = aliasMaps.get(cn.slot)
     const edgeIdx = aliasMap?.get(name)
     if (edgeIdx !== undefined) return (edges[edgeIdx] as CompiledEdge).sourceSlot
-    return slotOf.get(name)
+    return slotOf.get(cn.instancePrefix + name)
   }
 
   for (const cn of nodes) {
@@ -573,8 +594,10 @@ export function compile(model: Model): CompileResult {
   }
 
   // ---- topo sorts ----
+  // Frozen module members are excluded from evaluation entirely: their held
+  // values act as sources for everyone who reads them.
   const evalOrder = topoSort(
-    nodes.filter((n) => isComputed(n.slot)).map((n) => n.slot),
+    nodes.filter((n) => isComputed(n.slot) && !n.frozen).map((n) => n.slot),
     orderDeps,
     paths,
   )
@@ -604,9 +627,19 @@ export function compile(model: Model): CompileResult {
     return { slot, ast: (cn.type === 'stock' ? cn.initAst : cn.ast) as Ast }
   })
 
-  // ---- record entries (stateful call sites), in eval order then ordinal ----
+  // ---- record entries (stateful call sites) ----
+  // Live nodes in eval order, then frozen nodes by path: frozen call sites
+  // keep their state (skipped at runtime) so a freeze→unfreeze cycle resumes
+  // delay/smooth histories where they stopped.
   const recordEntries: RecordEntry[] = []
-  for (const slot of evalOrder.order) {
+  const recordSlots = [
+    ...evalOrder.order,
+    ...nodes
+      .filter((n) => isComputed(n.slot) && n.frozen)
+      .map((n) => n.slot)
+      .sort((a, b) => ((paths[a] as string) < (paths[b] as string) ? -1 : 1)),
+  ]
+  for (const slot of recordSlots) {
     const cn = nodes[slot] as CompiledNode
     if (!cn.ast) continue
     for (const call of collectStatefulCalls(cn.ast)) {
@@ -620,6 +653,7 @@ export function compile(model: Model): CompileResult {
             ? ((call.args[1] ?? null) as Ast | null)
             : ((call.args[2] ?? null) as Ast | null),
         nodeSlot: slot,
+        frozen: cn.frozen,
       })
     }
   }

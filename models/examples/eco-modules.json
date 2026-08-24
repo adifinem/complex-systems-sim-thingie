@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "eco-modules",
+    "notes": "Two instances of one ecosystem graph, driven by different birth rates. Double-click a module to watch its guts live; try freezing one."
+  },
+  "sim": { "dt": 0.01, "seed": 7 },
+  "mainGraph": "main",
+  "graphs": {
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "lush_rate",
+          "type": "constant",
+          "name": "Lush Birth Rate",
+          "value": 0.6,
+          "dial": { "min": 0, "max": 2, "step": 0.05 },
+          "ui": { "x": 80, "y": 80 }
+        },
+        {
+          "id": "arid_rate",
+          "type": "constant",
+          "name": "Arid Birth Rate",
+          "value": 0.35,
+          "dial": { "min": 0, "max": 2, "step": 0.05 },
+          "ui": { "x": 80, "y": 360 }
+        },
+        {
+          "id": "valley",
+          "type": "module",
+          "name": "Lush Valley",
+          "ref": "ecosystem",
+          "mode": "full",
+          "ui": { "x": 360, "y": 60 }
+        },
+        {
+          "id": "desert",
+          "type": "module",
+          "name": "Arid Basin",
+          "ref": "ecosystem",
+          "mode": "full",
+          "ui": { "x": 360, "y": 340 }
+        },
+        {
+          "id": "world_prey",
+          "type": "variable",
+          "name": "World Prey",
+          "formula": "lush + arid",
+          "ui": { "x": 720, "y": 210 }
+        },
+        {
+          "id": "note1",
+          "type": "note",
+          "name": "try this",
+          "notes": "Same ecosystem graph, two instances.\nDouble-click one to see inside (live).\nSet a module to frozen mid-run and watch the other keep cycling.",
+          "ui": { "x": 660, "y": 40 }
+        }
+      ],
+      "edges": [
+        { "id": "b1", "type": "link", "from": "lush_rate", "to": "valley", "toPort": "birth_rate" },
+        { "id": "b2", "type": "link", "from": "arid_rate", "to": "desert", "toPort": "birth_rate" },
+        {
+          "id": "w1",
+          "type": "link",
+          "from": "valley",
+          "fromPort": "prey_count",
+          "to": "world_prey",
+          "alias": "lush"
+        },
+        {
+          "id": "w2",
+          "type": "link",
+          "from": "desert",
+          "fromPort": "prey_count",
+          "to": "world_prey",
+          "alias": "arid"
+        }
+      ]
+    },
+    "ecosystem": {
+      "name": "Ecosystem",
+      "nodes": [
+        {
+          "id": "birth_rate",
+          "type": "input",
+          "name": "birth rate",
+          "default": "0.5",
+          "ui": { "x": 40, "y": 60 }
+        },
+        {
+          "id": "prey",
+          "type": "stock",
+          "name": "Prey",
+          "initial": "40",
+          "nonNegative": true,
+          "ui": { "x": 240, "y": 140 }
+        },
+        {
+          "id": "pred",
+          "type": "stock",
+          "name": "Predators",
+          "initial": "8",
+          "nonNegative": true,
+          "ui": { "x": 560, "y": 320 }
+        },
+        {
+          "id": "births",
+          "type": "flow",
+          "name": "Births",
+          "formula": "birth_rate * prey",
+          "to": "prey",
+          "uniflow": true,
+          "ui": { "x": 60, "y": 160 }
+        },
+        {
+          "id": "predation",
+          "type": "flow",
+          "name": "Predation",
+          "formula": "0.05 * prey * pred",
+          "from": "prey",
+          "uniflow": true,
+          "ui": { "x": 420, "y": 160 }
+        },
+        {
+          "id": "pred_births",
+          "type": "flow",
+          "name": "Pred Births",
+          "formula": "0.005 * prey * pred",
+          "to": "pred",
+          "uniflow": true,
+          "ui": { "x": 380, "y": 340 }
+        },
+        {
+          "id": "pred_deaths",
+          "type": "flow",
+          "name": "Pred Deaths",
+          "formula": "0.3 * pred",
+          "from": "pred",
+          "uniflow": true,
+          "ui": { "x": 740, "y": 340 }
+        },
+        {
+          "id": "prey_count",
+          "type": "output",
+          "name": "prey count",
+          "formula": "prey",
+          "ui": { "x": 740, "y": 80 }
+        }
+      ],
+      "edges": [
+        { "id": "e1", "type": "link", "from": "birth_rate", "to": "births" },
+        { "id": "e2", "type": "link", "from": "prey", "to": "births" },
+        { "id": "e3", "type": "link", "from": "prey", "to": "predation" },
+        { "id": "e4", "type": "link", "from": "pred", "to": "predation" },
+        { "id": "e5", "type": "link", "from": "prey", "to": "pred_births" },
+        { "id": "e6", "type": "link", "from": "pred", "to": "pred_births" },
+        { "id": "e7", "type": "link", "from": "pred", "to": "pred_deaths" },
+        { "id": "e8", "type": "link", "from": "prey", "to": "prey_count" }
+      ]
+    }
+  }
+}

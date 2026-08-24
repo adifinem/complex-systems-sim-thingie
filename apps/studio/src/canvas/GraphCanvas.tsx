@@ -100,9 +100,9 @@ export function GraphCanvas() {
       edges.push({
         id: e.id,
         source: e.from,
-        sourceHandle: 'wire-out',
+        sourceHandle: e.fromPort ? `port-out:${e.fromPort}` : 'wire-out',
         target: e.to,
-        targetHandle: 'wire-in',
+        targetHandle: e.toPort ? `port-in:${e.toPort}` : 'wire-in',
         type: 'wire',
       })
     }
@@ -158,6 +158,8 @@ export function GraphCanvas() {
         // stock↔flow joins pipes; stock→stock auto-inserts a flow on connect.
         return (s === 'stock' && (t === 'flow' || t === 'stock')) || (s === 'flow' && t === 'stock')
       }
+      // Wire class (incl. module port pins): anything goes — fan-in/fan-out
+      // is unrestricted; the engine reports double-bound input ports.
       return true
     },
     [typeOf],
@@ -187,10 +189,25 @@ export function GraphCanvas() {
           doc.setFlowAnchor(flowId, 'to', conn.target)
         }
       } else {
-        doc.addLink(conn.source, conn.target)
+        const th = conn.targetHandle ?? ''
+        const fromPort = sh.startsWith('port-out:') ? sh.slice('port-out:'.length) : undefined
+        const toPort = th.startsWith('port-in:') ? th.slice('port-in:'.length) : undefined
+        doc.addLink(conn.source, conn.target, { fromPort, toPort })
       }
     },
     [doc, typeOf, graph.nodes],
+  )
+
+  const onNodeDoubleClick = useCallback(
+    (_e: React.MouseEvent, rfNode: Node) => {
+      const n = graph.nodes.find((x) => x.id === rfNode.id)
+      if (n?.type === 'module') {
+        const m = n as { ref: string }
+        useUi.getState().pushCrumb({ moduleId: n.id, graphId: m.ref })
+        doc.setActiveGraph(m.ref)
+      }
+    },
+    [graph.nodes, doc],
   )
 
   return (
@@ -202,6 +219,7 @@ export function GraphCanvas() {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      onNodeDoubleClick={onNodeDoubleClick}
       isValidConnection={isValidConnection}
       onPaneClick={() => select(null)}
       deleteKeyCode={['Backspace', 'Delete']}

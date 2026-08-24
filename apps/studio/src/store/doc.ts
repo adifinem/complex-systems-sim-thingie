@@ -24,8 +24,13 @@ export interface DocState {
   updateNode: (id: string, patch: Partial<ModelNode>) => void
   moveNode: (id: string, pos: { x: number; y: number }) => void
   deleteNodes: (ids: string[]) => void
-  addLink: (from: string, to: string) => void
-  addLinks: (pairs: { from: string; to: string }[]) => void
+  addLink: (from: string, to: string, ports?: { toPort?: string; fromPort?: string }) => void
+  addLinks: (pairs: { from: string; to: string; toPort?: string; fromPort?: string }[]) => void
+  /** Create a new empty graph (tab) and return its id. */
+  addGraph: (withPorts?: boolean) => string
+  setActiveGraph: (id: string) => void
+  /** Add a module node; references `refGraph` or a freshly created graph. */
+  addModuleNode: (pos: { x: number; y: number }, refGraph?: string) => string
   deleteEdges: (edgeIds: string[]) => void
   setFlowAnchor: (flowId: string, side: 'from' | 'to', stockId: string | null) => void
   setSim: (patch: Partial<SimConfig>) => void
@@ -37,6 +42,8 @@ const RUNNABLE_DEFAULTS: Record<string, Partial<ModelNode>> = {
   variable: { formula: '0' },
   constant: { value: 1, dial: { min: 0, max: 10, step: 0.1 } },
   note: { notes: 'note' },
+  input: { default: '0' },
+  output: { formula: '0' },
 }
 
 function activeGraph(model: Model, id: string): Graph {
@@ -151,28 +158,105 @@ export const useDoc = create<DocState>()(
         }))
       },
 
-      addLink: (from, to) => get().addLinks([{ from, to }]),
+      addLink: (from, to, ports) => get().addLinks([{ from, to, ...ports }]),
 
       addLinks: (pairs) => {
         if (pairs.length === 0) return
         set((s) => ({
           model: withGraph(s.model, s.activeGraphId, (g) => {
-            const existing = new Set(g.edges.map((e) => `${e.from}→${e.to}`))
+            const keyOf = (e: { from: string; to: string; toPort?: string; fromPort?: string }) =>
+              `${e.from}${e.fromPort ? `.${e.fromPort}` : ''}→${e.to}${e.toPort ? `.${e.toPort}` : ''}`
+            const existing = new Set(g.edges.map(keyOf))
             const fresh: ModelEdge[] = []
-            for (const { from, to } of pairs) {
-              const key = `${from}→${to}`
+            for (const pair of pairs) {
+              const key = keyOf(pair)
               if (existing.has(key)) continue
               existing.add(key)
               let n = 1
-              let id = `l_${from}_${to}`
+              let id = `l_${pair.from}_${pair.to}`
               const ids = new Set([...g.edges.map((e) => e.id), ...fresh.map((e) => e.id)])
-              while (ids.has(id)) id = `l_${from}_${to}_${++n}`
-              fresh.push({ id, type: 'link', from, to })
+              while (ids.has(id)) id = `l_${pair.from}_${pair.to}_${++n}`
+              fresh.push({
+                id,
+                type: 'link',
+                from: pair.from,
+                to: pair.to,
+                ...(pair.toPort ? { toPort: pair.toPort } : {}),
+                ...(pair.fromPort ? { fromPort: pair.fromPort } : {}),
+              })
             }
             return fresh.length > 0 ? { ...g, edges: [...g.edges, ...fresh] } : g
           }),
           semanticVersion: s.semanticVersion + 1,
         }))
+      },
+
+      addGraph: (withPorts = true) => {
+        const { model } = get()
+        let n = 2
+        let id = `graph_${n}`
+        while (model.graphs[id]) id = `graph_${++n}`
+        const nodes: ModelNode[] = withPorts
+          ? [
+              { id: 'in_1', type: 'input', name: 'in 1', default: '0', ui: { x: 60, y: 160 } },
+              {
+                id: 'out_1',
+                type: 'output',
+                name: 'out 1',
+                formula: 'in_1',
+                ui: { x: 420, y: 160 },
+              },
+            ]
+          : []
+        set((s) => ({
+          model: {
+            ...s.model,
+            graphs: {
+              ...s.model.graphs,
+              [id]: {
+                name: id,
+                nodes,
+                edges: withPorts
+                  ? [{ id: 'l_in_out', type: 'link', from: 'in_1', to: 'out_1' }]
+                  : [],
+              },
+            },
+          },
+          semanticVersion: s.semanticVersion + 1,
+        }))
+        return id
+      },
+
+      setActiveGraph: (id) => set({ activeGraphId: id }),
+
+      addModuleNode: (pos, refGraph) => {
+        const state = get()
+        const ref =
+          refGraph ??
+          Object.keys(state.model.graphs).find((gid) => gid !== state.activeGraphId) ??
+          state.addGraph(true)
+        const { model, activeGraphId } = get()
+        const g = activeGraph(model, activeGraphId)
+        let n = 1
+        let id = `module_${n}`
+        const taken = new Set(g.nodes.map((x) => x.id))
+        while (taken.has(id)) id = `module_${++n}`
+        const node = {
+          id,
+          type: 'module',
+          name: id.replace('_', ' '),
+          ref,
+          mode: 'full',
+          ui: { x: Math.round(pos.x), y: Math.round(pos.y) },
+        } as unknown as ModelNode
+        set((s) => ({
+          model: withGraph(s.model, activeGraphId, (gr) => ({
+            ...gr,
+            nodes: [...gr.nodes, node],
+          })),
+          semanticVersion: s.semanticVersion + 1,
+        }))
+        return id
       },
 
       deleteEdges: (edgeIds) => {

@@ -198,10 +198,14 @@ export class Simulation {
       return
     }
     if (cn.type === 'constant') {
-      cn.constValue = v
       const raw = this.findModelNode(path)
       if (raw && raw.type === 'constant') raw.value = v
-      if (!this.state.overrides.has(slot)) this.state.values[slot] = v
+      // A constant belongs to a graph; every instance of that graph shares it.
+      for (const other of this.compiled.nodes) {
+        if (other.sourceKey !== cn.sourceKey) continue
+        other.constValue = v
+        if (!this.state.overrides.has(other.slot)) this.state.values[other.slot] = v
+      }
       return
     }
     throw new Error(`setValue: "${path}" is a ${cn.type} — pin computed nodes with setOverride`)
@@ -277,8 +281,24 @@ export class Simulation {
     return unmatched.length > 0 ? { ...result, unmatched } : result
   }
 
-  setModuleMode(_path: string, _mode: ModuleMode): void {
-    throw new Error('modules land in milestone M5')
+  /**
+   * Switch a module instance's mode (full / frozen / summary) mid-run via
+   * model edit + hot-swap. `path` is the module node's instance path
+   * ("econ" or "econ/labor"). State is preserved by node path, so freezing
+   * holds the instance's whole value table and unfreezing resumes from it.
+   */
+  setModuleMode(path: string, mode: ModuleMode): CompileResult & { unmatched?: string[] } {
+    const model = cloneJson(this.compiled.model)
+    const raw = this.findModelNode(path, model)
+    if (!raw || raw.type !== 'module') {
+      return {
+        ok: false,
+        errors: [{ severity: 'error', message: `"${path}" is not a module node` }],
+        warnings: [],
+      }
+    }
+    raw.mode = mode
+    return this.applyModel(model)
   }
 
   // ---- state -------------------------------------------------------------
@@ -308,10 +328,22 @@ export class Simulation {
     return slot
   }
 
+  /**
+   * Resolve an instance path ("econ/labor/wages") to its underlying document
+   * node by walking module references from the main graph. Edits to the
+   * returned node affect every instance of its graph — that is the document
+   * semantic (instances share their graph's definition).
+   */
   private findModelNode(path: string, model?: Model) {
     const m = model ?? this.compiled.model
-    const graph = m.graphs[m.mainGraph]
-    return graph?.nodes.find((n) => n.id === path)
+    const segments = path.split('/')
+    let graph = m.graphs[m.mainGraph]
+    for (let i = 0; i < segments.length - 1; i++) {
+      const moduleNode = graph?.nodes.find((n) => n.id === segments[i])
+      if (!moduleNode || moduleNode.type !== 'module') return undefined
+      graph = m.graphs[moduleNode.ref]
+    }
+    return graph?.nodes.find((n) => n.id === segments[segments.length - 1])
   }
 
   private makeFrame(): Frame {

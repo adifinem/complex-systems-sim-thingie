@@ -4,6 +4,8 @@ import {
   DEFAULT_TIME_UNITS,
   type FlowNode,
   type ModelNode,
+  type ModuleMode,
+  type ModuleNode,
   ParseError,
   parse,
   type StockNode,
@@ -11,7 +13,7 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { controller } from '../engine/controller'
 import { currentGraph, useDoc } from '../store/doc'
-import { useSimUi, useUi } from '../store/sim'
+import { crumbPrefix, useSimUi, useUi } from '../store/sim'
 import { analyzeTrend, TREND_LABEL, type Trend } from '../trend'
 
 /**
@@ -80,7 +82,11 @@ function SimSettings() {
 function NodePanel({ node }: { node: ModelNode }) {
   const updateNode = useDoc((s) => s.updateNode)
   const compileErrors = useSimUi((s) => s.compileErrors)
-  const myErrors = compileErrors.filter((e) => e.path === node.id)
+  const prefix = useUi((s) => crumbPrefix(s.breadcrumb))
+  const path = prefix + node.id
+  const myErrors = compileErrors.filter(
+    (e) => e.path === path || e.path === node.id || e.path?.endsWith(`/${node.id}`),
+  )
 
   const formulaField =
     node.type === 'stock'
@@ -160,11 +166,12 @@ function NodePanel({ node }: { node: ModelNode }) {
 
       {node.type !== 'note' && <TimeFields node={node} />}
       {node.type !== 'note' && node.type !== 'constant' && <BaselineFields node={node} />}
-      {node.type === 'stock' && <SetValueRow node={node} />}
+      {node.type === 'stock' && <SetValueRow node={node} path={path} />}
       {(node.type === 'flow' || node.type === 'variable' || node.type === 'output') && (
-        <PinRow node={node} />
+        <PinRow node={node} path={path} />
       )}
-      {node.type !== 'note' && <TrendChip node={node} />}
+      {node.type === 'module' && <ModulePanel node={node as ModuleNode} />}
+      {node.type !== 'note' && node.type !== 'module' && <TrendChip path={path} />}
 
       {myErrors.length > 0 && (
         <div className="error-strip">
@@ -200,13 +207,13 @@ function QuickFix({ name, near }: { name: string; near: ModelNode }) {
 }
 
 /** Pin a computed node to a fixed value (engine override; formula preserved). */
-function PinRow({ node }: { node: ModelNode }) {
+function PinRow({ node, path }: { node: ModelNode; path: string }) {
   const [v, setV] = useState('')
   const [, forceRender] = useState(0)
   const pinned = controller.sim
     ? (() => {
         try {
-          return controller.sim.getNode(node.id).overridden
+          return controller.sim.getNode(path).overridden
         } catch {
           return false
         }
@@ -230,7 +237,7 @@ function PinRow({ node }: { node: ModelNode }) {
             onClick={() => {
               const num = Number(v)
               if (Number.isFinite(num)) {
-                controller.pinNode(node.id, num)
+                controller.pinNode(path, num)
                 forceRender((x) => x + 1)
               }
             }}
@@ -242,7 +249,7 @@ function PinRow({ node }: { node: ModelNode }) {
               type="button"
               className="mini"
               onClick={() => {
-                controller.unpinNode(node.id)
+                controller.unpinNode(path)
                 forceRender((x) => x + 1)
               }}
             >
@@ -260,15 +267,66 @@ function PinRow({ node }: { node: ModelNode }) {
   )
 }
 
+/** Module settings: referenced graph, mode, and summary formulas per output. */
+function ModulePanel({ node }: { node: ModuleNode }) {
+  const model = useDoc((s) => s.model)
+  const updateNode = useDoc((s) => s.updateNode)
+  const refGraph = model.graphs[node.ref]
+  const outputs = refGraph?.nodes.filter((n) => n.type === 'output') ?? []
+  const graphIds = Object.keys(model.graphs)
+  return (
+    <>
+      <label>references graph (tab)</label>
+      <select
+        value={node.ref}
+        onChange={(e) => updateNode(node.id, { ref: e.target.value } as Partial<ModelNode>)}
+      >
+        {graphIds.map((gid) => (
+          <option key={gid} value={gid}>
+            {model.graphs[gid]?.name ?? gid}
+          </option>
+        ))}
+      </select>
+      <label>mode</label>
+      <select
+        value={node.mode ?? 'full'}
+        onChange={(e) =>
+          updateNode(node.id, { mode: e.target.value as ModuleMode } as Partial<ModelNode>)
+        }
+      >
+        <option value="full">full — co-simulate the inner network</option>
+        <option value="frozen">frozen — hold all values (pause this IC)</option>
+        <option value="summary">summary — cheap formulas over inputs</option>
+      </select>
+      {(node.mode ?? 'full') === 'summary' &&
+        outputs.map((o) => (
+          <div key={o.id}>
+            <label>summary for output "{o.id}" (in terms of input ports)</label>
+            <textarea
+              defaultValue={node.summary?.[o.id] ?? ''}
+              spellCheck={false}
+              onBlur={(e) =>
+                updateNode(node.id, {
+                  summary: { ...(node.summary ?? {}), [o.id]: e.target.value },
+                } as Partial<ModelNode>)
+              }
+            />
+          </div>
+        ))}
+      <div className="hint">Double-click the node to open its graph with live instance values.</div>
+    </>
+  )
+}
+
 /** Names the recent behavior: settling / steady / oscillating / runaway. */
-function TrendChip({ node }: { node: ModelNode }) {
+function TrendChip({ path }: { path: string }) {
   const [trend, setTrend] = useState<Trend>('—')
   useEffect(() => {
     const update = () => {
       const sim = controller.sim
       if (!sim) return
       try {
-        setTrend(analyzeTrend(sim.history(node.id, 512)))
+        setTrend(analyzeTrend(sim.history(path, 512)))
       } catch {
         setTrend('—')
       }
@@ -276,7 +334,7 @@ function TrendChip({ node }: { node: ModelNode }) {
     update()
     const timer = setInterval(update, 1000)
     return () => clearInterval(timer)
-  }, [node.id])
+  }, [path])
   return (
     <div className="trend-chip" title="Recent behavior, from the value history">
       {TREND_LABEL[trend]}
@@ -517,7 +575,8 @@ function BaselineFields({ node }: { node: ModelNode }) {
   )
 }
 
-function SetValueRow({ node }: { node: ModelNode }) {
+function SetValueRow({ node, path }: { node: ModelNode; path: string }) {
+  void node
   const [v, setV] = useState('')
   return (
     <>
@@ -544,7 +603,7 @@ function SetValueRow({ node }: { node: ModelNode }) {
             }}
             onClick={() => {
               const num = Number(v)
-              if (Number.isFinite(num)) controller.setStockValue(node.id, num)
+              if (Number.isFinite(num)) controller.setStockValue(path, num)
             }}
           >
             set

@@ -226,7 +226,7 @@ export function tick(compiled: Compiled, state: SimState): void {
   if (inputs.length < entries.length) recordInputs.length = entries.length
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i] as RecordEntry
-    if (state.overrides.has(e.nodeSlot)) continue
+    if (e.frozen || state.overrides.has(e.nodeSlot)) continue
     const cn = compiled.nodes[e.nodeSlot] as CompiledNode
     setNodeCtx(ctx, state, compiled, cn)
     ctx.edgeRead = state.edgeActive
@@ -236,7 +236,7 @@ export function tick(compiled: Compiled, state: SimState): void {
   const dt = compiled.dt
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i] as RecordEntry
-    if (state.overrides.has(e.nodeSlot)) continue
+    if (e.frozen || state.overrides.has(e.nodeSlot)) continue
     const st = state.funcState.get(e.callSiteId)
     if (!st) continue
     const x = inputs[i] as number
@@ -279,7 +279,7 @@ export function tick(compiled: Compiled, state: SimState): void {
 
   // ---- phase 3: integrate ----
   for (const stock of compiled.stocks) {
-    if (state.overrides.has(stock.slot)) continue
+    if (stock.frozen || state.overrides.has(stock.slot)) continue
     let delta = 0
     for (const f of stock.inflows) delta += (values[f.slot] as number) * f.scale
     for (const f of stock.outflows) delta -= (values[f.slot] as number) * f.scale

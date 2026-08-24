@@ -29,14 +29,36 @@ export const useSimUi = create<SimUiState>((set) => ({
   set: (patch) => set(patch),
 }))
 
+export interface Crumb {
+  /** Module node id in the parent graph. */
+  moduleId: string
+  /** Graph the module instance opens into. */
+  graphId: string
+}
+
 export interface UiState {
   selectedNodeId: string | null
   selectedEdgeId: string | null
+  /** Instance trail when the canvas shows the inside of a module. */
+  breadcrumb: Crumb[]
   select: (nodeId: string | null, edgeId?: string | null) => void
+  pushCrumb: (crumb: Crumb) => void
+  popToCrumb: (depth: number) => void
+  clearCrumbs: () => void
 }
 
 export const useUi = create<UiState>((set) => ({
   selectedNodeId: null,
   selectedEdgeId: null,
+  breadcrumb: [],
   select: (nodeId, edgeId = null) => set({ selectedNodeId: nodeId, selectedEdgeId: edgeId }),
+  pushCrumb: (crumb) =>
+    set((s) => ({ breadcrumb: [...s.breadcrumb, crumb], selectedNodeId: null })),
+  popToCrumb: (depth) => set((s) => ({ breadcrumb: s.breadcrumb.slice(0, depth) })),
+  clearCrumbs: () => set({ breadcrumb: [] }),
 }))
+
+/** "econ/labor/" — path prefix for the instance currently on the canvas. */
+export function crumbPrefix(breadcrumb: Crumb[]): string {
+  return breadcrumb.length === 0 ? '' : `${breadcrumb.map((c) => c.moduleId).join('/')}/`
+}
