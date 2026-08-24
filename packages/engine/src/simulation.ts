@@ -137,16 +137,22 @@ export class Simulation {
     return f
   }
 
+  private infoCache: CompiledInfo | null = null
+
+  /** Cached per compile — safe to read every animation frame. */
   get info(): CompiledInfo {
-    return {
-      paths: this.compiled.paths,
-      slotOf: this.compiled.slotOf,
-      edges: this.compiled.edges.map((e) => ({ ...e })),
-      edgeIndexOf: this.compiled.edgeIndexOf,
-      types: this.compiled.nodes.map((n) => n.type),
-      ratios: this.compiled.nodes.map((n) => n.ratio),
-      warnings: this.compiled.warnings,
+    if (!this.infoCache) {
+      this.infoCache = {
+        paths: this.compiled.paths,
+        slotOf: this.compiled.slotOf,
+        edges: this.compiled.edges.map((e) => ({ ...e })),
+        edgeIndexOf: this.compiled.edgeIndexOf,
+        types: this.compiled.nodes.map((n) => n.type),
+        ratios: this.compiled.nodes.map((n) => n.ratio),
+        warnings: this.compiled.warnings,
+      }
     }
+    return this.infoCache
   }
 
   getNode(path: string): NodeView {
@@ -315,5 +321,6 @@ export class Simulation {
 
   private syncFrameBuffers(): void {
     this.frame = this.makeFrame()
+    this.infoCache = null
   }
 }

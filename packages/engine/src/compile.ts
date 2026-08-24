@@ -33,6 +33,10 @@ export interface CompileIssue {
   pos?: number
   /** Which formula field the pos refers to. */
   field?: 'formula' | 'initial'
+  /** Structured payload for "sibling referenced without a link edge" warnings, so a UI can auto-create the edge. */
+  missingLink?: { from: string; to: string }
+  /** Structured payload for unknown-name errors, so a UI can offer a quick-fix ("create variable X"). */
+  unknownName?: string
 }
 
 export interface ResolvedBaseline {
@@ -407,6 +411,7 @@ export function compile(model: Model): CompileResult {
               message: `node "${cn.path}" references "${a.name}" without a link edge — the UI should create one`,
               path: cn.path,
               pos: a.pos,
+              missingLink: { from: a.name, to: cn.path },
             })
             return
           }
@@ -434,6 +439,7 @@ export function compile(model: Model): CompileResult {
             path: cn.path,
             pos: a.pos,
             field,
+            unknownName: a.name,
           })
           a.slot = -1
           return
