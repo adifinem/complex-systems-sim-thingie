@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import type { Model } from '../src/model'
 import { validateModel } from '../src/model'
@@ -12,7 +12,10 @@ import { directionChanges } from './helpers'
  * models/examples must validate, compile, and run without diverging — so the
  * demos can never silently rot.
  */
-const EXAMPLES_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../models/examples')
+const EXAMPLES_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '../../../models/examples',
+)
 
 function loadFixture(name: string): Model {
   const raw = JSON.parse(readFileSync(path.join(EXAMPLES_DIR, `${name}.json`), 'utf8'))

@@ -26,6 +26,8 @@ export interface Frame {
   baselines: Float64Array
   /** 1 = the link's alias was read on its target's last evaluation. Reused buffer. */
   edgeActive: Uint8Array
+  /** 1 = the slot is pinned by an override. Reused buffer. */
+  overridden: Uint8Array
   diverged: { path: string; tickIndex: number } | null
 }
 
@@ -209,12 +211,14 @@ export class Simulation {
   setOverride(path: string, v: number): void {
     const slot = this.slot(path)
     this.state.overrides.set(slot, v)
+    this.state.overriddenMask[slot] = 1
     this.state.values[slot] = v
   }
 
   clearOverride(path: string): void {
     const slot = this.slot(path)
     this.state.overrides.delete(slot)
+    this.state.overriddenMask[slot] = 0
     const cn = this.compiled.nodes[slot] as CompiledNode
     if (cn.type === 'constant') this.state.values[slot] = cn.constValue
   }
@@ -318,6 +322,7 @@ export class Simulation {
       deviations: this.state.deviations,
       baselines: this.state.baselines,
       edgeActive: this.state.edgeActive,
+      overridden: this.state.overriddenMask,
       diverged: null,
     }
   }

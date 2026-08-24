@@ -23,6 +23,8 @@ export interface SimState {
   rng: Rng
   /** slot → pinned value. */
   overrides: Map<number, number>
+  /** 1 = slot is overridden; kept in sync with `overrides` for cheap UI reads. */
+  overriddenMask: Uint8Array
   /** Per slot: sim time (ticks) of the next due evaluation (sample-and-hold). */
   holdNext: Float64Array
   edgeActive: Uint8Array
@@ -67,6 +69,7 @@ export function initState(compiled: Compiled): SimState {
     funcState: new Map(),
     rng: Rng.fromSeed(compiled.seed),
     overrides: new Map(),
+    overriddenMask: new Uint8Array(n),
     holdNext: new Float64Array(n),
     edgeActive: new Uint8Array(compiled.edges.length),
     history: new Float64Array(n * compiled.historyLength),
@@ -492,6 +495,7 @@ export function restoreState(
       continue
     }
     state.overrides.set(slot, v)
+    state.overriddenMask[slot] = 1
     state.values[slot] = v
   }
   for (const [path, v] of Object.entries(snap.holdNext)) {

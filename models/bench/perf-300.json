@@ -1,0 +1,5171 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "perf-300",
+    "notes": "Synthetic perf-gate fixture: ~300 nodes, ~400 edges."
+  },
+  "sim": {
+    "dt": 0.1,
+    "seed": 1
+  },
+  "mainGraph": "main",
+  "graphs": {
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "stock_0",
+          "type": "stock",
+          "name": "stock_0",
+          "initial": "80",
+          "ui": {
+            "x": 100,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_0",
+          "type": "flow",
+          "name": "in_0",
+          "formula": "gain_0 * (100 - stock_0) + 6 * sin(t / 3)",
+          "to": "stock_0",
+          "ui": {
+            "x": 0,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_0",
+          "type": "flow",
+          "name": "out_0",
+          "formula": "stock_0 * 0.08",
+          "from": "stock_0",
+          "ui": {
+            "x": 220,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_0",
+          "type": "constant",
+          "name": "gain_0",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 0,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_0",
+          "type": "variable",
+          "name": "smooth_0",
+          "formula": "smooth(stock_0, 4)",
+          "ui": {
+            "x": 120,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_0",
+          "type": "variable",
+          "name": "gate_0",
+          "formula": "if(smooth_0 > 100, stock_0, smooth_0)",
+          "ui": {
+            "x": 240,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_1",
+          "type": "stock",
+          "name": "stock_1",
+          "initial": "90",
+          "ui": {
+            "x": 440,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_1",
+          "type": "flow",
+          "name": "in_1",
+          "formula": "gain_1 * (100 - stock_1) + 6 * sin(t / 4)",
+          "to": "stock_1",
+          "ui": {
+            "x": 340,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_1",
+          "type": "flow",
+          "name": "out_1",
+          "formula": "stock_1 * 0.08",
+          "from": "stock_1",
+          "ui": {
+            "x": 560,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_1",
+          "type": "constant",
+          "name": "gain_1",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 340,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_1",
+          "type": "variable",
+          "name": "smooth_1",
+          "formula": "smooth(stock_1, 4)",
+          "ui": {
+            "x": 460,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_1",
+          "type": "variable",
+          "name": "gate_1",
+          "formula": "if(smooth_1 > 100, stock_1, smooth_1)",
+          "ui": {
+            "x": 580,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_2",
+          "type": "stock",
+          "name": "stock_2",
+          "initial": "100",
+          "ui": {
+            "x": 780,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_2",
+          "type": "flow",
+          "name": "in_2",
+          "formula": "gain_2 * (100 - stock_2) + 6 * sin(t / 5)",
+          "to": "stock_2",
+          "ui": {
+            "x": 680,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_2",
+          "type": "flow",
+          "name": "out_2",
+          "formula": "stock_2 * 0.08",
+          "from": "stock_2",
+          "ui": {
+            "x": 900,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_2",
+          "type": "constant",
+          "name": "gain_2",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 680,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_2",
+          "type": "variable",
+          "name": "smooth_2",
+          "formula": "smooth(stock_2, 4)",
+          "ui": {
+            "x": 800,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_2",
+          "type": "variable",
+          "name": "gate_2",
+          "formula": "if(smooth_2 > 100, stock_2, smooth_2)",
+          "ui": {
+            "x": 920,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_3",
+          "type": "stock",
+          "name": "stock_3",
+          "initial": "110",
+          "ui": {
+            "x": 1120,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_3",
+          "type": "flow",
+          "name": "in_3",
+          "formula": "gain_3 * (100 - stock_3) + 6 * sin(t / 6)",
+          "to": "stock_3",
+          "ui": {
+            "x": 1020,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_3",
+          "type": "flow",
+          "name": "out_3",
+          "formula": "stock_3 * 0.08",
+          "from": "stock_3",
+          "ui": {
+            "x": 1240,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_3",
+          "type": "constant",
+          "name": "gain_3",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1020,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_3",
+          "type": "variable",
+          "name": "smooth_3",
+          "formula": "smooth(stock_3, 4)",
+          "ui": {
+            "x": 1140,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_3",
+          "type": "variable",
+          "name": "gate_3",
+          "formula": "if(smooth_3 > 100, stock_3, smooth_3)",
+          "ui": {
+            "x": 1260,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_4",
+          "type": "stock",
+          "name": "stock_4",
+          "initial": "120",
+          "ui": {
+            "x": 1460,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_4",
+          "type": "flow",
+          "name": "in_4",
+          "formula": "gain_4 * (100 - stock_4) + 6 * sin(t / 7)",
+          "to": "stock_4",
+          "ui": {
+            "x": 1360,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_4",
+          "type": "flow",
+          "name": "out_4",
+          "formula": "stock_4 * 0.08",
+          "from": "stock_4",
+          "ui": {
+            "x": 1580,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_4",
+          "type": "constant",
+          "name": "gain_4",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1360,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_4",
+          "type": "variable",
+          "name": "smooth_4",
+          "formula": "smooth(stock_4, 4)",
+          "ui": {
+            "x": 1480,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_4",
+          "type": "variable",
+          "name": "gate_4",
+          "formula": "if(smooth_4 > 100, stock_4, smooth_4)",
+          "ui": {
+            "x": 1600,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_5",
+          "type": "stock",
+          "name": "stock_5",
+          "initial": "130",
+          "ui": {
+            "x": 1800,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_5",
+          "type": "flow",
+          "name": "in_5",
+          "formula": "gain_5 * (100 - stock_5) + 6 * sin(t / 3)",
+          "to": "stock_5",
+          "ui": {
+            "x": 1700,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_5",
+          "type": "flow",
+          "name": "out_5",
+          "formula": "stock_5 * 0.08",
+          "from": "stock_5",
+          "ui": {
+            "x": 1920,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_5",
+          "type": "constant",
+          "name": "gain_5",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1700,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_5",
+          "type": "variable",
+          "name": "smooth_5",
+          "formula": "smooth(stock_5, 4)",
+          "ui": {
+            "x": 1820,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_5",
+          "type": "variable",
+          "name": "gate_5",
+          "formula": "if(smooth_5 > 100, stock_5, smooth_5)",
+          "ui": {
+            "x": 1940,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_6",
+          "type": "stock",
+          "name": "stock_6",
+          "initial": "140",
+          "ui": {
+            "x": 2140,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_6",
+          "type": "flow",
+          "name": "in_6",
+          "formula": "gain_6 * (100 - stock_6) + 6 * sin(t / 4)",
+          "to": "stock_6",
+          "ui": {
+            "x": 2040,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_6",
+          "type": "flow",
+          "name": "out_6",
+          "formula": "stock_6 * 0.08",
+          "from": "stock_6",
+          "ui": {
+            "x": 2260,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_6",
+          "type": "constant",
+          "name": "gain_6",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2040,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_6",
+          "type": "variable",
+          "name": "smooth_6",
+          "formula": "smooth(stock_6, 4)",
+          "ui": {
+            "x": 2160,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_6",
+          "type": "variable",
+          "name": "gate_6",
+          "formula": "if(smooth_6 > 100, stock_6, smooth_6)",
+          "ui": {
+            "x": 2280,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_7",
+          "type": "stock",
+          "name": "stock_7",
+          "initial": "80",
+          "ui": {
+            "x": 2480,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_7",
+          "type": "flow",
+          "name": "in_7",
+          "formula": "gain_7 * (100 - stock_7) + 6 * sin(t / 5)",
+          "to": "stock_7",
+          "ui": {
+            "x": 2380,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_7",
+          "type": "flow",
+          "name": "out_7",
+          "formula": "stock_7 * 0.08",
+          "from": "stock_7",
+          "ui": {
+            "x": 2600,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_7",
+          "type": "constant",
+          "name": "gain_7",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2380,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_7",
+          "type": "variable",
+          "name": "smooth_7",
+          "formula": "smooth(stock_7, 4)",
+          "ui": {
+            "x": 2500,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_7",
+          "type": "variable",
+          "name": "gate_7",
+          "formula": "if(smooth_7 > 100, stock_7, smooth_7)",
+          "ui": {
+            "x": 2620,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_8",
+          "type": "stock",
+          "name": "stock_8",
+          "initial": "90",
+          "ui": {
+            "x": 2820,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_8",
+          "type": "flow",
+          "name": "in_8",
+          "formula": "gain_8 * (100 - stock_8) + 6 * sin(t / 6)",
+          "to": "stock_8",
+          "ui": {
+            "x": 2720,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_8",
+          "type": "flow",
+          "name": "out_8",
+          "formula": "stock_8 * 0.08",
+          "from": "stock_8",
+          "ui": {
+            "x": 2940,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_8",
+          "type": "constant",
+          "name": "gain_8",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2720,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_8",
+          "type": "variable",
+          "name": "smooth_8",
+          "formula": "smooth(stock_8, 4)",
+          "ui": {
+            "x": 2840,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_8",
+          "type": "variable",
+          "name": "gate_8",
+          "formula": "if(smooth_8 > 100, stock_8, smooth_8)",
+          "ui": {
+            "x": 2960,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_9",
+          "type": "stock",
+          "name": "stock_9",
+          "initial": "100",
+          "ui": {
+            "x": 3160,
+            "y": 120
+          }
+        },
+        {
+          "id": "in_9",
+          "type": "flow",
+          "name": "in_9",
+          "formula": "gain_9 * (100 - stock_9) + 6 * sin(t / 7)",
+          "to": "stock_9",
+          "ui": {
+            "x": 3060,
+            "y": 140
+          }
+        },
+        {
+          "id": "out_9",
+          "type": "flow",
+          "name": "out_9",
+          "formula": "stock_9 * 0.08",
+          "from": "stock_9",
+          "ui": {
+            "x": 3280,
+            "y": 140
+          }
+        },
+        {
+          "id": "gain_9",
+          "type": "constant",
+          "name": "gain_9",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 3060,
+            "y": 30
+          }
+        },
+        {
+          "id": "smooth_9",
+          "type": "variable",
+          "name": "smooth_9",
+          "formula": "smooth(stock_9, 4)",
+          "ui": {
+            "x": 3180,
+            "y": 230
+          }
+        },
+        {
+          "id": "gate_9",
+          "type": "variable",
+          "name": "gate_9",
+          "formula": "if(smooth_9 > 100, stock_9, smooth_9)",
+          "ui": {
+            "x": 3300,
+            "y": 230
+          }
+        },
+        {
+          "id": "stock_10",
+          "type": "stock",
+          "name": "stock_10",
+          "initial": "110",
+          "ui": {
+            "x": 100,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_10",
+          "type": "flow",
+          "name": "in_10",
+          "formula": "gain_10 * (100 - stock_10) + 6 * sin(t / 3)",
+          "to": "stock_10",
+          "ui": {
+            "x": 0,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_10",
+          "type": "flow",
+          "name": "out_10",
+          "formula": "stock_10 * 0.08",
+          "from": "stock_10",
+          "ui": {
+            "x": 220,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_10",
+          "type": "constant",
+          "name": "gain_10",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 0,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_10",
+          "type": "variable",
+          "name": "smooth_10",
+          "formula": "smooth(stock_10, 4)",
+          "ui": {
+            "x": 120,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_10",
+          "type": "variable",
+          "name": "gate_10",
+          "formula": "if(smooth_10 > 100, stock_10, smooth_10)",
+          "ui": {
+            "x": 240,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_11",
+          "type": "stock",
+          "name": "stock_11",
+          "initial": "120",
+          "ui": {
+            "x": 440,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_11",
+          "type": "flow",
+          "name": "in_11",
+          "formula": "gain_11 * (100 - stock_11) + 6 * sin(t / 4)",
+          "to": "stock_11",
+          "ui": {
+            "x": 340,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_11",
+          "type": "flow",
+          "name": "out_11",
+          "formula": "stock_11 * 0.08",
+          "from": "stock_11",
+          "ui": {
+            "x": 560,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_11",
+          "type": "constant",
+          "name": "gain_11",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 340,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_11",
+          "type": "variable",
+          "name": "smooth_11",
+          "formula": "smooth(stock_11, 4)",
+          "ui": {
+            "x": 460,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_11",
+          "type": "variable",
+          "name": "gate_11",
+          "formula": "if(smooth_11 > 100, stock_11, smooth_11)",
+          "ui": {
+            "x": 580,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_12",
+          "type": "stock",
+          "name": "stock_12",
+          "initial": "130",
+          "ui": {
+            "x": 780,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_12",
+          "type": "flow",
+          "name": "in_12",
+          "formula": "gain_12 * (100 - stock_12) + 6 * sin(t / 5)",
+          "to": "stock_12",
+          "ui": {
+            "x": 680,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_12",
+          "type": "flow",
+          "name": "out_12",
+          "formula": "stock_12 * 0.08",
+          "from": "stock_12",
+          "ui": {
+            "x": 900,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_12",
+          "type": "constant",
+          "name": "gain_12",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 680,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_12",
+          "type": "variable",
+          "name": "smooth_12",
+          "formula": "smooth(stock_12, 4)",
+          "ui": {
+            "x": 800,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_12",
+          "type": "variable",
+          "name": "gate_12",
+          "formula": "if(smooth_12 > 100, stock_12, smooth_12)",
+          "ui": {
+            "x": 920,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_13",
+          "type": "stock",
+          "name": "stock_13",
+          "initial": "140",
+          "ui": {
+            "x": 1120,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_13",
+          "type": "flow",
+          "name": "in_13",
+          "formula": "gain_13 * (100 - stock_13) + 6 * sin(t / 6)",
+          "to": "stock_13",
+          "ui": {
+            "x": 1020,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_13",
+          "type": "flow",
+          "name": "out_13",
+          "formula": "stock_13 * 0.08",
+          "from": "stock_13",
+          "ui": {
+            "x": 1240,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_13",
+          "type": "constant",
+          "name": "gain_13",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1020,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_13",
+          "type": "variable",
+          "name": "smooth_13",
+          "formula": "smooth(stock_13, 4)",
+          "ui": {
+            "x": 1140,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_13",
+          "type": "variable",
+          "name": "gate_13",
+          "formula": "if(smooth_13 > 100, stock_13, smooth_13)",
+          "ui": {
+            "x": 1260,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_14",
+          "type": "stock",
+          "name": "stock_14",
+          "initial": "80",
+          "ui": {
+            "x": 1460,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_14",
+          "type": "flow",
+          "name": "in_14",
+          "formula": "gain_14 * (100 - stock_14) + 6 * sin(t / 7)",
+          "to": "stock_14",
+          "ui": {
+            "x": 1360,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_14",
+          "type": "flow",
+          "name": "out_14",
+          "formula": "stock_14 * 0.08",
+          "from": "stock_14",
+          "ui": {
+            "x": 1580,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_14",
+          "type": "constant",
+          "name": "gain_14",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1360,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_14",
+          "type": "variable",
+          "name": "smooth_14",
+          "formula": "smooth(stock_14, 4)",
+          "ui": {
+            "x": 1480,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_14",
+          "type": "variable",
+          "name": "gate_14",
+          "formula": "if(smooth_14 > 100, stock_14, smooth_14)",
+          "ui": {
+            "x": 1600,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_15",
+          "type": "stock",
+          "name": "stock_15",
+          "initial": "90",
+          "ui": {
+            "x": 1800,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_15",
+          "type": "flow",
+          "name": "in_15",
+          "formula": "gain_15 * (100 - stock_15) + 6 * sin(t / 3)",
+          "to": "stock_15",
+          "ui": {
+            "x": 1700,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_15",
+          "type": "flow",
+          "name": "out_15",
+          "formula": "stock_15 * 0.08",
+          "from": "stock_15",
+          "ui": {
+            "x": 1920,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_15",
+          "type": "constant",
+          "name": "gain_15",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1700,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_15",
+          "type": "variable",
+          "name": "smooth_15",
+          "formula": "smooth(stock_15, 4)",
+          "ui": {
+            "x": 1820,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_15",
+          "type": "variable",
+          "name": "gate_15",
+          "formula": "if(smooth_15 > 100, stock_15, smooth_15)",
+          "ui": {
+            "x": 1940,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_16",
+          "type": "stock",
+          "name": "stock_16",
+          "initial": "100",
+          "ui": {
+            "x": 2140,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_16",
+          "type": "flow",
+          "name": "in_16",
+          "formula": "gain_16 * (100 - stock_16) + 6 * sin(t / 4)",
+          "to": "stock_16",
+          "ui": {
+            "x": 2040,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_16",
+          "type": "flow",
+          "name": "out_16",
+          "formula": "stock_16 * 0.08",
+          "from": "stock_16",
+          "ui": {
+            "x": 2260,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_16",
+          "type": "constant",
+          "name": "gain_16",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2040,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_16",
+          "type": "variable",
+          "name": "smooth_16",
+          "formula": "smooth(stock_16, 4)",
+          "ui": {
+            "x": 2160,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_16",
+          "type": "variable",
+          "name": "gate_16",
+          "formula": "if(smooth_16 > 100, stock_16, smooth_16)",
+          "ui": {
+            "x": 2280,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_17",
+          "type": "stock",
+          "name": "stock_17",
+          "initial": "110",
+          "ui": {
+            "x": 2480,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_17",
+          "type": "flow",
+          "name": "in_17",
+          "formula": "gain_17 * (100 - stock_17) + 6 * sin(t / 5)",
+          "to": "stock_17",
+          "ui": {
+            "x": 2380,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_17",
+          "type": "flow",
+          "name": "out_17",
+          "formula": "stock_17 * 0.08",
+          "from": "stock_17",
+          "ui": {
+            "x": 2600,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_17",
+          "type": "constant",
+          "name": "gain_17",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2380,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_17",
+          "type": "variable",
+          "name": "smooth_17",
+          "formula": "smooth(stock_17, 4)",
+          "ui": {
+            "x": 2500,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_17",
+          "type": "variable",
+          "name": "gate_17",
+          "formula": "if(smooth_17 > 100, stock_17, smooth_17)",
+          "ui": {
+            "x": 2620,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_18",
+          "type": "stock",
+          "name": "stock_18",
+          "initial": "120",
+          "ui": {
+            "x": 2820,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_18",
+          "type": "flow",
+          "name": "in_18",
+          "formula": "gain_18 * (100 - stock_18) + 6 * sin(t / 6)",
+          "to": "stock_18",
+          "ui": {
+            "x": 2720,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_18",
+          "type": "flow",
+          "name": "out_18",
+          "formula": "stock_18 * 0.08",
+          "from": "stock_18",
+          "ui": {
+            "x": 2940,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_18",
+          "type": "constant",
+          "name": "gain_18",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2720,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_18",
+          "type": "variable",
+          "name": "smooth_18",
+          "formula": "smooth(stock_18, 4)",
+          "ui": {
+            "x": 2840,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_18",
+          "type": "variable",
+          "name": "gate_18",
+          "formula": "if(smooth_18 > 100, stock_18, smooth_18)",
+          "ui": {
+            "x": 2960,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_19",
+          "type": "stock",
+          "name": "stock_19",
+          "initial": "130",
+          "ui": {
+            "x": 3160,
+            "y": 420
+          }
+        },
+        {
+          "id": "in_19",
+          "type": "flow",
+          "name": "in_19",
+          "formula": "gain_19 * (100 - stock_19) + 6 * sin(t / 7)",
+          "to": "stock_19",
+          "ui": {
+            "x": 3060,
+            "y": 440
+          }
+        },
+        {
+          "id": "out_19",
+          "type": "flow",
+          "name": "out_19",
+          "formula": "stock_19 * 0.08",
+          "from": "stock_19",
+          "ui": {
+            "x": 3280,
+            "y": 440
+          }
+        },
+        {
+          "id": "gain_19",
+          "type": "constant",
+          "name": "gain_19",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 3060,
+            "y": 330
+          }
+        },
+        {
+          "id": "smooth_19",
+          "type": "variable",
+          "name": "smooth_19",
+          "formula": "smooth(stock_19, 4)",
+          "ui": {
+            "x": 3180,
+            "y": 530
+          }
+        },
+        {
+          "id": "gate_19",
+          "type": "variable",
+          "name": "gate_19",
+          "formula": "if(smooth_19 > 100, stock_19, smooth_19)",
+          "ui": {
+            "x": 3300,
+            "y": 530
+          }
+        },
+        {
+          "id": "stock_20",
+          "type": "stock",
+          "name": "stock_20",
+          "initial": "140",
+          "ui": {
+            "x": 100,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_20",
+          "type": "flow",
+          "name": "in_20",
+          "formula": "gain_20 * (100 - stock_20) + 6 * sin(t / 3)",
+          "to": "stock_20",
+          "ui": {
+            "x": 0,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_20",
+          "type": "flow",
+          "name": "out_20",
+          "formula": "stock_20 * 0.08",
+          "from": "stock_20",
+          "ui": {
+            "x": 220,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_20",
+          "type": "constant",
+          "name": "gain_20",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 0,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_20",
+          "type": "variable",
+          "name": "smooth_20",
+          "formula": "smooth(stock_20, 4)",
+          "ui": {
+            "x": 120,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_20",
+          "type": "variable",
+          "name": "gate_20",
+          "formula": "if(smooth_20 > 100, stock_20, smooth_20)",
+          "ui": {
+            "x": 240,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_21",
+          "type": "stock",
+          "name": "stock_21",
+          "initial": "80",
+          "ui": {
+            "x": 440,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_21",
+          "type": "flow",
+          "name": "in_21",
+          "formula": "gain_21 * (100 - stock_21) + 6 * sin(t / 4)",
+          "to": "stock_21",
+          "ui": {
+            "x": 340,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_21",
+          "type": "flow",
+          "name": "out_21",
+          "formula": "stock_21 * 0.08",
+          "from": "stock_21",
+          "ui": {
+            "x": 560,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_21",
+          "type": "constant",
+          "name": "gain_21",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 340,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_21",
+          "type": "variable",
+          "name": "smooth_21",
+          "formula": "smooth(stock_21, 4)",
+          "ui": {
+            "x": 460,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_21",
+          "type": "variable",
+          "name": "gate_21",
+          "formula": "if(smooth_21 > 100, stock_21, smooth_21)",
+          "ui": {
+            "x": 580,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_22",
+          "type": "stock",
+          "name": "stock_22",
+          "initial": "90",
+          "ui": {
+            "x": 780,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_22",
+          "type": "flow",
+          "name": "in_22",
+          "formula": "gain_22 * (100 - stock_22) + 6 * sin(t / 5)",
+          "to": "stock_22",
+          "ui": {
+            "x": 680,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_22",
+          "type": "flow",
+          "name": "out_22",
+          "formula": "stock_22 * 0.08",
+          "from": "stock_22",
+          "ui": {
+            "x": 900,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_22",
+          "type": "constant",
+          "name": "gain_22",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 680,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_22",
+          "type": "variable",
+          "name": "smooth_22",
+          "formula": "smooth(stock_22, 4)",
+          "ui": {
+            "x": 800,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_22",
+          "type": "variable",
+          "name": "gate_22",
+          "formula": "if(smooth_22 > 100, stock_22, smooth_22)",
+          "ui": {
+            "x": 920,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_23",
+          "type": "stock",
+          "name": "stock_23",
+          "initial": "100",
+          "ui": {
+            "x": 1120,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_23",
+          "type": "flow",
+          "name": "in_23",
+          "formula": "gain_23 * (100 - stock_23) + 6 * sin(t / 6)",
+          "to": "stock_23",
+          "ui": {
+            "x": 1020,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_23",
+          "type": "flow",
+          "name": "out_23",
+          "formula": "stock_23 * 0.08",
+          "from": "stock_23",
+          "ui": {
+            "x": 1240,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_23",
+          "type": "constant",
+          "name": "gain_23",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1020,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_23",
+          "type": "variable",
+          "name": "smooth_23",
+          "formula": "smooth(stock_23, 4)",
+          "ui": {
+            "x": 1140,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_23",
+          "type": "variable",
+          "name": "gate_23",
+          "formula": "if(smooth_23 > 100, stock_23, smooth_23)",
+          "ui": {
+            "x": 1260,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_24",
+          "type": "stock",
+          "name": "stock_24",
+          "initial": "110",
+          "ui": {
+            "x": 1460,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_24",
+          "type": "flow",
+          "name": "in_24",
+          "formula": "gain_24 * (100 - stock_24) + 6 * sin(t / 7)",
+          "to": "stock_24",
+          "ui": {
+            "x": 1360,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_24",
+          "type": "flow",
+          "name": "out_24",
+          "formula": "stock_24 * 0.08",
+          "from": "stock_24",
+          "ui": {
+            "x": 1580,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_24",
+          "type": "constant",
+          "name": "gain_24",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1360,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_24",
+          "type": "variable",
+          "name": "smooth_24",
+          "formula": "smooth(stock_24, 4)",
+          "ui": {
+            "x": 1480,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_24",
+          "type": "variable",
+          "name": "gate_24",
+          "formula": "if(smooth_24 > 100, stock_24, smooth_24)",
+          "ui": {
+            "x": 1600,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_25",
+          "type": "stock",
+          "name": "stock_25",
+          "initial": "120",
+          "ui": {
+            "x": 1800,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_25",
+          "type": "flow",
+          "name": "in_25",
+          "formula": "gain_25 * (100 - stock_25) + 6 * sin(t / 3)",
+          "to": "stock_25",
+          "ui": {
+            "x": 1700,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_25",
+          "type": "flow",
+          "name": "out_25",
+          "formula": "stock_25 * 0.08",
+          "from": "stock_25",
+          "ui": {
+            "x": 1920,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_25",
+          "type": "constant",
+          "name": "gain_25",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1700,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_25",
+          "type": "variable",
+          "name": "smooth_25",
+          "formula": "smooth(stock_25, 4)",
+          "ui": {
+            "x": 1820,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_25",
+          "type": "variable",
+          "name": "gate_25",
+          "formula": "if(smooth_25 > 100, stock_25, smooth_25)",
+          "ui": {
+            "x": 1940,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_26",
+          "type": "stock",
+          "name": "stock_26",
+          "initial": "130",
+          "ui": {
+            "x": 2140,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_26",
+          "type": "flow",
+          "name": "in_26",
+          "formula": "gain_26 * (100 - stock_26) + 6 * sin(t / 4)",
+          "to": "stock_26",
+          "ui": {
+            "x": 2040,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_26",
+          "type": "flow",
+          "name": "out_26",
+          "formula": "stock_26 * 0.08",
+          "from": "stock_26",
+          "ui": {
+            "x": 2260,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_26",
+          "type": "constant",
+          "name": "gain_26",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2040,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_26",
+          "type": "variable",
+          "name": "smooth_26",
+          "formula": "smooth(stock_26, 4)",
+          "ui": {
+            "x": 2160,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_26",
+          "type": "variable",
+          "name": "gate_26",
+          "formula": "if(smooth_26 > 100, stock_26, smooth_26)",
+          "ui": {
+            "x": 2280,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_27",
+          "type": "stock",
+          "name": "stock_27",
+          "initial": "140",
+          "ui": {
+            "x": 2480,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_27",
+          "type": "flow",
+          "name": "in_27",
+          "formula": "gain_27 * (100 - stock_27) + 6 * sin(t / 5)",
+          "to": "stock_27",
+          "ui": {
+            "x": 2380,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_27",
+          "type": "flow",
+          "name": "out_27",
+          "formula": "stock_27 * 0.08",
+          "from": "stock_27",
+          "ui": {
+            "x": 2600,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_27",
+          "type": "constant",
+          "name": "gain_27",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2380,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_27",
+          "type": "variable",
+          "name": "smooth_27",
+          "formula": "smooth(stock_27, 4)",
+          "ui": {
+            "x": 2500,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_27",
+          "type": "variable",
+          "name": "gate_27",
+          "formula": "if(smooth_27 > 100, stock_27, smooth_27)",
+          "ui": {
+            "x": 2620,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_28",
+          "type": "stock",
+          "name": "stock_28",
+          "initial": "80",
+          "ui": {
+            "x": 2820,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_28",
+          "type": "flow",
+          "name": "in_28",
+          "formula": "gain_28 * (100 - stock_28) + 6 * sin(t / 6)",
+          "to": "stock_28",
+          "ui": {
+            "x": 2720,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_28",
+          "type": "flow",
+          "name": "out_28",
+          "formula": "stock_28 * 0.08",
+          "from": "stock_28",
+          "ui": {
+            "x": 2940,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_28",
+          "type": "constant",
+          "name": "gain_28",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2720,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_28",
+          "type": "variable",
+          "name": "smooth_28",
+          "formula": "smooth(stock_28, 4)",
+          "ui": {
+            "x": 2840,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_28",
+          "type": "variable",
+          "name": "gate_28",
+          "formula": "if(smooth_28 > 100, stock_28, smooth_28)",
+          "ui": {
+            "x": 2960,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_29",
+          "type": "stock",
+          "name": "stock_29",
+          "initial": "90",
+          "ui": {
+            "x": 3160,
+            "y": 720
+          }
+        },
+        {
+          "id": "in_29",
+          "type": "flow",
+          "name": "in_29",
+          "formula": "gain_29 * (100 - stock_29) + 6 * sin(t / 7)",
+          "to": "stock_29",
+          "ui": {
+            "x": 3060,
+            "y": 740
+          }
+        },
+        {
+          "id": "out_29",
+          "type": "flow",
+          "name": "out_29",
+          "formula": "stock_29 * 0.08",
+          "from": "stock_29",
+          "ui": {
+            "x": 3280,
+            "y": 740
+          }
+        },
+        {
+          "id": "gain_29",
+          "type": "constant",
+          "name": "gain_29",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 3060,
+            "y": 630
+          }
+        },
+        {
+          "id": "smooth_29",
+          "type": "variable",
+          "name": "smooth_29",
+          "formula": "smooth(stock_29, 4)",
+          "ui": {
+            "x": 3180,
+            "y": 830
+          }
+        },
+        {
+          "id": "gate_29",
+          "type": "variable",
+          "name": "gate_29",
+          "formula": "if(smooth_29 > 100, stock_29, smooth_29)",
+          "ui": {
+            "x": 3300,
+            "y": 830
+          }
+        },
+        {
+          "id": "stock_30",
+          "type": "stock",
+          "name": "stock_30",
+          "initial": "100",
+          "ui": {
+            "x": 100,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_30",
+          "type": "flow",
+          "name": "in_30",
+          "formula": "gain_30 * (100 - stock_30) + 6 * sin(t / 3)",
+          "to": "stock_30",
+          "ui": {
+            "x": 0,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_30",
+          "type": "flow",
+          "name": "out_30",
+          "formula": "stock_30 * 0.08",
+          "from": "stock_30",
+          "ui": {
+            "x": 220,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_30",
+          "type": "constant",
+          "name": "gain_30",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 0,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_30",
+          "type": "variable",
+          "name": "smooth_30",
+          "formula": "smooth(stock_30, 4)",
+          "ui": {
+            "x": 120,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_30",
+          "type": "variable",
+          "name": "gate_30",
+          "formula": "if(smooth_30 > 100, stock_30, smooth_30)",
+          "ui": {
+            "x": 240,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_31",
+          "type": "stock",
+          "name": "stock_31",
+          "initial": "110",
+          "ui": {
+            "x": 440,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_31",
+          "type": "flow",
+          "name": "in_31",
+          "formula": "gain_31 * (100 - stock_31) + 6 * sin(t / 4)",
+          "to": "stock_31",
+          "ui": {
+            "x": 340,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_31",
+          "type": "flow",
+          "name": "out_31",
+          "formula": "stock_31 * 0.08",
+          "from": "stock_31",
+          "ui": {
+            "x": 560,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_31",
+          "type": "constant",
+          "name": "gain_31",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 340,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_31",
+          "type": "variable",
+          "name": "smooth_31",
+          "formula": "smooth(stock_31, 4)",
+          "ui": {
+            "x": 460,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_31",
+          "type": "variable",
+          "name": "gate_31",
+          "formula": "if(smooth_31 > 100, stock_31, smooth_31)",
+          "ui": {
+            "x": 580,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_32",
+          "type": "stock",
+          "name": "stock_32",
+          "initial": "120",
+          "ui": {
+            "x": 780,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_32",
+          "type": "flow",
+          "name": "in_32",
+          "formula": "gain_32 * (100 - stock_32) + 6 * sin(t / 5)",
+          "to": "stock_32",
+          "ui": {
+            "x": 680,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_32",
+          "type": "flow",
+          "name": "out_32",
+          "formula": "stock_32 * 0.08",
+          "from": "stock_32",
+          "ui": {
+            "x": 900,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_32",
+          "type": "constant",
+          "name": "gain_32",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 680,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_32",
+          "type": "variable",
+          "name": "smooth_32",
+          "formula": "smooth(stock_32, 4)",
+          "ui": {
+            "x": 800,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_32",
+          "type": "variable",
+          "name": "gate_32",
+          "formula": "if(smooth_32 > 100, stock_32, smooth_32)",
+          "ui": {
+            "x": 920,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_33",
+          "type": "stock",
+          "name": "stock_33",
+          "initial": "130",
+          "ui": {
+            "x": 1120,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_33",
+          "type": "flow",
+          "name": "in_33",
+          "formula": "gain_33 * (100 - stock_33) + 6 * sin(t / 6)",
+          "to": "stock_33",
+          "ui": {
+            "x": 1020,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_33",
+          "type": "flow",
+          "name": "out_33",
+          "formula": "stock_33 * 0.08",
+          "from": "stock_33",
+          "ui": {
+            "x": 1240,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_33",
+          "type": "constant",
+          "name": "gain_33",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1020,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_33",
+          "type": "variable",
+          "name": "smooth_33",
+          "formula": "smooth(stock_33, 4)",
+          "ui": {
+            "x": 1140,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_33",
+          "type": "variable",
+          "name": "gate_33",
+          "formula": "if(smooth_33 > 100, stock_33, smooth_33)",
+          "ui": {
+            "x": 1260,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_34",
+          "type": "stock",
+          "name": "stock_34",
+          "initial": "140",
+          "ui": {
+            "x": 1460,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_34",
+          "type": "flow",
+          "name": "in_34",
+          "formula": "gain_34 * (100 - stock_34) + 6 * sin(t / 7)",
+          "to": "stock_34",
+          "ui": {
+            "x": 1360,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_34",
+          "type": "flow",
+          "name": "out_34",
+          "formula": "stock_34 * 0.08",
+          "from": "stock_34",
+          "ui": {
+            "x": 1580,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_34",
+          "type": "constant",
+          "name": "gain_34",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1360,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_34",
+          "type": "variable",
+          "name": "smooth_34",
+          "formula": "smooth(stock_34, 4)",
+          "ui": {
+            "x": 1480,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_34",
+          "type": "variable",
+          "name": "gate_34",
+          "formula": "if(smooth_34 > 100, stock_34, smooth_34)",
+          "ui": {
+            "x": 1600,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_35",
+          "type": "stock",
+          "name": "stock_35",
+          "initial": "80",
+          "ui": {
+            "x": 1800,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_35",
+          "type": "flow",
+          "name": "in_35",
+          "formula": "gain_35 * (100 - stock_35) + 6 * sin(t / 3)",
+          "to": "stock_35",
+          "ui": {
+            "x": 1700,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_35",
+          "type": "flow",
+          "name": "out_35",
+          "formula": "stock_35 * 0.08",
+          "from": "stock_35",
+          "ui": {
+            "x": 1920,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_35",
+          "type": "constant",
+          "name": "gain_35",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1700,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_35",
+          "type": "variable",
+          "name": "smooth_35",
+          "formula": "smooth(stock_35, 4)",
+          "ui": {
+            "x": 1820,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_35",
+          "type": "variable",
+          "name": "gate_35",
+          "formula": "if(smooth_35 > 100, stock_35, smooth_35)",
+          "ui": {
+            "x": 1940,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_36",
+          "type": "stock",
+          "name": "stock_36",
+          "initial": "90",
+          "ui": {
+            "x": 2140,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_36",
+          "type": "flow",
+          "name": "in_36",
+          "formula": "gain_36 * (100 - stock_36) + 6 * sin(t / 4)",
+          "to": "stock_36",
+          "ui": {
+            "x": 2040,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_36",
+          "type": "flow",
+          "name": "out_36",
+          "formula": "stock_36 * 0.08",
+          "from": "stock_36",
+          "ui": {
+            "x": 2260,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_36",
+          "type": "constant",
+          "name": "gain_36",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2040,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_36",
+          "type": "variable",
+          "name": "smooth_36",
+          "formula": "smooth(stock_36, 4)",
+          "ui": {
+            "x": 2160,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_36",
+          "type": "variable",
+          "name": "gate_36",
+          "formula": "if(smooth_36 > 100, stock_36, smooth_36)",
+          "ui": {
+            "x": 2280,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_37",
+          "type": "stock",
+          "name": "stock_37",
+          "initial": "100",
+          "ui": {
+            "x": 2480,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_37",
+          "type": "flow",
+          "name": "in_37",
+          "formula": "gain_37 * (100 - stock_37) + 6 * sin(t / 5)",
+          "to": "stock_37",
+          "ui": {
+            "x": 2380,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_37",
+          "type": "flow",
+          "name": "out_37",
+          "formula": "stock_37 * 0.08",
+          "from": "stock_37",
+          "ui": {
+            "x": 2600,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_37",
+          "type": "constant",
+          "name": "gain_37",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2380,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_37",
+          "type": "variable",
+          "name": "smooth_37",
+          "formula": "smooth(stock_37, 4)",
+          "ui": {
+            "x": 2500,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_37",
+          "type": "variable",
+          "name": "gate_37",
+          "formula": "if(smooth_37 > 100, stock_37, smooth_37)",
+          "ui": {
+            "x": 2620,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_38",
+          "type": "stock",
+          "name": "stock_38",
+          "initial": "110",
+          "ui": {
+            "x": 2820,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_38",
+          "type": "flow",
+          "name": "in_38",
+          "formula": "gain_38 * (100 - stock_38) + 6 * sin(t / 6)",
+          "to": "stock_38",
+          "ui": {
+            "x": 2720,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_38",
+          "type": "flow",
+          "name": "out_38",
+          "formula": "stock_38 * 0.08",
+          "from": "stock_38",
+          "ui": {
+            "x": 2940,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_38",
+          "type": "constant",
+          "name": "gain_38",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2720,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_38",
+          "type": "variable",
+          "name": "smooth_38",
+          "formula": "smooth(stock_38, 4)",
+          "ui": {
+            "x": 2840,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_38",
+          "type": "variable",
+          "name": "gate_38",
+          "formula": "if(smooth_38 > 100, stock_38, smooth_38)",
+          "ui": {
+            "x": 2960,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_39",
+          "type": "stock",
+          "name": "stock_39",
+          "initial": "120",
+          "ui": {
+            "x": 3160,
+            "y": 1020
+          }
+        },
+        {
+          "id": "in_39",
+          "type": "flow",
+          "name": "in_39",
+          "formula": "gain_39 * (100 - stock_39) + 6 * sin(t / 7)",
+          "to": "stock_39",
+          "ui": {
+            "x": 3060,
+            "y": 1040
+          }
+        },
+        {
+          "id": "out_39",
+          "type": "flow",
+          "name": "out_39",
+          "formula": "stock_39 * 0.08",
+          "from": "stock_39",
+          "ui": {
+            "x": 3280,
+            "y": 1040
+          }
+        },
+        {
+          "id": "gain_39",
+          "type": "constant",
+          "name": "gain_39",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 3060,
+            "y": 930
+          }
+        },
+        {
+          "id": "smooth_39",
+          "type": "variable",
+          "name": "smooth_39",
+          "formula": "smooth(stock_39, 4)",
+          "ui": {
+            "x": 3180,
+            "y": 1130
+          }
+        },
+        {
+          "id": "gate_39",
+          "type": "variable",
+          "name": "gate_39",
+          "formula": "if(smooth_39 > 100, stock_39, smooth_39)",
+          "ui": {
+            "x": 3300,
+            "y": 1130
+          }
+        },
+        {
+          "id": "stock_40",
+          "type": "stock",
+          "name": "stock_40",
+          "initial": "130",
+          "ui": {
+            "x": 100,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_40",
+          "type": "flow",
+          "name": "in_40",
+          "formula": "gain_40 * (100 - stock_40) + 6 * sin(t / 3)",
+          "to": "stock_40",
+          "ui": {
+            "x": 0,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_40",
+          "type": "flow",
+          "name": "out_40",
+          "formula": "stock_40 * 0.08",
+          "from": "stock_40",
+          "ui": {
+            "x": 220,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_40",
+          "type": "constant",
+          "name": "gain_40",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 0,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_40",
+          "type": "variable",
+          "name": "smooth_40",
+          "formula": "smooth(stock_40, 4)",
+          "ui": {
+            "x": 120,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_40",
+          "type": "variable",
+          "name": "gate_40",
+          "formula": "if(smooth_40 > 100, stock_40, smooth_40)",
+          "ui": {
+            "x": 240,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_41",
+          "type": "stock",
+          "name": "stock_41",
+          "initial": "140",
+          "ui": {
+            "x": 440,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_41",
+          "type": "flow",
+          "name": "in_41",
+          "formula": "gain_41 * (100 - stock_41) + 6 * sin(t / 4)",
+          "to": "stock_41",
+          "ui": {
+            "x": 340,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_41",
+          "type": "flow",
+          "name": "out_41",
+          "formula": "stock_41 * 0.08",
+          "from": "stock_41",
+          "ui": {
+            "x": 560,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_41",
+          "type": "constant",
+          "name": "gain_41",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 340,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_41",
+          "type": "variable",
+          "name": "smooth_41",
+          "formula": "smooth(stock_41, 4)",
+          "ui": {
+            "x": 460,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_41",
+          "type": "variable",
+          "name": "gate_41",
+          "formula": "if(smooth_41 > 100, stock_41, smooth_41)",
+          "ui": {
+            "x": 580,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_42",
+          "type": "stock",
+          "name": "stock_42",
+          "initial": "80",
+          "ui": {
+            "x": 780,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_42",
+          "type": "flow",
+          "name": "in_42",
+          "formula": "gain_42 * (100 - stock_42) + 6 * sin(t / 5)",
+          "to": "stock_42",
+          "ui": {
+            "x": 680,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_42",
+          "type": "flow",
+          "name": "out_42",
+          "formula": "stock_42 * 0.08",
+          "from": "stock_42",
+          "ui": {
+            "x": 900,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_42",
+          "type": "constant",
+          "name": "gain_42",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 680,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_42",
+          "type": "variable",
+          "name": "smooth_42",
+          "formula": "smooth(stock_42, 4)",
+          "ui": {
+            "x": 800,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_42",
+          "type": "variable",
+          "name": "gate_42",
+          "formula": "if(smooth_42 > 100, stock_42, smooth_42)",
+          "ui": {
+            "x": 920,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_43",
+          "type": "stock",
+          "name": "stock_43",
+          "initial": "90",
+          "ui": {
+            "x": 1120,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_43",
+          "type": "flow",
+          "name": "in_43",
+          "formula": "gain_43 * (100 - stock_43) + 6 * sin(t / 6)",
+          "to": "stock_43",
+          "ui": {
+            "x": 1020,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_43",
+          "type": "flow",
+          "name": "out_43",
+          "formula": "stock_43 * 0.08",
+          "from": "stock_43",
+          "ui": {
+            "x": 1240,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_43",
+          "type": "constant",
+          "name": "gain_43",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1020,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_43",
+          "type": "variable",
+          "name": "smooth_43",
+          "formula": "smooth(stock_43, 4)",
+          "ui": {
+            "x": 1140,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_43",
+          "type": "variable",
+          "name": "gate_43",
+          "formula": "if(smooth_43 > 100, stock_43, smooth_43)",
+          "ui": {
+            "x": 1260,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_44",
+          "type": "stock",
+          "name": "stock_44",
+          "initial": "100",
+          "ui": {
+            "x": 1460,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_44",
+          "type": "flow",
+          "name": "in_44",
+          "formula": "gain_44 * (100 - stock_44) + 6 * sin(t / 7)",
+          "to": "stock_44",
+          "ui": {
+            "x": 1360,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_44",
+          "type": "flow",
+          "name": "out_44",
+          "formula": "stock_44 * 0.08",
+          "from": "stock_44",
+          "ui": {
+            "x": 1580,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_44",
+          "type": "constant",
+          "name": "gain_44",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1360,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_44",
+          "type": "variable",
+          "name": "smooth_44",
+          "formula": "smooth(stock_44, 4)",
+          "ui": {
+            "x": 1480,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_44",
+          "type": "variable",
+          "name": "gate_44",
+          "formula": "if(smooth_44 > 100, stock_44, smooth_44)",
+          "ui": {
+            "x": 1600,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_45",
+          "type": "stock",
+          "name": "stock_45",
+          "initial": "110",
+          "ui": {
+            "x": 1800,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_45",
+          "type": "flow",
+          "name": "in_45",
+          "formula": "gain_45 * (100 - stock_45) + 6 * sin(t / 3)",
+          "to": "stock_45",
+          "ui": {
+            "x": 1700,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_45",
+          "type": "flow",
+          "name": "out_45",
+          "formula": "stock_45 * 0.08",
+          "from": "stock_45",
+          "ui": {
+            "x": 1920,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_45",
+          "type": "constant",
+          "name": "gain_45",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 1700,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_45",
+          "type": "variable",
+          "name": "smooth_45",
+          "formula": "smooth(stock_45, 4)",
+          "ui": {
+            "x": 1820,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_45",
+          "type": "variable",
+          "name": "gate_45",
+          "formula": "if(smooth_45 > 100, stock_45, smooth_45)",
+          "ui": {
+            "x": 1940,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_46",
+          "type": "stock",
+          "name": "stock_46",
+          "initial": "120",
+          "ui": {
+            "x": 2140,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_46",
+          "type": "flow",
+          "name": "in_46",
+          "formula": "gain_46 * (100 - stock_46) + 6 * sin(t / 4)",
+          "to": "stock_46",
+          "ui": {
+            "x": 2040,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_46",
+          "type": "flow",
+          "name": "out_46",
+          "formula": "stock_46 * 0.08",
+          "from": "stock_46",
+          "ui": {
+            "x": 2260,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_46",
+          "type": "constant",
+          "name": "gain_46",
+          "value": 0.25,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2040,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_46",
+          "type": "variable",
+          "name": "smooth_46",
+          "formula": "smooth(stock_46, 4)",
+          "ui": {
+            "x": 2160,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_46",
+          "type": "variable",
+          "name": "gate_46",
+          "formula": "if(smooth_46 > 100, stock_46, smooth_46)",
+          "ui": {
+            "x": 2280,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_47",
+          "type": "stock",
+          "name": "stock_47",
+          "initial": "130",
+          "ui": {
+            "x": 2480,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_47",
+          "type": "flow",
+          "name": "in_47",
+          "formula": "gain_47 * (100 - stock_47) + 6 * sin(t / 5)",
+          "to": "stock_47",
+          "ui": {
+            "x": 2380,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_47",
+          "type": "flow",
+          "name": "out_47",
+          "formula": "stock_47 * 0.08",
+          "from": "stock_47",
+          "ui": {
+            "x": 2600,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_47",
+          "type": "constant",
+          "name": "gain_47",
+          "value": 0.30000000000000004,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2380,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_47",
+          "type": "variable",
+          "name": "smooth_47",
+          "formula": "smooth(stock_47, 4)",
+          "ui": {
+            "x": 2500,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_47",
+          "type": "variable",
+          "name": "gate_47",
+          "formula": "if(smooth_47 > 100, stock_47, smooth_47)",
+          "ui": {
+            "x": 2620,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_48",
+          "type": "stock",
+          "name": "stock_48",
+          "initial": "140",
+          "ui": {
+            "x": 2820,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_48",
+          "type": "flow",
+          "name": "in_48",
+          "formula": "gain_48 * (100 - stock_48) + 6 * sin(t / 6)",
+          "to": "stock_48",
+          "ui": {
+            "x": 2720,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_48",
+          "type": "flow",
+          "name": "out_48",
+          "formula": "stock_48 * 0.08",
+          "from": "stock_48",
+          "ui": {
+            "x": 2940,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_48",
+          "type": "constant",
+          "name": "gain_48",
+          "value": 0.15,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 2720,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_48",
+          "type": "variable",
+          "name": "smooth_48",
+          "formula": "smooth(stock_48, 4)",
+          "ui": {
+            "x": 2840,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_48",
+          "type": "variable",
+          "name": "gate_48",
+          "formula": "if(smooth_48 > 100, stock_48, smooth_48)",
+          "ui": {
+            "x": 2960,
+            "y": 1430
+          }
+        },
+        {
+          "id": "stock_49",
+          "type": "stock",
+          "name": "stock_49",
+          "initial": "80",
+          "ui": {
+            "x": 3160,
+            "y": 1320
+          }
+        },
+        {
+          "id": "in_49",
+          "type": "flow",
+          "name": "in_49",
+          "formula": "gain_49 * (100 - stock_49) + 6 * sin(t / 7)",
+          "to": "stock_49",
+          "ui": {
+            "x": 3060,
+            "y": 1340
+          }
+        },
+        {
+          "id": "out_49",
+          "type": "flow",
+          "name": "out_49",
+          "formula": "stock_49 * 0.08",
+          "from": "stock_49",
+          "ui": {
+            "x": 3280,
+            "y": 1340
+          }
+        },
+        {
+          "id": "gain_49",
+          "type": "constant",
+          "name": "gain_49",
+          "value": 0.2,
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          },
+          "ui": {
+            "x": 3060,
+            "y": 1230
+          }
+        },
+        {
+          "id": "smooth_49",
+          "type": "variable",
+          "name": "smooth_49",
+          "formula": "smooth(stock_49, 4)",
+          "ui": {
+            "x": 3180,
+            "y": 1430
+          }
+        },
+        {
+          "id": "gate_49",
+          "type": "variable",
+          "name": "gate_49",
+          "formula": "if(smooth_49 > 100, stock_49, smooth_49)",
+          "ui": {
+            "x": 3300,
+            "y": 1430
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0",
+          "type": "link",
+          "from": "gain_0",
+          "to": "in_0"
+        },
+        {
+          "id": "e1",
+          "type": "link",
+          "from": "stock_0",
+          "to": "in_0"
+        },
+        {
+          "id": "e2",
+          "type": "link",
+          "from": "stock_0",
+          "to": "out_0"
+        },
+        {
+          "id": "e3",
+          "type": "link",
+          "from": "stock_0",
+          "to": "smooth_0"
+        },
+        {
+          "id": "e4",
+          "type": "link",
+          "from": "smooth_0",
+          "to": "gate_0"
+        },
+        {
+          "id": "e5",
+          "type": "link",
+          "from": "stock_0",
+          "to": "gate_0"
+        },
+        {
+          "id": "e6",
+          "type": "link",
+          "from": "gain_1",
+          "to": "in_1"
+        },
+        {
+          "id": "e7",
+          "type": "link",
+          "from": "stock_1",
+          "to": "in_1"
+        },
+        {
+          "id": "e8",
+          "type": "link",
+          "from": "stock_1",
+          "to": "out_1"
+        },
+        {
+          "id": "e9",
+          "type": "link",
+          "from": "stock_1",
+          "to": "smooth_1"
+        },
+        {
+          "id": "e10",
+          "type": "link",
+          "from": "smooth_1",
+          "to": "gate_1"
+        },
+        {
+          "id": "e12",
+          "type": "link",
+          "from": "smooth_0",
+          "to": "gate_1"
+        },
+        {
+          "id": "e13",
+          "type": "link",
+          "from": "gain_2",
+          "to": "in_2"
+        },
+        {
+          "id": "e14",
+          "type": "link",
+          "from": "stock_2",
+          "to": "in_2"
+        },
+        {
+          "id": "e15",
+          "type": "link",
+          "from": "stock_2",
+          "to": "out_2"
+        },
+        {
+          "id": "e16",
+          "type": "link",
+          "from": "stock_2",
+          "to": "smooth_2"
+        },
+        {
+          "id": "e17",
+          "type": "link",
+          "from": "smooth_2",
+          "to": "gate_2"
+        },
+        {
+          "id": "e19",
+          "type": "link",
+          "from": "smooth_1",
+          "to": "gate_2"
+        },
+        {
+          "id": "e20",
+          "type": "link",
+          "from": "gain_3",
+          "to": "in_3"
+        },
+        {
+          "id": "e21",
+          "type": "link",
+          "from": "stock_3",
+          "to": "in_3"
+        },
+        {
+          "id": "e22",
+          "type": "link",
+          "from": "stock_3",
+          "to": "out_3"
+        },
+        {
+          "id": "e23",
+          "type": "link",
+          "from": "stock_3",
+          "to": "smooth_3"
+        },
+        {
+          "id": "e24",
+          "type": "link",
+          "from": "smooth_3",
+          "to": "gate_3"
+        },
+        {
+          "id": "e26",
+          "type": "link",
+          "from": "smooth_2",
+          "to": "gate_3"
+        },
+        {
+          "id": "e27",
+          "type": "link",
+          "from": "gain_4",
+          "to": "in_4"
+        },
+        {
+          "id": "e28",
+          "type": "link",
+          "from": "stock_4",
+          "to": "in_4"
+        },
+        {
+          "id": "e29",
+          "type": "link",
+          "from": "stock_4",
+          "to": "out_4"
+        },
+        {
+          "id": "e30",
+          "type": "link",
+          "from": "stock_4",
+          "to": "smooth_4"
+        },
+        {
+          "id": "e31",
+          "type": "link",
+          "from": "smooth_4",
+          "to": "gate_4"
+        },
+        {
+          "id": "e33",
+          "type": "link",
+          "from": "smooth_3",
+          "to": "gate_4"
+        },
+        {
+          "id": "e34",
+          "type": "link",
+          "from": "gain_5",
+          "to": "in_5"
+        },
+        {
+          "id": "e35",
+          "type": "link",
+          "from": "stock_5",
+          "to": "in_5"
+        },
+        {
+          "id": "e36",
+          "type": "link",
+          "from": "stock_5",
+          "to": "out_5"
+        },
+        {
+          "id": "e37",
+          "type": "link",
+          "from": "stock_5",
+          "to": "smooth_5"
+        },
+        {
+          "id": "e38",
+          "type": "link",
+          "from": "smooth_5",
+          "to": "gate_5"
+        },
+        {
+          "id": "e39",
+          "type": "link",
+          "from": "stock_5",
+          "to": "gate_5"
+        },
+        {
+          "id": "e40",
+          "type": "link",
+          "from": "gain_6",
+          "to": "in_6"
+        },
+        {
+          "id": "e41",
+          "type": "link",
+          "from": "stock_6",
+          "to": "in_6"
+        },
+        {
+          "id": "e42",
+          "type": "link",
+          "from": "stock_6",
+          "to": "out_6"
+        },
+        {
+          "id": "e43",
+          "type": "link",
+          "from": "stock_6",
+          "to": "smooth_6"
+        },
+        {
+          "id": "e44",
+          "type": "link",
+          "from": "smooth_6",
+          "to": "gate_6"
+        },
+        {
+          "id": "e46",
+          "type": "link",
+          "from": "smooth_5",
+          "to": "gate_6"
+        },
+        {
+          "id": "e47",
+          "type": "link",
+          "from": "gain_7",
+          "to": "in_7"
+        },
+        {
+          "id": "e48",
+          "type": "link",
+          "from": "stock_7",
+          "to": "in_7"
+        },
+        {
+          "id": "e49",
+          "type": "link",
+          "from": "stock_7",
+          "to": "out_7"
+        },
+        {
+          "id": "e50",
+          "type": "link",
+          "from": "stock_7",
+          "to": "smooth_7"
+        },
+        {
+          "id": "e51",
+          "type": "link",
+          "from": "smooth_7",
+          "to": "gate_7"
+        },
+        {
+          "id": "e53",
+          "type": "link",
+          "from": "smooth_6",
+          "to": "gate_7"
+        },
+        {
+          "id": "e54",
+          "type": "link",
+          "from": "gain_8",
+          "to": "in_8"
+        },
+        {
+          "id": "e55",
+          "type": "link",
+          "from": "stock_8",
+          "to": "in_8"
+        },
+        {
+          "id": "e56",
+          "type": "link",
+          "from": "stock_8",
+          "to": "out_8"
+        },
+        {
+          "id": "e57",
+          "type": "link",
+          "from": "stock_8",
+          "to": "smooth_8"
+        },
+        {
+          "id": "e58",
+          "type": "link",
+          "from": "smooth_8",
+          "to": "gate_8"
+        },
+        {
+          "id": "e60",
+          "type": "link",
+          "from": "smooth_7",
+          "to": "gate_8"
+        },
+        {
+          "id": "e61",
+          "type": "link",
+          "from": "gain_9",
+          "to": "in_9"
+        },
+        {
+          "id": "e62",
+          "type": "link",
+          "from": "stock_9",
+          "to": "in_9"
+        },
+        {
+          "id": "e63",
+          "type": "link",
+          "from": "stock_9",
+          "to": "out_9"
+        },
+        {
+          "id": "e64",
+          "type": "link",
+          "from": "stock_9",
+          "to": "smooth_9"
+        },
+        {
+          "id": "e65",
+          "type": "link",
+          "from": "smooth_9",
+          "to": "gate_9"
+        },
+        {
+          "id": "e67",
+          "type": "link",
+          "from": "smooth_8",
+          "to": "gate_9"
+        },
+        {
+          "id": "e68",
+          "type": "link",
+          "from": "gain_10",
+          "to": "in_10"
+        },
+        {
+          "id": "e69",
+          "type": "link",
+          "from": "stock_10",
+          "to": "in_10"
+        },
+        {
+          "id": "e70",
+          "type": "link",
+          "from": "stock_10",
+          "to": "out_10"
+        },
+        {
+          "id": "e71",
+          "type": "link",
+          "from": "stock_10",
+          "to": "smooth_10"
+        },
+        {
+          "id": "e72",
+          "type": "link",
+          "from": "smooth_10",
+          "to": "gate_10"
+        },
+        {
+          "id": "e73",
+          "type": "link",
+          "from": "stock_10",
+          "to": "gate_10"
+        },
+        {
+          "id": "e74",
+          "type": "link",
+          "from": "gain_11",
+          "to": "in_11"
+        },
+        {
+          "id": "e75",
+          "type": "link",
+          "from": "stock_11",
+          "to": "in_11"
+        },
+        {
+          "id": "e76",
+          "type": "link",
+          "from": "stock_11",
+          "to": "out_11"
+        },
+        {
+          "id": "e77",
+          "type": "link",
+          "from": "stock_11",
+          "to": "smooth_11"
+        },
+        {
+          "id": "e78",
+          "type": "link",
+          "from": "smooth_11",
+          "to": "gate_11"
+        },
+        {
+          "id": "e80",
+          "type": "link",
+          "from": "smooth_10",
+          "to": "gate_11"
+        },
+        {
+          "id": "e81",
+          "type": "link",
+          "from": "gain_12",
+          "to": "in_12"
+        },
+        {
+          "id": "e82",
+          "type": "link",
+          "from": "stock_12",
+          "to": "in_12"
+        },
+        {
+          "id": "e83",
+          "type": "link",
+          "from": "stock_12",
+          "to": "out_12"
+        },
+        {
+          "id": "e84",
+          "type": "link",
+          "from": "stock_12",
+          "to": "smooth_12"
+        },
+        {
+          "id": "e85",
+          "type": "link",
+          "from": "smooth_12",
+          "to": "gate_12"
+        },
+        {
+          "id": "e87",
+          "type": "link",
+          "from": "smooth_11",
+          "to": "gate_12"
+        },
+        {
+          "id": "e88",
+          "type": "link",
+          "from": "gain_13",
+          "to": "in_13"
+        },
+        {
+          "id": "e89",
+          "type": "link",
+          "from": "stock_13",
+          "to": "in_13"
+        },
+        {
+          "id": "e90",
+          "type": "link",
+          "from": "stock_13",
+          "to": "out_13"
+        },
+        {
+          "id": "e91",
+          "type": "link",
+          "from": "stock_13",
+          "to": "smooth_13"
+        },
+        {
+          "id": "e92",
+          "type": "link",
+          "from": "smooth_13",
+          "to": "gate_13"
+        },
+        {
+          "id": "e94",
+          "type": "link",
+          "from": "smooth_12",
+          "to": "gate_13"
+        },
+        {
+          "id": "e95",
+          "type": "link",
+          "from": "gain_14",
+          "to": "in_14"
+        },
+        {
+          "id": "e96",
+          "type": "link",
+          "from": "stock_14",
+          "to": "in_14"
+        },
+        {
+          "id": "e97",
+          "type": "link",
+          "from": "stock_14",
+          "to": "out_14"
+        },
+        {
+          "id": "e98",
+          "type": "link",
+          "from": "stock_14",
+          "to": "smooth_14"
+        },
+        {
+          "id": "e99",
+          "type": "link",
+          "from": "smooth_14",
+          "to": "gate_14"
+        },
+        {
+          "id": "e101",
+          "type": "link",
+          "from": "smooth_13",
+          "to": "gate_14"
+        },
+        {
+          "id": "e102",
+          "type": "link",
+          "from": "gain_15",
+          "to": "in_15"
+        },
+        {
+          "id": "e103",
+          "type": "link",
+          "from": "stock_15",
+          "to": "in_15"
+        },
+        {
+          "id": "e104",
+          "type": "link",
+          "from": "stock_15",
+          "to": "out_15"
+        },
+        {
+          "id": "e105",
+          "type": "link",
+          "from": "stock_15",
+          "to": "smooth_15"
+        },
+        {
+          "id": "e106",
+          "type": "link",
+          "from": "smooth_15",
+          "to": "gate_15"
+        },
+        {
+          "id": "e107",
+          "type": "link",
+          "from": "stock_15",
+          "to": "gate_15"
+        },
+        {
+          "id": "e108",
+          "type": "link",
+          "from": "gain_16",
+          "to": "in_16"
+        },
+        {
+          "id": "e109",
+          "type": "link",
+          "from": "stock_16",
+          "to": "in_16"
+        },
+        {
+          "id": "e110",
+          "type": "link",
+          "from": "stock_16",
+          "to": "out_16"
+        },
+        {
+          "id": "e111",
+          "type": "link",
+          "from": "stock_16",
+          "to": "smooth_16"
+        },
+        {
+          "id": "e112",
+          "type": "link",
+          "from": "smooth_16",
+          "to": "gate_16"
+        },
+        {
+          "id": "e114",
+          "type": "link",
+          "from": "smooth_15",
+          "to": "gate_16"
+        },
+        {
+          "id": "e115",
+          "type": "link",
+          "from": "gain_17",
+          "to": "in_17"
+        },
+        {
+          "id": "e116",
+          "type": "link",
+          "from": "stock_17",
+          "to": "in_17"
+        },
+        {
+          "id": "e117",
+          "type": "link",
+          "from": "stock_17",
+          "to": "out_17"
+        },
+        {
+          "id": "e118",
+          "type": "link",
+          "from": "stock_17",
+          "to": "smooth_17"
+        },
+        {
+          "id": "e119",
+          "type": "link",
+          "from": "smooth_17",
+          "to": "gate_17"
+        },
+        {
+          "id": "e121",
+          "type": "link",
+          "from": "smooth_16",
+          "to": "gate_17"
+        },
+        {
+          "id": "e122",
+          "type": "link",
+          "from": "gain_18",
+          "to": "in_18"
+        },
+        {
+          "id": "e123",
+          "type": "link",
+          "from": "stock_18",
+          "to": "in_18"
+        },
+        {
+          "id": "e124",
+          "type": "link",
+          "from": "stock_18",
+          "to": "out_18"
+        },
+        {
+          "id": "e125",
+          "type": "link",
+          "from": "stock_18",
+          "to": "smooth_18"
+        },
+        {
+          "id": "e126",
+          "type": "link",
+          "from": "smooth_18",
+          "to": "gate_18"
+        },
+        {
+          "id": "e128",
+          "type": "link",
+          "from": "smooth_17",
+          "to": "gate_18"
+        },
+        {
+          "id": "e129",
+          "type": "link",
+          "from": "gain_19",
+          "to": "in_19"
+        },
+        {
+          "id": "e130",
+          "type": "link",
+          "from": "stock_19",
+          "to": "in_19"
+        },
+        {
+          "id": "e131",
+          "type": "link",
+          "from": "stock_19",
+          "to": "out_19"
+        },
+        {
+          "id": "e132",
+          "type": "link",
+          "from": "stock_19",
+          "to": "smooth_19"
+        },
+        {
+          "id": "e133",
+          "type": "link",
+          "from": "smooth_19",
+          "to": "gate_19"
+        },
+        {
+          "id": "e135",
+          "type": "link",
+          "from": "smooth_18",
+          "to": "gate_19"
+        },
+        {
+          "id": "e136",
+          "type": "link",
+          "from": "gain_20",
+          "to": "in_20"
+        },
+        {
+          "id": "e137",
+          "type": "link",
+          "from": "stock_20",
+          "to": "in_20"
+        },
+        {
+          "id": "e138",
+          "type": "link",
+          "from": "stock_20",
+          "to": "out_20"
+        },
+        {
+          "id": "e139",
+          "type": "link",
+          "from": "stock_20",
+          "to": "smooth_20"
+        },
+        {
+          "id": "e140",
+          "type": "link",
+          "from": "smooth_20",
+          "to": "gate_20"
+        },
+        {
+          "id": "e141",
+          "type": "link",
+          "from": "stock_20",
+          "to": "gate_20"
+        },
+        {
+          "id": "e142",
+          "type": "link",
+          "from": "gain_21",
+          "to": "in_21"
+        },
+        {
+          "id": "e143",
+          "type": "link",
+          "from": "stock_21",
+          "to": "in_21"
+        },
+        {
+          "id": "e144",
+          "type": "link",
+          "from": "stock_21",
+          "to": "out_21"
+        },
+        {
+          "id": "e145",
+          "type": "link",
+          "from": "stock_21",
+          "to": "smooth_21"
+        },
+        {
+          "id": "e146",
+          "type": "link",
+          "from": "smooth_21",
+          "to": "gate_21"
+        },
+        {
+          "id": "e148",
+          "type": "link",
+          "from": "smooth_20",
+          "to": "gate_21"
+        },
+        {
+          "id": "e149",
+          "type": "link",
+          "from": "gain_22",
+          "to": "in_22"
+        },
+        {
+          "id": "e150",
+          "type": "link",
+          "from": "stock_22",
+          "to": "in_22"
+        },
+        {
+          "id": "e151",
+          "type": "link",
+          "from": "stock_22",
+          "to": "out_22"
+        },
+        {
+          "id": "e152",
+          "type": "link",
+          "from": "stock_22",
+          "to": "smooth_22"
+        },
+        {
+          "id": "e153",
+          "type": "link",
+          "from": "smooth_22",
+          "to": "gate_22"
+        },
+        {
+          "id": "e155",
+          "type": "link",
+          "from": "smooth_21",
+          "to": "gate_22"
+        },
+        {
+          "id": "e156",
+          "type": "link",
+          "from": "gain_23",
+          "to": "in_23"
+        },
+        {
+          "id": "e157",
+          "type": "link",
+          "from": "stock_23",
+          "to": "in_23"
+        },
+        {
+          "id": "e158",
+          "type": "link",
+          "from": "stock_23",
+          "to": "out_23"
+        },
+        {
+          "id": "e159",
+          "type": "link",
+          "from": "stock_23",
+          "to": "smooth_23"
+        },
+        {
+          "id": "e160",
+          "type": "link",
+          "from": "smooth_23",
+          "to": "gate_23"
+        },
+        {
+          "id": "e162",
+          "type": "link",
+          "from": "smooth_22",
+          "to": "gate_23"
+        },
+        {
+          "id": "e163",
+          "type": "link",
+          "from": "gain_24",
+          "to": "in_24"
+        },
+        {
+          "id": "e164",
+          "type": "link",
+          "from": "stock_24",
+          "to": "in_24"
+        },
+        {
+          "id": "e165",
+          "type": "link",
+          "from": "stock_24",
+          "to": "out_24"
+        },
+        {
+          "id": "e166",
+          "type": "link",
+          "from": "stock_24",
+          "to": "smooth_24"
+        },
+        {
+          "id": "e167",
+          "type": "link",
+          "from": "smooth_24",
+          "to": "gate_24"
+        },
+        {
+          "id": "e169",
+          "type": "link",
+          "from": "smooth_23",
+          "to": "gate_24"
+        },
+        {
+          "id": "e170",
+          "type": "link",
+          "from": "gain_25",
+          "to": "in_25"
+        },
+        {
+          "id": "e171",
+          "type": "link",
+          "from": "stock_25",
+          "to": "in_25"
+        },
+        {
+          "id": "e172",
+          "type": "link",
+          "from": "stock_25",
+          "to": "out_25"
+        },
+        {
+          "id": "e173",
+          "type": "link",
+          "from": "stock_25",
+          "to": "smooth_25"
+        },
+        {
+          "id": "e174",
+          "type": "link",
+          "from": "smooth_25",
+          "to": "gate_25"
+        },
+        {
+          "id": "e175",
+          "type": "link",
+          "from": "stock_25",
+          "to": "gate_25"
+        },
+        {
+          "id": "e176",
+          "type": "link",
+          "from": "gain_26",
+          "to": "in_26"
+        },
+        {
+          "id": "e177",
+          "type": "link",
+          "from": "stock_26",
+          "to": "in_26"
+        },
+        {
+          "id": "e178",
+          "type": "link",
+          "from": "stock_26",
+          "to": "out_26"
+        },
+        {
+          "id": "e179",
+          "type": "link",
+          "from": "stock_26",
+          "to": "smooth_26"
+        },
+        {
+          "id": "e180",
+          "type": "link",
+          "from": "smooth_26",
+          "to": "gate_26"
+        },
+        {
+          "id": "e182",
+          "type": "link",
+          "from": "smooth_25",
+          "to": "gate_26"
+        },
+        {
+          "id": "e183",
+          "type": "link",
+          "from": "gain_27",
+          "to": "in_27"
+        },
+        {
+          "id": "e184",
+          "type": "link",
+          "from": "stock_27",
+          "to": "in_27"
+        },
+        {
+          "id": "e185",
+          "type": "link",
+          "from": "stock_27",
+          "to": "out_27"
+        },
+        {
+          "id": "e186",
+          "type": "link",
+          "from": "stock_27",
+          "to": "smooth_27"
+        },
+        {
+          "id": "e187",
+          "type": "link",
+          "from": "smooth_27",
+          "to": "gate_27"
+        },
+        {
+          "id": "e189",
+          "type": "link",
+          "from": "smooth_26",
+          "to": "gate_27"
+        },
+        {
+          "id": "e190",
+          "type": "link",
+          "from": "gain_28",
+          "to": "in_28"
+        },
+        {
+          "id": "e191",
+          "type": "link",
+          "from": "stock_28",
+          "to": "in_28"
+        },
+        {
+          "id": "e192",
+          "type": "link",
+          "from": "stock_28",
+          "to": "out_28"
+        },
+        {
+          "id": "e193",
+          "type": "link",
+          "from": "stock_28",
+          "to": "smooth_28"
+        },
+        {
+          "id": "e194",
+          "type": "link",
+          "from": "smooth_28",
+          "to": "gate_28"
+        },
+        {
+          "id": "e196",
+          "type": "link",
+          "from": "smooth_27",
+          "to": "gate_28"
+        },
+        {
+          "id": "e197",
+          "type": "link",
+          "from": "gain_29",
+          "to": "in_29"
+        },
+        {
+          "id": "e198",
+          "type": "link",
+          "from": "stock_29",
+          "to": "in_29"
+        },
+        {
+          "id": "e199",
+          "type": "link",
+          "from": "stock_29",
+          "to": "out_29"
+        },
+        {
+          "id": "e200",
+          "type": "link",
+          "from": "stock_29",
+          "to": "smooth_29"
+        },
+        {
+          "id": "e201",
+          "type": "link",
+          "from": "smooth_29",
+          "to": "gate_29"
+        },
+        {
+          "id": "e203",
+          "type": "link",
+          "from": "smooth_28",
+          "to": "gate_29"
+        },
+        {
+          "id": "e204",
+          "type": "link",
+          "from": "gain_30",
+          "to": "in_30"
+        },
+        {
+          "id": "e205",
+          "type": "link",
+          "from": "stock_30",
+          "to": "in_30"
+        },
+        {
+          "id": "e206",
+          "type": "link",
+          "from": "stock_30",
+          "to": "out_30"
+        },
+        {
+          "id": "e207",
+          "type": "link",
+          "from": "stock_30",
+          "to": "smooth_30"
+        },
+        {
+          "id": "e208",
+          "type": "link",
+          "from": "smooth_30",
+          "to": "gate_30"
+        },
+        {
+          "id": "e209",
+          "type": "link",
+          "from": "stock_30",
+          "to": "gate_30"
+        },
+        {
+          "id": "e210",
+          "type": "link",
+          "from": "gain_31",
+          "to": "in_31"
+        },
+        {
+          "id": "e211",
+          "type": "link",
+          "from": "stock_31",
+          "to": "in_31"
+        },
+        {
+          "id": "e212",
+          "type": "link",
+          "from": "stock_31",
+          "to": "out_31"
+        },
+        {
+          "id": "e213",
+          "type": "link",
+          "from": "stock_31",
+          "to": "smooth_31"
+        },
+        {
+          "id": "e214",
+          "type": "link",
+          "from": "smooth_31",
+          "to": "gate_31"
+        },
+        {
+          "id": "e216",
+          "type": "link",
+          "from": "smooth_30",
+          "to": "gate_31"
+        },
+        {
+          "id": "e217",
+          "type": "link",
+          "from": "gain_32",
+          "to": "in_32"
+        },
+        {
+          "id": "e218",
+          "type": "link",
+          "from": "stock_32",
+          "to": "in_32"
+        },
+        {
+          "id": "e219",
+          "type": "link",
+          "from": "stock_32",
+          "to": "out_32"
+        },
+        {
+          "id": "e220",
+          "type": "link",
+          "from": "stock_32",
+          "to": "smooth_32"
+        },
+        {
+          "id": "e221",
+          "type": "link",
+          "from": "smooth_32",
+          "to": "gate_32"
+        },
+        {
+          "id": "e223",
+          "type": "link",
+          "from": "smooth_31",
+          "to": "gate_32"
+        },
+        {
+          "id": "e224",
+          "type": "link",
+          "from": "gain_33",
+          "to": "in_33"
+        },
+        {
+          "id": "e225",
+          "type": "link",
+          "from": "stock_33",
+          "to": "in_33"
+        },
+        {
+          "id": "e226",
+          "type": "link",
+          "from": "stock_33",
+          "to": "out_33"
+        },
+        {
+          "id": "e227",
+          "type": "link",
+          "from": "stock_33",
+          "to": "smooth_33"
+        },
+        {
+          "id": "e228",
+          "type": "link",
+          "from": "smooth_33",
+          "to": "gate_33"
+        },
+        {
+          "id": "e230",
+          "type": "link",
+          "from": "smooth_32",
+          "to": "gate_33"
+        },
+        {
+          "id": "e231",
+          "type": "link",
+          "from": "gain_34",
+          "to": "in_34"
+        },
+        {
+          "id": "e232",
+          "type": "link",
+          "from": "stock_34",
+          "to": "in_34"
+        },
+        {
+          "id": "e233",
+          "type": "link",
+          "from": "stock_34",
+          "to": "out_34"
+        },
+        {
+          "id": "e234",
+          "type": "link",
+          "from": "stock_34",
+          "to": "smooth_34"
+        },
+        {
+          "id": "e235",
+          "type": "link",
+          "from": "smooth_34",
+          "to": "gate_34"
+        },
+        {
+          "id": "e237",
+          "type": "link",
+          "from": "smooth_33",
+          "to": "gate_34"
+        },
+        {
+          "id": "e238",
+          "type": "link",
+          "from": "gain_35",
+          "to": "in_35"
+        },
+        {
+          "id": "e239",
+          "type": "link",
+          "from": "stock_35",
+          "to": "in_35"
+        },
+        {
+          "id": "e240",
+          "type": "link",
+          "from": "stock_35",
+          "to": "out_35"
+        },
+        {
+          "id": "e241",
+          "type": "link",
+          "from": "stock_35",
+          "to": "smooth_35"
+        },
+        {
+          "id": "e242",
+          "type": "link",
+          "from": "smooth_35",
+          "to": "gate_35"
+        },
+        {
+          "id": "e243",
+          "type": "link",
+          "from": "stock_35",
+          "to": "gate_35"
+        },
+        {
+          "id": "e244",
+          "type": "link",
+          "from": "gain_36",
+          "to": "in_36"
+        },
+        {
+          "id": "e245",
+          "type": "link",
+          "from": "stock_36",
+          "to": "in_36"
+        },
+        {
+          "id": "e246",
+          "type": "link",
+          "from": "stock_36",
+          "to": "out_36"
+        },
+        {
+          "id": "e247",
+          "type": "link",
+          "from": "stock_36",
+          "to": "smooth_36"
+        },
+        {
+          "id": "e248",
+          "type": "link",
+          "from": "smooth_36",
+          "to": "gate_36"
+        },
+        {
+          "id": "e250",
+          "type": "link",
+          "from": "smooth_35",
+          "to": "gate_36"
+        },
+        {
+          "id": "e251",
+          "type": "link",
+          "from": "gain_37",
+          "to": "in_37"
+        },
+        {
+          "id": "e252",
+          "type": "link",
+          "from": "stock_37",
+          "to": "in_37"
+        },
+        {
+          "id": "e253",
+          "type": "link",
+          "from": "stock_37",
+          "to": "out_37"
+        },
+        {
+          "id": "e254",
+          "type": "link",
+          "from": "stock_37",
+          "to": "smooth_37"
+        },
+        {
+          "id": "e255",
+          "type": "link",
+          "from": "smooth_37",
+          "to": "gate_37"
+        },
+        {
+          "id": "e257",
+          "type": "link",
+          "from": "smooth_36",
+          "to": "gate_37"
+        },
+        {
+          "id": "e258",
+          "type": "link",
+          "from": "gain_38",
+          "to": "in_38"
+        },
+        {
+          "id": "e259",
+          "type": "link",
+          "from": "stock_38",
+          "to": "in_38"
+        },
+        {
+          "id": "e260",
+          "type": "link",
+          "from": "stock_38",
+          "to": "out_38"
+        },
+        {
+          "id": "e261",
+          "type": "link",
+          "from": "stock_38",
+          "to": "smooth_38"
+        },
+        {
+          "id": "e262",
+          "type": "link",
+          "from": "smooth_38",
+          "to": "gate_38"
+        },
+        {
+          "id": "e264",
+          "type": "link",
+          "from": "smooth_37",
+          "to": "gate_38"
+        },
+        {
+          "id": "e265",
+          "type": "link",
+          "from": "gain_39",
+          "to": "in_39"
+        },
+        {
+          "id": "e266",
+          "type": "link",
+          "from": "stock_39",
+          "to": "in_39"
+        },
+        {
+          "id": "e267",
+          "type": "link",
+          "from": "stock_39",
+          "to": "out_39"
+        },
+        {
+          "id": "e268",
+          "type": "link",
+          "from": "stock_39",
+          "to": "smooth_39"
+        },
+        {
+          "id": "e269",
+          "type": "link",
+          "from": "smooth_39",
+          "to": "gate_39"
+        },
+        {
+          "id": "e271",
+          "type": "link",
+          "from": "smooth_38",
+          "to": "gate_39"
+        },
+        {
+          "id": "e272",
+          "type": "link",
+          "from": "gain_40",
+          "to": "in_40"
+        },
+        {
+          "id": "e273",
+          "type": "link",
+          "from": "stock_40",
+          "to": "in_40"
+        },
+        {
+          "id": "e274",
+          "type": "link",
+          "from": "stock_40",
+          "to": "out_40"
+        },
+        {
+          "id": "e275",
+          "type": "link",
+          "from": "stock_40",
+          "to": "smooth_40"
+        },
+        {
+          "id": "e276",
+          "type": "link",
+          "from": "smooth_40",
+          "to": "gate_40"
+        },
+        {
+          "id": "e277",
+          "type": "link",
+          "from": "stock_40",
+          "to": "gate_40"
+        },
+        {
+          "id": "e278",
+          "type": "link",
+          "from": "gain_41",
+          "to": "in_41"
+        },
+        {
+          "id": "e279",
+          "type": "link",
+          "from": "stock_41",
+          "to": "in_41"
+        },
+        {
+          "id": "e280",
+          "type": "link",
+          "from": "stock_41",
+          "to": "out_41"
+        },
+        {
+          "id": "e281",
+          "type": "link",
+          "from": "stock_41",
+          "to": "smooth_41"
+        },
+        {
+          "id": "e282",
+          "type": "link",
+          "from": "smooth_41",
+          "to": "gate_41"
+        },
+        {
+          "id": "e284",
+          "type": "link",
+          "from": "smooth_40",
+          "to": "gate_41"
+        },
+        {
+          "id": "e285",
+          "type": "link",
+          "from": "gain_42",
+          "to": "in_42"
+        },
+        {
+          "id": "e286",
+          "type": "link",
+          "from": "stock_42",
+          "to": "in_42"
+        },
+        {
+          "id": "e287",
+          "type": "link",
+          "from": "stock_42",
+          "to": "out_42"
+        },
+        {
+          "id": "e288",
+          "type": "link",
+          "from": "stock_42",
+          "to": "smooth_42"
+        },
+        {
+          "id": "e289",
+          "type": "link",
+          "from": "smooth_42",
+          "to": "gate_42"
+        },
+        {
+          "id": "e291",
+          "type": "link",
+          "from": "smooth_41",
+          "to": "gate_42"
+        },
+        {
+          "id": "e292",
+          "type": "link",
+          "from": "gain_43",
+          "to": "in_43"
+        },
+        {
+          "id": "e293",
+          "type": "link",
+          "from": "stock_43",
+          "to": "in_43"
+        },
+        {
+          "id": "e294",
+          "type": "link",
+          "from": "stock_43",
+          "to": "out_43"
+        },
+        {
+          "id": "e295",
+          "type": "link",
+          "from": "stock_43",
+          "to": "smooth_43"
+        },
+        {
+          "id": "e296",
+          "type": "link",
+          "from": "smooth_43",
+          "to": "gate_43"
+        },
+        {
+          "id": "e298",
+          "type": "link",
+          "from": "smooth_42",
+          "to": "gate_43"
+        },
+        {
+          "id": "e299",
+          "type": "link",
+          "from": "gain_44",
+          "to": "in_44"
+        },
+        {
+          "id": "e300",
+          "type": "link",
+          "from": "stock_44",
+          "to": "in_44"
+        },
+        {
+          "id": "e301",
+          "type": "link",
+          "from": "stock_44",
+          "to": "out_44"
+        },
+        {
+          "id": "e302",
+          "type": "link",
+          "from": "stock_44",
+          "to": "smooth_44"
+        },
+        {
+          "id": "e303",
+          "type": "link",
+          "from": "smooth_44",
+          "to": "gate_44"
+        },
+        {
+          "id": "e305",
+          "type": "link",
+          "from": "smooth_43",
+          "to": "gate_44"
+        },
+        {
+          "id": "e306",
+          "type": "link",
+          "from": "gain_45",
+          "to": "in_45"
+        },
+        {
+          "id": "e307",
+          "type": "link",
+          "from": "stock_45",
+          "to": "in_45"
+        },
+        {
+          "id": "e308",
+          "type": "link",
+          "from": "stock_45",
+          "to": "out_45"
+        },
+        {
+          "id": "e309",
+          "type": "link",
+          "from": "stock_45",
+          "to": "smooth_45"
+        },
+        {
+          "id": "e310",
+          "type": "link",
+          "from": "smooth_45",
+          "to": "gate_45"
+        },
+        {
+          "id": "e311",
+          "type": "link",
+          "from": "stock_45",
+          "to": "gate_45"
+        },
+        {
+          "id": "e312",
+          "type": "link",
+          "from": "gain_46",
+          "to": "in_46"
+        },
+        {
+          "id": "e313",
+          "type": "link",
+          "from": "stock_46",
+          "to": "in_46"
+        },
+        {
+          "id": "e314",
+          "type": "link",
+          "from": "stock_46",
+          "to": "out_46"
+        },
+        {
+          "id": "e315",
+          "type": "link",
+          "from": "stock_46",
+          "to": "smooth_46"
+        },
+        {
+          "id": "e316",
+          "type": "link",
+          "from": "smooth_46",
+          "to": "gate_46"
+        },
+        {
+          "id": "e318",
+          "type": "link",
+          "from": "smooth_45",
+          "to": "gate_46"
+        },
+        {
+          "id": "e319",
+          "type": "link",
+          "from": "gain_47",
+          "to": "in_47"
+        },
+        {
+          "id": "e320",
+          "type": "link",
+          "from": "stock_47",
+          "to": "in_47"
+        },
+        {
+          "id": "e321",
+          "type": "link",
+          "from": "stock_47",
+          "to": "out_47"
+        },
+        {
+          "id": "e322",
+          "type": "link",
+          "from": "stock_47",
+          "to": "smooth_47"
+        },
+        {
+          "id": "e323",
+          "type": "link",
+          "from": "smooth_47",
+          "to": "gate_47"
+        },
+        {
+          "id": "e325",
+          "type": "link",
+          "from": "smooth_46",
+          "to": "gate_47"
+        },
+        {
+          "id": "e326",
+          "type": "link",
+          "from": "gain_48",
+          "to": "in_48"
+        },
+        {
+          "id": "e327",
+          "type": "link",
+          "from": "stock_48",
+          "to": "in_48"
+        },
+        {
+          "id": "e328",
+          "type": "link",
+          "from": "stock_48",
+          "to": "out_48"
+        },
+        {
+          "id": "e329",
+          "type": "link",
+          "from": "stock_48",
+          "to": "smooth_48"
+        },
+        {
+          "id": "e330",
+          "type": "link",
+          "from": "smooth_48",
+          "to": "gate_48"
+        },
+        {
+          "id": "e332",
+          "type": "link",
+          "from": "smooth_47",
+          "to": "gate_48"
+        },
+        {
+          "id": "e333",
+          "type": "link",
+          "from": "gain_49",
+          "to": "in_49"
+        },
+        {
+          "id": "e334",
+          "type": "link",
+          "from": "stock_49",
+          "to": "in_49"
+        },
+        {
+          "id": "e335",
+          "type": "link",
+          "from": "stock_49",
+          "to": "out_49"
+        },
+        {
+          "id": "e336",
+          "type": "link",
+          "from": "stock_49",
+          "to": "smooth_49"
+        },
+        {
+          "id": "e337",
+          "type": "link",
+          "from": "smooth_49",
+          "to": "gate_49"
+        },
+        {
+          "id": "e339",
+          "type": "link",
+          "from": "smooth_48",
+          "to": "gate_49"
+        }
+      ]
+    }
+  }
+}

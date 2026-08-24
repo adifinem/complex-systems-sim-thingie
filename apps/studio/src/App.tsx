@@ -6,6 +6,7 @@ import { controller } from './engine/controller'
 import { FileBar } from './panels/FileBar'
 import { Inspector } from './panels/Inspector'
 import { Transport } from './panels/Transport'
+import { redoDoc, undoDoc } from './store/doc'
 
 export function App() {
   useEffect(() => {
@@ -24,6 +25,13 @@ export function App() {
         controller.toggle()
       } else if (e.key === '.') {
         controller.stepOnce()
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+        e.preventDefault()
+        if (e.shiftKey) redoDoc()
+        else undoDoc()
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+        e.preventDefault()
+        redoDoc()
       } else if (e.key === 'r' || e.key === 'R') {
         controller.reset()
       }

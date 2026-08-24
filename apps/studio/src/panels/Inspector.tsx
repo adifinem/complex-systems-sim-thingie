@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { controller } from '../engine/controller'
 import { currentGraph, useDoc } from '../store/doc'
 import { useSimUi, useUi } from '../store/sim'
+import { analyzeTrend, TREND_LABEL, type Trend } from '../trend'
 
 /**
  * Right panel: full settings for the selected node. Formula edits parse live
@@ -113,7 +114,10 @@ function NodePanel({ node }: { node: ModelNode }) {
           label={node.type === 'stock' ? 'initial value' : 'formula'}
           value={formulaValue}
           neighbors={useNeighborNames(node.id)}
-          onApply={(src) => updateNode(node.id, { [formulaField]: src } as Partial<ModelNode>)}
+          onApply={(src) => {
+            updateNode(node.id, { [formulaField]: src } as Partial<ModelNode>)
+            controller.markPerturbed(node.id)
+          }}
         />
       )}
 
@@ -157,14 +161,125 @@ function NodePanel({ node }: { node: ModelNode }) {
       {node.type !== 'note' && <TimeFields node={node} />}
       {node.type !== 'note' && node.type !== 'constant' && <BaselineFields node={node} />}
       {node.type === 'stock' && <SetValueRow node={node} />}
+      {(node.type === 'flow' || node.type === 'variable' || node.type === 'output') && (
+        <PinRow node={node} />
+      )}
+      {node.type !== 'note' && <TrendChip node={node} />}
 
       {myErrors.length > 0 && (
         <div className="error-strip">
           {myErrors.map((e) => (
-            <div key={e.message}>{e.message}</div>
+            <div key={e.message}>
+              {e.message}
+              {e.unknownName && <QuickFix name={e.unknownName} near={node} />}
+            </div>
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+/** One-click fix for unknown identifiers: create the variable and wire it up. */
+function QuickFix({ name, near }: { name: string; near: ModelNode }) {
+  const addNamedNode = useDoc((s) => s.addNamedNode)
+  return (
+    <button
+      type="button"
+      className="quickfix"
+      onClick={() =>
+        addNamedNode('variable', name, {
+          x: ((near.ui?.x as number) ?? 0) - 40,
+          y: ((near.ui?.y as number) ?? 0) - 90,
+        })
+      }
+    >
+      + create variable "{name}"
+    </button>
+  )
+}
+
+/** Pin a computed node to a fixed value (engine override; formula preserved). */
+function PinRow({ node }: { node: ModelNode }) {
+  const [v, setV] = useState('')
+  const [, forceRender] = useState(0)
+  const pinned = controller.sim
+    ? (() => {
+        try {
+          return controller.sim.getNode(node.id).overridden
+        } catch {
+          return false
+        }
+      })()
+    : false
+  return (
+    <>
+      <label>pin (override formula with a value)</label>
+      <div className="row">
+        <input
+          type="number"
+          step="any"
+          placeholder={pinned ? 'pinned' : 'pin to value'}
+          value={v}
+          onChange={(e) => setV(e.target.value)}
+        />
+        <div style={{ flex: 0, display: 'flex', gap: 4 }}>
+          <button
+            type="button"
+            className="mini"
+            onClick={() => {
+              const num = Number(v)
+              if (Number.isFinite(num)) {
+                controller.pinNode(node.id, num)
+                forceRender((x) => x + 1)
+              }
+            }}
+          >
+            📌 pin
+          </button>
+          {pinned && (
+            <button
+              type="button"
+              className="mini"
+              onClick={() => {
+                controller.unpinNode(node.id)
+                forceRender((x) => x + 1)
+              }}
+            >
+              release
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="hint">
+        {pinned
+          ? 'Pinned: formula suspended, inputs dormant. Release to watch the system respond.'
+          : 'Pinning holds this node at a value while everything else keeps running.'}
+      </div>
+    </>
+  )
+}
+
+/** Names the recent behavior: settling / steady / oscillating / runaway. */
+function TrendChip({ node }: { node: ModelNode }) {
+  const [trend, setTrend] = useState<Trend>('—')
+  useEffect(() => {
+    const update = () => {
+      const sim = controller.sim
+      if (!sim) return
+      try {
+        setTrend(analyzeTrend(sim.history(node.id, 512)))
+      } catch {
+        setTrend('—')
+      }
+    }
+    update()
+    const timer = setInterval(update, 1000)
+    return () => clearInterval(timer)
+  }, [node.id])
+  return (
+    <div className="trend-chip" title="Recent behavior, from the value history">
+      {TREND_LABEL[trend]}
     </div>
   )
 }

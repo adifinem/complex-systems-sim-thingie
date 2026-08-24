@@ -59,6 +59,7 @@ class Controller {
     useSimUi.getState().set({ status: 'running' })
     this.lastMs = performance.now()
     this.accumTicks = 0
+    if (this.perturbed.size > 0) this.scheduleFade()
     this.schedule()
   }
 
@@ -106,12 +107,48 @@ class Controller {
   /** Live dial writes during a run — no recompile. */
   setConstant(path: string, v: number): void {
     this.sim?.setValue(path, v)
+    this.markPerturbed(path)
     if (!this.running) this.paintOnce()
   }
 
   setStockValue(path: string, v: number): void {
     this.sim?.setValue(path, v)
+    this.markPerturbed(path)
     if (!this.running) this.paintOnce()
+  }
+
+  /** Pin a computed node to a value; formula preserved (engine override). */
+  pinNode(path: string, v: number): void {
+    this.sim?.setOverride(path, v)
+    this.markPerturbed(path)
+    this.paintOnce()
+  }
+
+  unpinNode(path: string): void {
+    this.sim?.clearOverride(path)
+    this.markPerturbed(path)
+    this.paintOnce()
+  }
+
+  /**
+   * Amber "you poked this" marker: shows immediately, fades a few seconds
+   * after the sim next resumes so you can see what changed between runs.
+   */
+  private perturbed = new Set<string>()
+  private fadeTimer: ReturnType<typeof setTimeout> | undefined
+
+  markPerturbed(id: string): void {
+    this.perturbed.add(id)
+    bridge.setNodeClass(id, 'perturbed', true)
+    if (this.running) this.scheduleFade()
+  }
+
+  private scheduleFade(): void {
+    clearTimeout(this.fadeTimer)
+    this.fadeTimer = setTimeout(() => {
+      for (const id of this.perturbed) bridge.setNodeClass(id, 'perturbed', false)
+      this.perturbed.clear()
+    }, 3000)
   }
 
   paintOnce(): void {
@@ -182,4 +219,14 @@ export function startEngineSync(): void {
     clearTimeout(syncTimer)
     syncTimer = setTimeout(syncNow, 150)
   })
+}
+
+// Dev-only escape hatch so perf measurements can drive the loop directly.
+declare global {
+  interface Window {
+    __mm?: { controller: Controller; bridge: typeof bridge }
+  }
+}
+if (typeof window !== 'undefined' && import.meta.env.DEV) {
+  window.__mm = { controller, bridge }
 }

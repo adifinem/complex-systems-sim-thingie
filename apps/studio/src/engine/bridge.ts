@@ -58,6 +58,11 @@ export class AnimationBridge {
     this.timeEl = el
   }
 
+  /** Toggle a class on a node's root element (perturbed markers etc.). */
+  setNodeClass(id: string, cls: string, on: boolean): void {
+    this.nodes.get(id)?.root.classList.toggle(cls, on)
+  }
+
   /** Paint the current engine frame into the DOM. dtSeconds = real elapsed time. */
   paint(sim: Simulation, dtSeconds: number, force = false): void {
     const frame = sim.getFrame()
@@ -72,6 +77,7 @@ export class AnimationBridge {
       const style = refs.root.style
       style.setProperty('--dev-color', devColor(dev))
       style.setProperty('--dev-abs', Math.abs(dev).toFixed(3))
+      refs.root.classList.toggle('pinned', frame.overridden[slot] === 1)
       if (refs.badge && paintBadges) {
         refs.badge.textContent = fmtValue(frame.values[slot] as number)
       }

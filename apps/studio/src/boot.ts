@@ -7,24 +7,24 @@ import { useDoc } from './store/doc'
  * the store. Then start the debounced autosave loop.
  */
 export async function bootPersistence(): Promise<void> {
+  // No blocking dialogs at boot: restore silently and note it in the console.
+  // Re-opening the file from the FileBar dropdown is the "discard" gesture.
   const auto = readAutosave()
   try {
     if (auto?.fileName) {
       const files = await listModels().catch(() => [])
       const file = files.find((f) => f.name === auto.fileName)
       if (file && auto.savedAt > file.mtime + 2000) {
-        if (window.confirm(`Restore unsaved changes to "${auto.fileName}" from your last session?`)) {
-          useDoc.getState().replaceModel(auto.model, auto.fileName)
-        } else {
-          useDoc.getState().replaceModel(await loadModel(auto.fileName), auto.fileName)
-        }
+        useDoc.getState().replaceModel(auto.model, auto.fileName)
+        console.info(
+          `[mindmap] restored unsaved changes to "${auto.fileName}" from the last session — re-open it from the file menu to discard them`,
+        )
       } else if (file) {
         useDoc.getState().replaceModel(await loadModel(auto.fileName), auto.fileName)
       }
     } else if (auto) {
-      if (window.confirm('Restore your unsaved model from the last session?')) {
-        useDoc.getState().replaceModel(auto.model, null)
-      }
+      useDoc.getState().replaceModel(auto.model, null)
+      console.info('[mindmap] restored your unsaved model from the last session')
     }
   } catch {
     // persistence must never block the app — the demo model is already loaded
