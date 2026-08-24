@@ -1,0 +1,1947 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "tbi",
+    "notes": "Post-concussion / mTBI recovery dynamics, ported from a published causal-loop diagram (Kumu map). Levels are 0-100 severity/quality scales, 1 tick = 1 day. Weights are estimates for refinement — the structure (which loops exist) is the faithful part."
+  },
+  "sim": {
+    "dt": 0.25,
+    "seed": 11,
+    "baselineDefault": {
+      "mode": "initial",
+      "band": 0.3
+    }
+  },
+  "mainGraph": "main",
+  "graphs": {
+    "brain": {
+      "name": "Brain: cellular",
+      "nodes": [
+        {
+          "id": "injury_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 40
+          },
+          "name": "injury",
+          "default": "35"
+        },
+        {
+          "id": "stress_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 130
+          },
+          "name": "stress",
+          "default": "40"
+        },
+        {
+          "id": "sleep_q_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 220
+          },
+          "name": "sleep_q",
+          "default": "60"
+        },
+        {
+          "id": "exercise_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 310
+          },
+          "name": "exercise",
+          "default": "40"
+        },
+        {
+          "id": "oxidative",
+          "type": "variable",
+          "ui": {
+            "x": 420,
+            "y": 40
+          },
+          "name": "Oxidative Stress",
+          "formula": "clamp(0.5 * inflammation + 0.4 * energy_deficit + 0.2 * microenv - 0.15 * exercise_in, 0, 100)"
+        },
+        {
+          "id": "bdnf",
+          "type": "variable",
+          "ui": {
+            "x": 420,
+            "y": 400
+          },
+          "name": "BDNF Expression",
+          "formula": "clamp(30 + 0.6 * exercise_in + 0.25 * (sleep_q_in - 50), 0, 100)"
+        },
+        {
+          "id": "repair",
+          "type": "variable",
+          "ui": {
+            "x": 640,
+            "y": 400
+          },
+          "name": "Repair Effectiveness",
+          "formula": "clamp(40 + 0.5 * (sleep_q_in - 50) + 0.4 * bdnf - 0.5 * energy_deficit, 0, 100)"
+        },
+        {
+          "id": "inflammation",
+          "type": "stock",
+          "ui": {
+            "x": 640,
+            "y": 120
+          },
+          "name": "Neuroinflammation",
+          "initial": "clamp(injury_in, 0, 100)",
+          "nonNegative": true,
+          "max": 100,
+          "notes": "R-loops with microenvironment & oxidative stress (cytokine cascade)"
+        },
+        {
+          "id": "inflammation_adj",
+          "type": "flow",
+          "ui": {
+            "x": 490,
+            "y": 146
+          },
+          "name": "Neuroinflammation adj",
+          "formula": "((clamp(0.5 * microenv + 0.25 * oxidative + 0.4 * max(stress_in - 40, 0) - 0.4 * max(sleep_q_in - 50, 0), 0, 100)) - inflammation) / 4",
+          "to": "inflammation"
+        },
+        {
+          "id": "microenv",
+          "type": "stock",
+          "ui": {
+            "x": 900,
+            "y": 120
+          },
+          "name": "Pathological Microenvironment",
+          "initial": "clamp(injury_in * 0.8, 0, 100)",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "microenv_adj",
+          "type": "flow",
+          "ui": {
+            "x": 750,
+            "y": 146
+          },
+          "name": "Pathological Microenvironment adj",
+          "formula": "((clamp(0.55 * inflammation + 0.25 * damage + 0.2 * energy_deficit, 0, 100)) - microenv) / 6",
+          "to": "microenv"
+        },
+        {
+          "id": "energy_deficit",
+          "type": "stock",
+          "ui": {
+            "x": 900,
+            "y": 300
+          },
+          "name": "Cellular Energy Imbalance",
+          "initial": "clamp(injury_in * 0.9, 0, 100)",
+          "nonNegative": true,
+          "max": 100,
+          "notes": "neurometabolic cascade: pump demand vs supply"
+        },
+        {
+          "id": "energy_deficit_adj",
+          "type": "flow",
+          "ui": {
+            "x": 750,
+            "y": 326
+          },
+          "name": "Cellular Energy Imbalance adj",
+          "formula": "((clamp(0.5 * microenv + 0.3 * inflammation - 0.3 * max(sleep_q_in - 50, 0), 0, 100)) - energy_deficit) / 3",
+          "to": "energy_deficit"
+        },
+        {
+          "id": "damage",
+          "type": "stock",
+          "ui": {
+            "x": 640,
+            "y": 260
+          },
+          "name": "Neuronal Damage",
+          "initial": "clamp(injury_in * 0.7, 0, 100)",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "damage_gain",
+          "type": "flow",
+          "ui": {
+            "x": 490,
+            "y": 260
+          },
+          "name": "damage accrual",
+          "to": "damage",
+          "uniflow": true,
+          "formula": "0.015 * inflammation + 0.04 * max(oxidative - 60, 0)"
+        },
+        {
+          "id": "damage_heal",
+          "type": "flow",
+          "ui": {
+            "x": 800,
+            "y": 260
+          },
+          "name": "repair",
+          "from": "damage",
+          "uniflow": true,
+          "formula": "damage * repair / 100 / 18"
+        },
+        {
+          "id": "inflammation_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 80
+          },
+          "name": "inflammation",
+          "formula": "inflammation"
+        },
+        {
+          "id": "damage_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 190
+          },
+          "name": "damage",
+          "formula": "damage"
+        },
+        {
+          "id": "energy_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 300
+          },
+          "name": "energy",
+          "formula": "energy_deficit"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0_inflam_inflam",
+          "type": "link",
+          "from": "inflammation",
+          "to": "inflammation_adj"
+        },
+        {
+          "id": "e1_microe_microe",
+          "type": "link",
+          "from": "microenv",
+          "to": "microenv_adj"
+        },
+        {
+          "id": "e2_energy_energy",
+          "type": "link",
+          "from": "energy_deficit",
+          "to": "energy_deficit_adj"
+        },
+        {
+          "id": "e3_inflam_damage",
+          "type": "link",
+          "from": "inflammation",
+          "to": "damage_gain"
+        },
+        {
+          "id": "e4_oxidat_damage",
+          "type": "link",
+          "from": "oxidative",
+          "to": "damage_gain"
+        },
+        {
+          "id": "e5_damage_damage",
+          "type": "link",
+          "from": "damage",
+          "to": "damage_heal"
+        },
+        {
+          "id": "e6_repair_damage",
+          "type": "link",
+          "from": "repair",
+          "to": "damage_heal"
+        },
+        {
+          "id": "e7_microe_inflam",
+          "type": "link",
+          "from": "microenv",
+          "to": "inflammation_adj"
+        },
+        {
+          "id": "e8_oxidat_inflam",
+          "type": "link",
+          "from": "oxidative",
+          "to": "inflammation_adj"
+        },
+        {
+          "id": "e9_stress_inflam",
+          "type": "link",
+          "from": "stress_in",
+          "to": "inflammation_adj"
+        },
+        {
+          "id": "e10_sleep__inflam",
+          "type": "link",
+          "from": "sleep_q_in",
+          "to": "inflammation_adj"
+        },
+        {
+          "id": "e11_inflam_microe",
+          "type": "link",
+          "from": "inflammation",
+          "to": "microenv_adj"
+        },
+        {
+          "id": "e12_damage_microe",
+          "type": "link",
+          "from": "damage",
+          "to": "microenv_adj"
+        },
+        {
+          "id": "e13_energy_microe",
+          "type": "link",
+          "from": "energy_deficit",
+          "to": "microenv_adj"
+        },
+        {
+          "id": "e14_microe_energy",
+          "type": "link",
+          "from": "microenv",
+          "to": "energy_deficit_adj"
+        },
+        {
+          "id": "e15_inflam_energy",
+          "type": "link",
+          "from": "inflammation",
+          "to": "energy_deficit_adj"
+        },
+        {
+          "id": "e16_sleep__energy",
+          "type": "link",
+          "from": "sleep_q_in",
+          "to": "energy_deficit_adj"
+        },
+        {
+          "id": "e17_inflam_oxidat",
+          "type": "link",
+          "from": "inflammation",
+          "to": "oxidative"
+        },
+        {
+          "id": "e18_energy_oxidat",
+          "type": "link",
+          "from": "energy_deficit",
+          "to": "oxidative"
+        },
+        {
+          "id": "e19_microe_oxidat",
+          "type": "link",
+          "from": "microenv",
+          "to": "oxidative"
+        },
+        {
+          "id": "e20_exerci_oxidat",
+          "type": "link",
+          "from": "exercise_in",
+          "to": "oxidative"
+        },
+        {
+          "id": "e21_exerci_bdnf",
+          "type": "link",
+          "from": "exercise_in",
+          "to": "bdnf"
+        },
+        {
+          "id": "e22_sleep__bdnf",
+          "type": "link",
+          "from": "sleep_q_in",
+          "to": "bdnf"
+        },
+        {
+          "id": "e23_sleep__repair",
+          "type": "link",
+          "from": "sleep_q_in",
+          "to": "repair"
+        },
+        {
+          "id": "e24_bdnf_repair",
+          "type": "link",
+          "from": "bdnf",
+          "to": "repair"
+        },
+        {
+          "id": "e25_energy_repair",
+          "type": "link",
+          "from": "energy_deficit",
+          "to": "repair"
+        },
+        {
+          "id": "e26_inflam_inflam",
+          "type": "link",
+          "from": "inflammation",
+          "to": "inflammation_out"
+        },
+        {
+          "id": "e27_damage_damage",
+          "type": "link",
+          "from": "damage",
+          "to": "damage_out"
+        },
+        {
+          "id": "e28_energy_energy",
+          "type": "link",
+          "from": "energy_deficit",
+          "to": "energy_out"
+        },
+        {
+          "id": "e29_injury_inflam",
+          "type": "link",
+          "from": "injury_in",
+          "to": "inflammation"
+        },
+        {
+          "id": "e30_injury_microe",
+          "type": "link",
+          "from": "injury_in",
+          "to": "microenv"
+        },
+        {
+          "id": "e31_injury_energy",
+          "type": "link",
+          "from": "injury_in",
+          "to": "energy_deficit"
+        },
+        {
+          "id": "e32_injury_damage",
+          "type": "link",
+          "from": "injury_in",
+          "to": "damage"
+        }
+      ]
+    },
+    "network": {
+      "name": "Brain: network",
+      "nodes": [
+        {
+          "id": "damage_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 40
+          },
+          "name": "damage",
+          "default": "25"
+        },
+        {
+          "id": "infl_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 120
+          },
+          "name": "infl",
+          "default": "30"
+        },
+        {
+          "id": "energy_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 200
+          },
+          "name": "energy",
+          "default": "30"
+        },
+        {
+          "id": "sleep_q_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 280
+          },
+          "name": "sleep_q",
+          "default": "60"
+        },
+        {
+          "id": "exercise_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 360
+          },
+          "name": "exercise",
+          "default": "40"
+        },
+        {
+          "id": "plasticity",
+          "type": "variable",
+          "ui": {
+            "x": 420,
+            "y": 380
+          },
+          "name": "Neuroplasticity / Rerouting",
+          "formula": "clamp(30 + 0.45 * exercise_in + 0.25 * (sleep_q_in - 50) - 0.4 * energy_in, 0, 100)",
+          "notes": "B-loop: disruption creates rerouting need, plasticity works it down"
+        },
+        {
+          "id": "neurotrans",
+          "type": "variable",
+          "ui": {
+            "x": 640,
+            "y": 120
+          },
+          "name": "Impaired Neurotransmission",
+          "formula": "clamp(0.55 * hub_disruption + 0.4 * infl_in + 0.35 * energy_in, 0, 100)"
+        },
+        {
+          "id": "cognition",
+          "type": "variable",
+          "ui": {
+            "x": 900,
+            "y": 120
+          },
+          "name": "Cognition (WM & Processing)",
+          "formula": "clamp(95 - 0.7 * neurotrans - 0.3 * energy_in, 0, 100)"
+        },
+        {
+          "id": "sensorimotor",
+          "type": "variable",
+          "ui": {
+            "x": 900,
+            "y": 280
+          },
+          "name": "Sensorimotor Integration",
+          "formula": "clamp(90 - 0.55 * hub_disruption - 0.35 * autonomic, 0, 100)"
+        },
+        {
+          "id": "hub_disruption",
+          "type": "stock",
+          "ui": {
+            "x": 420,
+            "y": 120
+          },
+          "name": "Hub Disruption",
+          "initial": "clamp(damage_in * 0.8, 0, 100)",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "hub_gain",
+          "type": "flow",
+          "ui": {
+            "x": 270,
+            "y": 120
+          },
+          "name": "disruption",
+          "to": "hub_disruption",
+          "uniflow": true,
+          "formula": "0.05 * damage_in + 0.02 * infl_in"
+        },
+        {
+          "id": "hub_heal",
+          "type": "flow",
+          "ui": {
+            "x": 570,
+            "y": 60
+          },
+          "name": "rerouting",
+          "from": "hub_disruption",
+          "uniflow": true,
+          "formula": "hub_disruption * plasticity / 100 / 12"
+        },
+        {
+          "id": "autonomic",
+          "type": "stock",
+          "ui": {
+            "x": 420,
+            "y": 260
+          },
+          "name": "Autonomic Dysfunction",
+          "initial": "clamp(damage_in * 0.6, 0, 100)",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "autonomic_adj",
+          "type": "flow",
+          "ui": {
+            "x": 270,
+            "y": 286
+          },
+          "name": "Autonomic Dysfunction adj",
+          "formula": "((clamp(0.45 * hub_disruption + 0.4 * infl_in + 0.2 * energy_in, 0, 100)) - autonomic) / 10",
+          "to": "autonomic"
+        },
+        {
+          "id": "cognition_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 80
+          },
+          "name": "cognition",
+          "formula": "cognition"
+        },
+        {
+          "id": "autonomic_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 190
+          },
+          "name": "autonomic",
+          "formula": "autonomic"
+        },
+        {
+          "id": "sensorimotor_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 300
+          },
+          "name": "sensorimotor",
+          "formula": "sensorimotor"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0_damage_hub_ga",
+          "type": "link",
+          "from": "damage_in",
+          "to": "hub_gain"
+        },
+        {
+          "id": "e1_infl_i_hub_ga",
+          "type": "link",
+          "from": "infl_in",
+          "to": "hub_gain"
+        },
+        {
+          "id": "e2_hub_di_hub_he",
+          "type": "link",
+          "from": "hub_disruption",
+          "to": "hub_heal"
+        },
+        {
+          "id": "e3_plasti_hub_he",
+          "type": "link",
+          "from": "plasticity",
+          "to": "hub_heal"
+        },
+        {
+          "id": "e4_autono_autono",
+          "type": "link",
+          "from": "autonomic",
+          "to": "autonomic_adj"
+        },
+        {
+          "id": "e5_exerci_plasti",
+          "type": "link",
+          "from": "exercise_in",
+          "to": "plasticity"
+        },
+        {
+          "id": "e6_sleep__plasti",
+          "type": "link",
+          "from": "sleep_q_in",
+          "to": "plasticity"
+        },
+        {
+          "id": "e7_energy_plasti",
+          "type": "link",
+          "from": "energy_in",
+          "to": "plasticity"
+        },
+        {
+          "id": "e8_hub_di_neurot",
+          "type": "link",
+          "from": "hub_disruption",
+          "to": "neurotrans"
+        },
+        {
+          "id": "e9_infl_i_neurot",
+          "type": "link",
+          "from": "infl_in",
+          "to": "neurotrans"
+        },
+        {
+          "id": "e10_energy_neurot",
+          "type": "link",
+          "from": "energy_in",
+          "to": "neurotrans"
+        },
+        {
+          "id": "e11_neurot_cognit",
+          "type": "link",
+          "from": "neurotrans",
+          "to": "cognition"
+        },
+        {
+          "id": "e12_energy_cognit",
+          "type": "link",
+          "from": "energy_in",
+          "to": "cognition"
+        },
+        {
+          "id": "e13_hub_di_sensor",
+          "type": "link",
+          "from": "hub_disruption",
+          "to": "sensorimotor"
+        },
+        {
+          "id": "e14_autono_sensor",
+          "type": "link",
+          "from": "autonomic",
+          "to": "sensorimotor"
+        },
+        {
+          "id": "e15_hub_di_autono",
+          "type": "link",
+          "from": "hub_disruption",
+          "to": "autonomic_adj"
+        },
+        {
+          "id": "e16_infl_i_autono",
+          "type": "link",
+          "from": "infl_in",
+          "to": "autonomic_adj"
+        },
+        {
+          "id": "e17_energy_autono",
+          "type": "link",
+          "from": "energy_in",
+          "to": "autonomic_adj"
+        },
+        {
+          "id": "e18_cognit_cognit",
+          "type": "link",
+          "from": "cognition",
+          "to": "cognition_out"
+        },
+        {
+          "id": "e19_autono_autono",
+          "type": "link",
+          "from": "autonomic",
+          "to": "autonomic_out"
+        },
+        {
+          "id": "e20_sensor_sensor",
+          "type": "link",
+          "from": "sensorimotor",
+          "to": "sensorimotor_out"
+        },
+        {
+          "id": "e21_damage_hub_di",
+          "type": "link",
+          "from": "damage_in",
+          "to": "hub_disruption"
+        },
+        {
+          "id": "e22_damage_autono",
+          "type": "link",
+          "from": "damage_in",
+          "to": "autonomic"
+        }
+      ]
+    },
+    "sleep": {
+      "name": "Sleep & fatigue",
+      "nodes": [
+        {
+          "id": "env_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 40
+          },
+          "name": "env",
+          "default": "60"
+        },
+        {
+          "id": "stress_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 130
+          },
+          "name": "stress",
+          "default": "40"
+        },
+        {
+          "id": "autonomic_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 220
+          },
+          "name": "autonomic",
+          "default": "25"
+        },
+        {
+          "id": "cogload_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 310
+          },
+          "name": "cogload",
+          "default": "50"
+        },
+        {
+          "id": "migraine",
+          "type": "variable",
+          "ui": {
+            "x": 640,
+            "y": 340
+          },
+          "name": "Migraine / Headache",
+          "formula": "clamp(0.35 * sleep_debt + 0.35 * autonomic_in + 0.3 * cog_fatigue - 10, 0, 100)"
+        },
+        {
+          "id": "sleep_quality",
+          "type": "variable",
+          "ui": {
+            "x": 420,
+            "y": 40
+          },
+          "name": "Sleep Quality",
+          "formula": "clamp(env_in - 0.4 * max(stress_in - 30, 0) - 0.3 * migraine - 0.25 * autonomic_in + 0.2 * sleep_debt, 0, 100)",
+          "notes": "B-loop: debt raises sleep pressure; arousal/pain fight it"
+        },
+        {
+          "id": "sleep_debt",
+          "type": "stock",
+          "ui": {
+            "x": 640,
+            "y": 120
+          },
+          "name": "Sleep Debt",
+          "initial": "clamp((60 - env_in) / 2, 0, 40)",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "debt_change",
+          "type": "flow",
+          "ui": {
+            "x": 490,
+            "y": 120
+          },
+          "name": "debt change",
+          "to": "sleep_debt",
+          "formula": "(58 - sleep_quality) / 8"
+        },
+        {
+          "id": "phys_fatigue",
+          "type": "stock",
+          "ui": {
+            "x": 640,
+            "y": 220
+          },
+          "name": "Physical Fatigue",
+          "initial": "25",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "phys_fatigue_adj",
+          "type": "flow",
+          "ui": {
+            "x": 490,
+            "y": 246
+          },
+          "name": "Physical Fatigue adj",
+          "formula": "((clamp(0.55 * sleep_debt + 0.25 * autonomic_in + 12, 0, 100)) - phys_fatigue) / 1.5",
+          "to": "phys_fatigue"
+        },
+        {
+          "id": "cog_fatigue",
+          "type": "stock",
+          "ui": {
+            "x": 900,
+            "y": 220
+          },
+          "name": "Cognitive Fatigue",
+          "initial": "30",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "cog_fatigue_adj",
+          "type": "flow",
+          "ui": {
+            "x": 750,
+            "y": 246
+          },
+          "name": "Cognitive Fatigue adj",
+          "formula": "((clamp(0.4 * sleep_debt + 0.5 * max(cogload_in - 25, 0) + 0.2 * migraine, 0, 100)) - cog_fatigue) / 1.5",
+          "to": "cog_fatigue"
+        },
+        {
+          "id": "quality_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 80
+          },
+          "name": "quality",
+          "formula": "sleep_quality"
+        },
+        {
+          "id": "fatigue_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 190
+          },
+          "name": "fatigue",
+          "formula": "clamp(0.55 * phys_fatigue + 0.45 * cog_fatigue, 0, 100)"
+        },
+        {
+          "id": "pain_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 300
+          },
+          "name": "pain",
+          "formula": "migraine"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0_sleep__debt_c",
+          "type": "link",
+          "from": "sleep_quality",
+          "to": "debt_change"
+        },
+        {
+          "id": "e1_phys_f_phys_f",
+          "type": "link",
+          "from": "phys_fatigue",
+          "to": "phys_fatigue_adj"
+        },
+        {
+          "id": "e2_cog_fa_cog_fa",
+          "type": "link",
+          "from": "cog_fatigue",
+          "to": "cog_fatigue_adj"
+        },
+        {
+          "id": "e3_env_in_sleep_",
+          "type": "link",
+          "from": "env_in",
+          "to": "sleep_quality"
+        },
+        {
+          "id": "e4_stress_sleep_",
+          "type": "link",
+          "from": "stress_in",
+          "to": "sleep_quality"
+        },
+        {
+          "id": "e5_migrai_sleep_",
+          "type": "link",
+          "from": "migraine",
+          "to": "sleep_quality"
+        },
+        {
+          "id": "e6_autono_sleep_",
+          "type": "link",
+          "from": "autonomic_in",
+          "to": "sleep_quality"
+        },
+        {
+          "id": "e7_sleep__sleep_",
+          "type": "link",
+          "from": "sleep_debt",
+          "to": "sleep_quality"
+        },
+        {
+          "id": "e8_sleep__phys_f",
+          "type": "link",
+          "from": "sleep_debt",
+          "to": "phys_fatigue_adj"
+        },
+        {
+          "id": "e9_autono_phys_f",
+          "type": "link",
+          "from": "autonomic_in",
+          "to": "phys_fatigue_adj"
+        },
+        {
+          "id": "e10_sleep__cog_fa",
+          "type": "link",
+          "from": "sleep_debt",
+          "to": "cog_fatigue_adj"
+        },
+        {
+          "id": "e11_cogloa_cog_fa",
+          "type": "link",
+          "from": "cogload_in",
+          "to": "cog_fatigue_adj"
+        },
+        {
+          "id": "e12_migrai_cog_fa",
+          "type": "link",
+          "from": "migraine",
+          "to": "cog_fatigue_adj"
+        },
+        {
+          "id": "e13_sleep__migrai",
+          "type": "link",
+          "from": "sleep_debt",
+          "to": "migraine"
+        },
+        {
+          "id": "e14_autono_migrai",
+          "type": "link",
+          "from": "autonomic_in",
+          "to": "migraine"
+        },
+        {
+          "id": "e15_cog_fa_migrai",
+          "type": "link",
+          "from": "cog_fatigue",
+          "to": "migraine"
+        },
+        {
+          "id": "e16_sleep__qualit",
+          "type": "link",
+          "from": "sleep_quality",
+          "to": "quality_out"
+        },
+        {
+          "id": "e17_phys_f_fatigu",
+          "type": "link",
+          "from": "phys_fatigue",
+          "to": "fatigue_out"
+        },
+        {
+          "id": "e18_cog_fa_fatigu",
+          "type": "link",
+          "from": "cog_fatigue",
+          "to": "fatigue_out"
+        },
+        {
+          "id": "e19_migrai_pain_o",
+          "type": "link",
+          "from": "migraine",
+          "to": "pain_out"
+        },
+        {
+          "id": "e20_env_in_sleep_",
+          "type": "link",
+          "from": "env_in",
+          "to": "sleep_debt"
+        }
+      ]
+    },
+    "mood": {
+      "name": "Mood & social",
+      "nodes": [
+        {
+          "id": "lifestress_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 40
+          },
+          "name": "lifestress",
+          "default": "40"
+        },
+        {
+          "id": "fatigue_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 120
+          },
+          "name": "fatigue",
+          "default": "30"
+        },
+        {
+          "id": "support_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 200
+          },
+          "name": "support",
+          "default": "60"
+        },
+        {
+          "id": "cognition_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 280
+          },
+          "name": "cognition",
+          "default": "80"
+        },
+        {
+          "id": "coping_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 360
+          },
+          "name": "coping",
+          "default": "35"
+        },
+        {
+          "id": "social_func",
+          "type": "variable",
+          "ui": {
+            "x": 640,
+            "y": 320
+          },
+          "name": "Social Functioning",
+          "formula": "clamp(90 - 0.5 * mood_dis - 0.35 * fatigue_in - 0.2 * (90 - cognition_in), 0, 100)",
+          "notes": "R-loop: low mood → withdrawal → isolation → lower mood"
+        },
+        {
+          "id": "irritability",
+          "type": "variable",
+          "ui": {
+            "x": 900,
+            "y": 320
+          },
+          "name": "Irritability",
+          "formula": "clamp(0.4 * stress + 0.3 * mood_dis + 0.3 * fatigue_in - 20, 0, 100)"
+        },
+        {
+          "id": "stress",
+          "type": "stock",
+          "ui": {
+            "x": 420,
+            "y": 100
+          },
+          "name": "Stress",
+          "initial": "clamp(lifestress_in * 0.8, 0, 100)",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "stress_adj",
+          "type": "flow",
+          "ui": {
+            "x": 270,
+            "y": 126
+          },
+          "name": "Stress adj",
+          "formula": "((clamp(0.55 * lifestress_in + 0.3 * fatigue_in + 0.25 * (55 - social_contact) + 0.2 * mood_dis + if(mood_dis > 65, 12, 0) - 0.3 * coping_in - 0.1 * support_in, 0, 100)) - stress) / 3",
+          "to": "stress"
+        },
+        {
+          "id": "mood_dis",
+          "type": "stock",
+          "ui": {
+            "x": 640,
+            "y": 100
+          },
+          "name": "Depression / Anxiety",
+          "initial": "22",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "mood_dis_adj",
+          "type": "flow",
+          "ui": {
+            "x": 490,
+            "y": 126
+          },
+          "name": "Depression / Anxiety adj",
+          "formula": "((clamp(0.45 * stress + 0.3 * fatigue_in + 0.3 * (55 - social_contact) + 0.15 * (85 - cognition_in) - 0.1 * support_in - 0.1 * coping_in, 0, 100)) - mood_dis) / 14",
+          "to": "mood_dis"
+        },
+        {
+          "id": "social_contact",
+          "type": "stock",
+          "ui": {
+            "x": 900,
+            "y": 100
+          },
+          "name": "Social Contact",
+          "initial": "60",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "social_contact_adj",
+          "type": "flow",
+          "ui": {
+            "x": 750,
+            "y": 126
+          },
+          "name": "Social Contact adj",
+          "formula": "((clamp(0.6 * social_func + 0.4 * support_in, 0, 100)) - social_contact) / 20",
+          "to": "social_contact"
+        },
+        {
+          "id": "stress_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 80
+          },
+          "name": "stress",
+          "formula": "stress"
+        },
+        {
+          "id": "mood_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 190
+          },
+          "name": "mood",
+          "formula": "mood_dis"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0_stress_stress",
+          "type": "link",
+          "from": "stress",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e1_mood_d_mood_d",
+          "type": "link",
+          "from": "mood_dis",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e2_social_social",
+          "type": "link",
+          "from": "social_contact",
+          "to": "social_contact_adj"
+        },
+        {
+          "id": "e3_lifest_stress",
+          "type": "link",
+          "from": "lifestress_in",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e4_fatigu_stress",
+          "type": "link",
+          "from": "fatigue_in",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e5_social_stress",
+          "type": "link",
+          "from": "social_contact",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e6_mood_d_stress",
+          "type": "link",
+          "from": "mood_dis",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e7_coping_stress",
+          "type": "link",
+          "from": "coping_in",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e8_suppor_stress",
+          "type": "link",
+          "from": "support_in",
+          "to": "stress_adj"
+        },
+        {
+          "id": "e9_stress_mood_d",
+          "type": "link",
+          "from": "stress",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e10_fatigu_mood_d",
+          "type": "link",
+          "from": "fatigue_in",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e11_social_mood_d",
+          "type": "link",
+          "from": "social_contact",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e12_cognit_mood_d",
+          "type": "link",
+          "from": "cognition_in",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e13_suppor_mood_d",
+          "type": "link",
+          "from": "support_in",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e14_coping_mood_d",
+          "type": "link",
+          "from": "coping_in",
+          "to": "mood_dis_adj"
+        },
+        {
+          "id": "e15_social_social",
+          "type": "link",
+          "from": "social_func",
+          "to": "social_contact_adj"
+        },
+        {
+          "id": "e16_suppor_social",
+          "type": "link",
+          "from": "support_in",
+          "to": "social_contact_adj"
+        },
+        {
+          "id": "e17_mood_d_social",
+          "type": "link",
+          "from": "mood_dis",
+          "to": "social_func"
+        },
+        {
+          "id": "e18_fatigu_social",
+          "type": "link",
+          "from": "fatigue_in",
+          "to": "social_func"
+        },
+        {
+          "id": "e19_cognit_social",
+          "type": "link",
+          "from": "cognition_in",
+          "to": "social_func"
+        },
+        {
+          "id": "e20_stress_irrita",
+          "type": "link",
+          "from": "stress",
+          "to": "irritability"
+        },
+        {
+          "id": "e21_mood_d_irrita",
+          "type": "link",
+          "from": "mood_dis",
+          "to": "irritability"
+        },
+        {
+          "id": "e22_fatigu_irrita",
+          "type": "link",
+          "from": "fatigue_in",
+          "to": "irritability"
+        },
+        {
+          "id": "e23_stress_stress",
+          "type": "link",
+          "from": "stress",
+          "to": "stress_out"
+        },
+        {
+          "id": "e24_mood_d_mood_o",
+          "type": "link",
+          "from": "mood_dis",
+          "to": "mood_out"
+        },
+        {
+          "id": "e25_lifest_stress",
+          "type": "link",
+          "from": "lifestress_in",
+          "to": "stress"
+        }
+      ]
+    },
+    "coping": {
+      "name": "Coping & function",
+      "nodes": [
+        {
+          "id": "symptom_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 40
+          },
+          "name": "symptom",
+          "default": "45"
+        },
+        {
+          "id": "mood_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 130
+          },
+          "name": "mood",
+          "default": "25"
+        },
+        {
+          "id": "support_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 220
+          },
+          "name": "support",
+          "default": "60"
+        },
+        {
+          "id": "cognition_in",
+          "type": "input",
+          "ui": {
+            "x": 40,
+            "y": 310
+          },
+          "name": "cognition",
+          "default": "80"
+        },
+        {
+          "id": "need",
+          "type": "variable",
+          "ui": {
+            "x": 420,
+            "y": 60
+          },
+          "name": "Need for Coping",
+          "formula": "clamp(0.6 * symptom_in + 0.25 * (75 - cognition_in), 0, 100)",
+          "notes": "B-loop: symptoms create need, skills meet it"
+        },
+        {
+          "id": "adherence",
+          "type": "variable",
+          "ui": {
+            "x": 420,
+            "y": 220
+          },
+          "name": "Adherence to Treatment",
+          "formula": "clamp(55 - 0.4 * mood_in + 0.35 * support_in + 0.2 * coping_skills, 0, 100)"
+        },
+        {
+          "id": "ability",
+          "type": "variable",
+          "ui": {
+            "x": 900,
+            "y": 140
+          },
+          "name": "Ability to Work & Function",
+          "formula": "clamp(0.5 * cognition_in + 0.4 * coping_skills + 10 - 0.35 * symptom_in, 0, 100)"
+        },
+        {
+          "id": "coping_skills",
+          "type": "stock",
+          "ui": {
+            "x": 640,
+            "y": 140
+          },
+          "name": "Coping & Adaptation",
+          "initial": "30",
+          "nonNegative": true,
+          "max": 100
+        },
+        {
+          "id": "coping_skills_adj",
+          "type": "flow",
+          "ui": {
+            "x": 490,
+            "y": 166
+          },
+          "name": "Coping & Adaptation adj",
+          "formula": "((clamp(0.9 * need * adherence / 100 + 0.3 * adherence, 0, 100)) - coping_skills) / 25",
+          "to": "coping_skills"
+        },
+        {
+          "id": "coping_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 80
+          },
+          "name": "coping",
+          "formula": "coping_skills"
+        },
+        {
+          "id": "function_out",
+          "type": "output",
+          "ui": {
+            "x": 1140,
+            "y": 190
+          },
+          "name": "function",
+          "formula": "ability"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0_coping_coping",
+          "type": "link",
+          "from": "coping_skills",
+          "to": "coping_skills_adj"
+        },
+        {
+          "id": "e1_sympto_need",
+          "type": "link",
+          "from": "symptom_in",
+          "to": "need"
+        },
+        {
+          "id": "e2_cognit_need",
+          "type": "link",
+          "from": "cognition_in",
+          "to": "need"
+        },
+        {
+          "id": "e3_mood_i_adhere",
+          "type": "link",
+          "from": "mood_in",
+          "to": "adherence"
+        },
+        {
+          "id": "e4_suppor_adhere",
+          "type": "link",
+          "from": "support_in",
+          "to": "adherence"
+        },
+        {
+          "id": "e5_coping_adhere",
+          "type": "link",
+          "from": "coping_skills",
+          "to": "adherence"
+        },
+        {
+          "id": "e6_need_coping",
+          "type": "link",
+          "from": "need",
+          "to": "coping_skills_adj"
+        },
+        {
+          "id": "e7_adhere_coping",
+          "type": "link",
+          "from": "adherence",
+          "to": "coping_skills_adj"
+        },
+        {
+          "id": "e8_cognit_abilit",
+          "type": "link",
+          "from": "cognition_in",
+          "to": "ability"
+        },
+        {
+          "id": "e9_coping_abilit",
+          "type": "link",
+          "from": "coping_skills",
+          "to": "ability"
+        },
+        {
+          "id": "e10_sympto_abilit",
+          "type": "link",
+          "from": "symptom_in",
+          "to": "ability"
+        },
+        {
+          "id": "e11_coping_coping",
+          "type": "link",
+          "from": "coping_skills",
+          "to": "coping_out"
+        },
+        {
+          "id": "e12_abilit_functi",
+          "type": "link",
+          "from": "ability",
+          "to": "function_out"
+        }
+      ]
+    },
+    "main": {
+      "name": "Main",
+      "nodes": [
+        {
+          "id": "injury_severity",
+          "type": "constant",
+          "ui": {
+            "x": 60,
+            "y": 40
+          },
+          "name": "Injury Severity (at t0)",
+          "value": 35,
+          "dial": {
+            "min": 0,
+            "max": 100,
+            "step": 5
+          }
+        },
+        {
+          "id": "sleep_env",
+          "type": "constant",
+          "ui": {
+            "x": 60,
+            "y": 170
+          },
+          "name": "Sleep Environment & Hygiene",
+          "value": 60,
+          "dial": {
+            "min": 0,
+            "max": 100,
+            "step": 5
+          }
+        },
+        {
+          "id": "life_stress",
+          "type": "constant",
+          "ui": {
+            "x": 60,
+            "y": 300
+          },
+          "name": "Life Stressors",
+          "value": 40,
+          "dial": {
+            "min": 0,
+            "max": 100,
+            "step": 5
+          }
+        },
+        {
+          "id": "cognitive_demand",
+          "type": "constant",
+          "ui": {
+            "x": 60,
+            "y": 430
+          },
+          "name": "Cognitive Demand (work/school)",
+          "value": 50,
+          "dial": {
+            "min": 0,
+            "max": 100,
+            "step": 5
+          }
+        },
+        {
+          "id": "physical_activity",
+          "type": "constant",
+          "ui": {
+            "x": 60,
+            "y": 560
+          },
+          "name": "Graded Physical Activity",
+          "value": 40,
+          "dial": {
+            "min": 0,
+            "max": 100,
+            "step": 5
+          }
+        },
+        {
+          "id": "social_support",
+          "type": "constant",
+          "ui": {
+            "x": 60,
+            "y": 690
+          },
+          "name": "Social Support",
+          "value": 60,
+          "dial": {
+            "min": 0,
+            "max": 100,
+            "step": 5
+          }
+        },
+        {
+          "id": "m_brain",
+          "type": "module",
+          "ui": {
+            "x": 420,
+            "y": 60
+          },
+          "name": "brain",
+          "ref": "brain",
+          "mode": "full"
+        },
+        {
+          "id": "m_network",
+          "type": "module",
+          "ui": {
+            "x": 420,
+            "y": 300
+          },
+          "name": "network",
+          "ref": "network",
+          "mode": "full"
+        },
+        {
+          "id": "m_sleep",
+          "type": "module",
+          "ui": {
+            "x": 760,
+            "y": 60
+          },
+          "name": "sleep",
+          "ref": "sleep",
+          "mode": "full"
+        },
+        {
+          "id": "m_mood",
+          "type": "module",
+          "ui": {
+            "x": 760,
+            "y": 300
+          },
+          "name": "mood",
+          "ref": "mood",
+          "mode": "full"
+        },
+        {
+          "id": "m_coping",
+          "type": "module",
+          "ui": {
+            "x": 1100,
+            "y": 300
+          },
+          "name": "coping",
+          "ref": "coping",
+          "mode": "full"
+        },
+        {
+          "id": "symptom_burden",
+          "type": "variable",
+          "ui": {
+            "x": 1100,
+            "y": 60
+          },
+          "name": "Symptom Burden",
+          "formula": "clamp(0.3 * fatigue + 0.22 * pain + 0.25 * (90 - cognition) + 0.23 * mood, 0, 100)",
+          "baseline": {
+            "mode": "fixed",
+            "value": 25,
+            "band": 0.6
+          },
+          "notes": "Composite outcome: gray ≈ recovered, red = symptomatic"
+        },
+        {
+          "id": "note_guide",
+          "type": "note",
+          "ui": {
+            "x": 1350,
+            "y": 60
+          },
+          "name": "how to drive this",
+          "notes": "1 tick = 1 day. Press play.\nDials: injury seeds the cellular tab at t0; the rest push continuously.\nTry: bad sleep + high stress -> watch inflammation & mood lock in.\nThen improve sleep env & support and see if it unwinds.\nDouble-click any chip for its live internals."
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0_injury_m_brai",
+          "type": "link",
+          "from": "injury_severity",
+          "to": "m_brain",
+          "toPort": "injury_in"
+        },
+        {
+          "id": "e1_sleep__m_slee",
+          "type": "link",
+          "from": "sleep_env",
+          "to": "m_sleep",
+          "toPort": "env_in"
+        },
+        {
+          "id": "e2_life_s_m_mood",
+          "type": "link",
+          "from": "life_stress",
+          "to": "m_mood",
+          "toPort": "lifestress_in"
+        },
+        {
+          "id": "e3_cognit_m_slee",
+          "type": "link",
+          "from": "cognitive_demand",
+          "to": "m_sleep",
+          "toPort": "cogload_in"
+        },
+        {
+          "id": "e4_physic_m_brai",
+          "type": "link",
+          "from": "physical_activity",
+          "to": "m_brain",
+          "toPort": "exercise_in"
+        },
+        {
+          "id": "e5_physic_m_netw",
+          "type": "link",
+          "from": "physical_activity",
+          "to": "m_network",
+          "toPort": "exercise_in"
+        },
+        {
+          "id": "e6_social_m_mood",
+          "type": "link",
+          "from": "social_support",
+          "to": "m_mood",
+          "toPort": "support_in"
+        },
+        {
+          "id": "e7_social_m_copi",
+          "type": "link",
+          "from": "social_support",
+          "to": "m_coping",
+          "toPort": "support_in"
+        },
+        {
+          "id": "e8_m_brai_m_netw",
+          "type": "link",
+          "from": "m_brain",
+          "to": "m_network",
+          "fromPort": "damage_out",
+          "toPort": "damage_in"
+        },
+        {
+          "id": "e9_m_brai_m_netw",
+          "type": "link",
+          "from": "m_brain",
+          "to": "m_network",
+          "fromPort": "inflammation_out",
+          "toPort": "infl_in"
+        },
+        {
+          "id": "e10_m_brai_m_netw",
+          "type": "link",
+          "from": "m_brain",
+          "to": "m_network",
+          "fromPort": "energy_out",
+          "toPort": "energy_in"
+        },
+        {
+          "id": "e11_m_slee_m_brai",
+          "type": "link",
+          "from": "m_sleep",
+          "to": "m_brain",
+          "fromPort": "quality_out",
+          "toPort": "sleep_q_in"
+        },
+        {
+          "id": "e12_m_slee_m_netw",
+          "type": "link",
+          "from": "m_sleep",
+          "to": "m_network",
+          "fromPort": "quality_out",
+          "toPort": "sleep_q_in"
+        },
+        {
+          "id": "e13_m_mood_m_brai",
+          "type": "link",
+          "from": "m_mood",
+          "to": "m_brain",
+          "fromPort": "stress_out",
+          "toPort": "stress_in"
+        },
+        {
+          "id": "e14_m_mood_m_slee",
+          "type": "link",
+          "from": "m_mood",
+          "to": "m_sleep",
+          "fromPort": "stress_out",
+          "toPort": "stress_in"
+        },
+        {
+          "id": "e15_m_netw_m_slee",
+          "type": "link",
+          "from": "m_network",
+          "to": "m_sleep",
+          "fromPort": "autonomic_out",
+          "toPort": "autonomic_in"
+        },
+        {
+          "id": "e16_m_netw_m_mood",
+          "type": "link",
+          "from": "m_network",
+          "to": "m_mood",
+          "fromPort": "cognition_out",
+          "toPort": "cognition_in"
+        },
+        {
+          "id": "e17_m_netw_m_copi",
+          "type": "link",
+          "from": "m_network",
+          "to": "m_coping",
+          "fromPort": "cognition_out",
+          "toPort": "cognition_in"
+        },
+        {
+          "id": "e18_m_slee_m_mood",
+          "type": "link",
+          "from": "m_sleep",
+          "to": "m_mood",
+          "fromPort": "fatigue_out",
+          "toPort": "fatigue_in"
+        },
+        {
+          "id": "e19_m_mood_m_copi",
+          "type": "link",
+          "from": "m_mood",
+          "to": "m_coping",
+          "fromPort": "mood_out",
+          "toPort": "mood_in"
+        },
+        {
+          "id": "e20_m_copi_m_mood",
+          "type": "link",
+          "from": "m_coping",
+          "to": "m_mood",
+          "fromPort": "coping_out",
+          "toPort": "coping_in"
+        },
+        {
+          "id": "e21_m_slee_sympto",
+          "type": "link",
+          "from": "m_sleep",
+          "to": "symptom_burden",
+          "fromPort": "fatigue_out",
+          "alias": "fatigue"
+        },
+        {
+          "id": "e22_m_slee_sympto",
+          "type": "link",
+          "from": "m_sleep",
+          "to": "symptom_burden",
+          "fromPort": "pain_out",
+          "alias": "pain"
+        },
+        {
+          "id": "e23_m_netw_sympto",
+          "type": "link",
+          "from": "m_network",
+          "to": "symptom_burden",
+          "fromPort": "cognition_out",
+          "alias": "cognition"
+        },
+        {
+          "id": "e24_m_mood_sympto",
+          "type": "link",
+          "from": "m_mood",
+          "to": "symptom_burden",
+          "fromPort": "mood_out",
+          "alias": "mood"
+        },
+        {
+          "id": "e25_sympto_m_copi",
+          "type": "link",
+          "from": "symptom_burden",
+          "to": "m_coping",
+          "toPort": "symptom_in"
+        }
+      ]
+    }
+  }
+}

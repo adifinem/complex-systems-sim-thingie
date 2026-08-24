@@ -91,7 +91,11 @@ if (!model) fail(`invalid model:\n${issues.map((i) => `  ${i.message}`).join('\n
 
 const sim = new Simulation(model, seed !== undefined ? { seed } : undefined)
 const info = sim.info
-for (const { path, value } of presets) sim.setValue(path, value)
+if (presets.length > 0) {
+  for (const { path, value } of presets) sim.setValue(path, value)
+  // Re-evaluate initial values so --set constants reach t=0 seeding too.
+  sim.reset()
+}
 
 const watched =
   watch ??

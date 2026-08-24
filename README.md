@@ -95,7 +95,7 @@ Three modes per chip:
 
 ## Files
 
-Models are plain JSON in [models/](models/) — hand-editable, git-friendly
+Models are plain JSON in [models/](models/) — see models/tbi.json for a real-world port (post-concussion recovery dynamics from a published causal-loop diagram) — hand-editable, git-friendly
 (saves are pretty-printed with stable key order). The file menu reads and
 writes them through the dev server; there's also export/import, and a
 localStorage autosave restores unsaved work after a crash.
