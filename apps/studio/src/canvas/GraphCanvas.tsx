@@ -18,6 +18,7 @@ import { bridge } from '../engine/bridge'
 import { currentGraph, useDoc } from '../store/doc'
 import { useUi } from '../store/sim'
 import { edgeTypes } from './edges'
+import { cancelTrace } from './hoverTrace'
 import { nodeTypes } from './nodes'
 
 /**
@@ -45,6 +46,9 @@ export function GraphCanvas() {
   }, [graph.nodes])
 
   const [rfNodes, setRfNodes] = useState<Node[]>([])
+
+  // Leaving a graph (tab switch, module zoom) must drop any hover trace.
+  useEffect(() => cancelTrace, [activeGraphId])
 
   // Structure sync: rebuild RF nodes from the doc, preserving RF-internal
   // state (selection, measured size) for nodes that already exist.

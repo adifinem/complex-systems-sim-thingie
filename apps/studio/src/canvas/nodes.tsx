@@ -5,6 +5,7 @@ import { bridge } from '../engine/bridge'
 import { controller } from '../engine/controller'
 import { useDoc } from '../store/doc'
 import { crumbPrefix, useUi } from '../store/sim'
+import { cancelTrace, scheduleTrace } from './hoverTrace'
 
 /** Instance-path prefix for the canvas currently in view. */
 function usePathPrefix(): string {
@@ -46,8 +47,10 @@ function useBridgeRefs(id: string, fill?: { min: number; max: number }, withSpar
     return () => bridge.unregisterNode(path)
   }, [path, fill, withSpark])
 
-  // Hover info: value / baseline / trend, computed once on mouseenter.
+  // Hover info: value / baseline / trend, computed once on mouseenter; also
+  // schedules the gold connectivity trace (fires after a short delay).
   const onMouseEnter = () => {
+    scheduleTrace(id)
     const sim = controller.sim
     if (!sim || !root.current) return
     try {
@@ -57,7 +60,8 @@ function useBridgeRefs(id: string, fill?: { min: number; max: number }, withSpar
       root.current.title = `${path} (not simulated in this view)`
     }
   }
-  return { root, badge, fillEl, spark, path, onMouseEnter }
+  const onMouseLeave = () => cancelTrace()
+  return { root, badge, fillEl, spark, path, onMouseEnter, onMouseLeave }
 }
 
 /** Hover controls: ⟲ reset-to-default, 📌 pin/unpin against influence. */
@@ -151,12 +155,17 @@ export const StockNodeView = memo(({ data, selected }: NodeProps) => {
     : dial
       ? { min: dial.min, max: dial.max }
       : { min: 0, max: 200 }
-  const { root, badge, fillEl, spark, path, onMouseEnter } = useBridgeRefs(node.id, fillRange, true)
+  const { root, badge, fillEl, spark, path, onMouseEnter, onMouseLeave } = useBridgeRefs(
+    node.id,
+    fillRange,
+    true,
+  )
   return (
     <div
       ref={root}
       className={`mm-node stock ${selected ? 'selected' : ''}`}
       onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <Handle type="target" id="pipe-in" position={Position.Left} className="pipe" />
       <Handle type="source" id="pipe-out" position={Position.Right} className="pipe" />
@@ -177,12 +186,13 @@ export const StockNodeView = memo(({ data, selected }: NodeProps) => {
 
 export const FlowNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
-  const { root, badge, path, onMouseEnter } = useBridgeRefs(node.id)
+  const { root, badge, path, onMouseEnter, onMouseLeave } = useBridgeRefs(node.id)
   return (
     <div
       ref={root}
       className={`mm-node flow ${selected ? 'selected' : ''}`}
       onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <Handle type="target" id="pipe-in" position={Position.Left} className="pipe" />
       <Handle type="source" id="pipe-out" position={Position.Right} className="pipe" />
@@ -199,12 +209,13 @@ export const FlowNodeView = memo(({ data, selected }: NodeProps) => {
 
 export const VariableNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
-  const { root, badge, path, onMouseEnter } = useBridgeRefs(node.id)
+  const { root, badge, path, onMouseEnter, onMouseLeave } = useBridgeRefs(node.id)
   return (
     <div
       ref={root}
       className={`mm-node variable ${selected ? 'selected' : ''}`}
       onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <Handle type="target" id="wire-in" position={Position.Top} className="wire" />
       <Handle type="source" id="wire-out" position={Position.Bottom} className="wire" />
@@ -225,7 +236,12 @@ export const ConstantNodeView = memo(({ data, selected }: NodeProps) => {
   const dial = node.dial ?? { min: 0, max: Math.max(node.value * 2, 10), step: 0.1 }
   const shown = live ?? node.value
   return (
-    <div ref={root} className={`mm-node constant ${selected ? 'selected' : ''}`}>
+    <div
+      ref={root}
+      className={`mm-node constant ${selected ? 'selected' : ''}`}
+      onMouseEnter={() => scheduleTrace(node.id)}
+      onMouseLeave={cancelTrace}
+    >
       <Handle type="source" id="wire-out" position={Position.Bottom} className="wire" />
       <Head node={node} />
       <NodeIcons node={node} path={path} />
@@ -260,7 +276,12 @@ export const InputNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
   const { root, badge } = useBridgeRefs(node.id)
   return (
-    <div ref={root} className={`mm-node port-node ${selected ? 'selected' : ''}`}>
+    <div
+      ref={root}
+      className={`mm-node port-node ${selected ? 'selected' : ''}`}
+      onMouseEnter={() => scheduleTrace(node.id)}
+      onMouseLeave={cancelTrace}
+    >
       <Handle type="source" id="wire-out" position={Position.Right} className="wire" />
       <div className="head">
         <span className="icon">⮕</span>
@@ -277,7 +298,12 @@ export const OutputNodeView = memo(({ data, selected }: NodeProps) => {
   const node = (data as Data).node
   const { root, badge } = useBridgeRefs(node.id)
   return (
-    <div ref={root} className={`mm-node port-node out ${selected ? 'selected' : ''}`}>
+    <div
+      ref={root}
+      className={`mm-node port-node out ${selected ? 'selected' : ''}`}
+      onMouseEnter={() => scheduleTrace(node.id)}
+      onMouseLeave={cancelTrace}
+    >
       <Handle type="target" id="wire-in" position={Position.Left} className="wire" />
       <div className="head">
         <span className="name">{node.name ?? node.id}</span>
@@ -313,7 +339,11 @@ export const ModuleNodeView = memo(({ data, selected }: NodeProps) => {
   }, [])
 
   return (
-    <div className={`mm-node module ${selected ? 'selected' : ''}`}>
+    <div
+      className={`mm-node module ${selected ? 'selected' : ''}`}
+      onMouseEnter={() => scheduleTrace(node.id)}
+      onMouseLeave={cancelTrace}
+    >
       <div className="head">
         <span className="icon">▣</span>
         <span className="name">{node.name ?? node.id}</span>

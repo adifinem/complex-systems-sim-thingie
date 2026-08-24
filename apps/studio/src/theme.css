@@ -772,6 +772,61 @@ body,
   white-space: nowrap;
 }
 
+/* ---------- hover trace (gold connectivity highlight) ---------- */
+:root {
+  --gold: #f2c94c;
+}
+
+.react-flow.hl-dim .react-flow__node:not(.hl-focus):not(.hl-path) {
+  opacity: 0.22;
+  transition: opacity 180ms ease;
+}
+
+.react-flow.hl-dim .react-flow__edge:not(.hl-edge) {
+  opacity: 0.06;
+  transition: opacity 180ms ease;
+}
+
+.react-flow__node.hl-focus,
+.react-flow__node.hl-path {
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+.react-flow__node.hl-focus .mm-node {
+  border-color: var(--gold);
+  box-shadow:
+    0 0 14px 3px color-mix(in srgb, var(--gold) 65%, transparent),
+    0 0 40px 8px color-mix(in srgb, var(--gold) 20%, transparent);
+}
+
+.react-flow__node.hl-path .mm-node {
+  border-color: color-mix(in srgb, var(--gold) 55%, var(--node-border));
+  box-shadow: 0 0 10px 2px color-mix(in srgb, var(--gold) 30%, transparent);
+}
+
+.react-flow__edge.hl-edge {
+  opacity: 1 !important;
+}
+
+.react-flow__edge.hl-edge path {
+  stroke: var(--gold) !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--gold) 70%, transparent));
+}
+
+.react-flow__edge.hl-edge .mm-wire,
+.react-flow__edge.hl-edge .mm-pipe-core {
+  stroke-dasharray: 6 6;
+  animation: hl-shimmer 0.8s linear infinite;
+}
+
+@keyframes hl-shimmer {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
 /* ---------- deviations panel ---------- */
 .dev-panel {
   position: absolute;
