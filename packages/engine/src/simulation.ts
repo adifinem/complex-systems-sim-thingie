@@ -191,6 +191,8 @@ export class Simulation {
     const cn = this.compiled.nodes[slot] as CompiledNode
     if (cn.type === 'stock') {
       this.state.values[slot] = v
+      // A pinned stock follows the new value rather than silently ignoring it.
+      if (this.state.overrides.has(slot)) this.state.overrides.set(slot, v)
       return
     }
     if (cn.type === 'constant') {
@@ -257,17 +259,18 @@ export class Simulation {
    * and stateful call-site id. The universal hot-swap for structural edits.
    * Atomic: on compile error the running program is untouched.
    */
-  applyModel(model: Model): CompileResult {
+  applyModel(model: Model): CompileResult & { unmatched?: string[] } {
     const { model: valid, issues } = validateModel(model)
     if (!valid) return { ok: false, errors: issues, warnings: [] }
     const result = compile(cloneJson(valid))
     if (!result.ok) return result
     const snap = snapshotState(this.compiled, this.state, { includeHistory: true })
     this.compiled = result.compiled
-    const { state } = restoreState(this.compiled, snap)
+    // The incoming document wins for constants (a dial edit must survive).
+    const { state, unmatched } = restoreState(this.compiled, snap, { constantsFromModel: true })
     this.state = state
     this.syncFrameBuffers()
-    return result
+    return unmatched.length > 0 ? { ...result, unmatched } : result
   }
 
   setModuleMode(_path: string, _mode: ModuleMode): void {

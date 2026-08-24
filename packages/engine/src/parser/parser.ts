@@ -44,7 +44,12 @@ class Parser {
   }
 
   private parseExpr(minBp: number): Ast {
-    let left = this.parsePrefix()
+    return this.parseBinRhs(this.parsePrefix(), minBp)
+  }
+
+  /** Continue the binary-operator loop with an already-parsed left operand. */
+  private parseBinRhs(seed: Ast, minBp: number): Ast {
+    let left = seed
     for (;;) {
       const t = this.peek()
       let op: BinOp | undefined
@@ -129,11 +134,14 @@ class Parser {
         return { kind: 'if', cond: first, then: thenE, else: elseE }
       }
       this.expect('punct', ')')
+      // The paren group may be just the START of the condition:
+      // `if (a > 0) and (b > 0) then … else …` — continue the operator loop.
+      const cond = this.parseBinRhs(first, 0)
       this.expect('keyword', 'then')
       const thenE = this.parseExpr(0)
       this.expect('keyword', 'else')
       const elseE = this.parseExpr(0)
-      return { kind: 'if', cond: first, then: thenE, else: elseE }
+      return { kind: 'if', cond, then: thenE, else: elseE }
     }
     const cond = this.parseExpr(0)
     this.expect('keyword', 'then')

@@ -32,7 +32,7 @@ export interface CompileIssue {
   /** Character offset into the offending formula, if any. */
   pos?: number
   /** Which formula field the pos refers to. */
-  field?: 'formula' | 'initial'
+  field?: 'formula' | 'initial' | 'default'
   /** Structured payload for "sibling referenced without a link edge" warnings, so a UI can auto-create the edge. */
   missingLink?: { from: string; to: string }
   /** Structured payload for unknown-name errors, so a UI can offer a quick-fix ("create variable X"). */
@@ -68,6 +68,12 @@ export interface CompiledNode {
   constValue: number
   /** Inbound link-edge indices (for readSet → edgeActive resets). */
   inEdges: number[]
+  /**
+   * Verbatim source of the runtime formula (or stock initial). Snapshots carry
+   * it per stateful call site so restore can tell "same formula → keep state
+   * verbatim" from "edited formula → re-sample taus".
+   */
+  formulaSrc: string
 }
 
 export interface CompiledEdge {
@@ -151,6 +157,14 @@ export function compile(model: Model): CompileResult {
     errors.push({ severity: 'error', message: `sim.dt must be a positive number (got ${dt})` })
     return { ok: false, errors, warnings }
   }
+  const historyLength = sim.historyLength ?? DEFAULT_SIM.historyLength
+  if (!Number.isInteger(historyLength) || historyLength < 2) {
+    errors.push({
+      severity: 'error',
+      message: `sim.historyLength must be an integer ≥ 2 (got ${historyLength})`,
+    })
+    return { ok: false, errors, warnings }
+  }
   const timeUnits: Record<string, number> = {
     ...DEFAULT_TIME_UNITS,
     ...(sim.timeUnits ?? {}),
@@ -222,9 +236,10 @@ export function compile(model: Model): CompileResult {
       if (everyTicks > 0 && everyTicks < dt) {
         warnings.push({
           severity: 'warning',
-          message: `node "${n.id}": time.every (${everyTicks} ticks) is shorter than dt (${dt}) — it will evaluate every tick`,
+          message: `node "${n.id}": time.every (${everyTicks} ticks) is shorter than dt (${dt}) — treating it as every-tick`,
           path: n.id,
         })
+        everyTicks = 0 // behavior matches the message exactly
       }
     }
 
@@ -242,12 +257,18 @@ export function compile(model: Model): CompileResult {
       nonNegative: n.type === 'stock' ? (n.nonNegative ?? false) : false,
       constValue: n.type === 'constant' ? n.value : 0,
       inEdges: [],
+      formulaSrc: '',
     })
   }
 
   // ---- parse formulas ----
-  const parseInto = (slot: number, src: string, field: 'formula' | 'initial'): Ast | null => {
+  const parseInto = (
+    slot: number,
+    src: string,
+    field: 'formula' | 'initial' | 'default',
+  ): Ast | null => {
     const node = nodes[slot] as CompiledNode
+    node.formulaSrc = src
     try {
       const ast = parse(src)
       checkCalls(ast)
@@ -289,7 +310,7 @@ export function compile(model: Model): CompileResult {
         cn.ast = parseInto(slot, n.formula, 'formula')
         break
       case 'input':
-        cn.ast = parseInto(slot, n.default ?? '0', 'formula')
+        cn.ast = parseInto(slot, n.default ?? '0', 'default')
         break
       case 'constant':
         break
@@ -328,6 +349,13 @@ export function compile(model: Model): CompileResult {
         edgeId: e.id,
       })
       continue
+    }
+    if (alias === e.to) {
+      warnings.push({
+        severity: 'warning',
+        message: `edge "${e.id}": alias "${alias}" equals the target's own id — inside "${e.to}" that name now refers to "${e.from}", which is confusing; rename the alias`,
+        edgeId: e.id,
+      })
     }
     const idx = edges.length
     aliasMap.set(alias, idx)
@@ -385,7 +413,12 @@ export function compile(model: Model): CompileResult {
 
   // ---- reference resolution ----
   // Scope per target node: link alias → sibling id → specials (t, dt, pi, e).
-  const resolveAst = (cn: CompiledNode, ast: Ast, field: 'formula' | 'initial'): void => {
+  const missingLinkSeen = new Set<string>()
+  const resolveAst = (
+    cn: CompiledNode,
+    ast: Ast,
+    field: 'formula' | 'initial' | 'default',
+  ): void => {
     const aliasMap = aliasMaps.get(cn.slot)
     const walk = (a: Ast): void => {
       switch (a.kind) {
@@ -400,19 +433,19 @@ export function compile(model: Model): CompileResult {
           }
           const sibling = slotOf.get(a.name)
           if (sibling !== undefined) {
-            if (sibling === cn.slot && field === 'formula') {
-              // self-reference is only legal through history builtins; the
-              // order-dependency check below reports it as a cycle.
-            }
             a.slot = sibling
             a.edgeIdx = -1
-            warnings.push({
-              severity: 'warning',
-              message: `node "${cn.path}" references "${a.name}" without a link edge — the UI should create one`,
-              path: cn.path,
-              pos: a.pos,
-              missingLink: { from: a.name, to: cn.path },
-            })
+            const key = `${a.name}→${cn.path}`
+            if (a.name !== cn.path && !missingLinkSeen.has(key)) {
+              missingLinkSeen.add(key)
+              warnings.push({
+                severity: 'warning',
+                message: `node "${cn.path}" references "${a.name}" without a link edge — the UI should create one`,
+                path: cn.path,
+                pos: a.pos,
+                missingLink: { from: a.name, to: cn.path },
+              })
+            }
             return
           }
           if (a.name === 't') {
@@ -598,7 +631,7 @@ export function compile(model: Model): CompileResult {
       model,
       dt,
       seed: sim.seed ?? DEFAULT_SIM.seed,
-      historyLength: sim.historyLength ?? DEFAULT_SIM.historyLength,
+      historyLength,
       timeUnits,
       paths,
       slotOf,

@@ -261,11 +261,15 @@ export function validateModel(doc: unknown): { model?: Model; issues: ModelIssue
           err(`unknown node type "${String(type)}"`, { graphId, nodeId })
       }
     }
+    const seenEdges = new Set<string>()
     for (const e of edges) {
       const edgeId = typeof e.id === 'string' ? e.id : undefined
       if (!edgeId || typeof e.from !== 'string' || typeof e.to !== 'string') {
         err('edge requires string "id", "from", "to"', { graphId, edgeId })
+        continue
       }
+      if (seenEdges.has(edgeId)) err(`duplicate edge id "${edgeId}"`, { graphId, edgeId })
+      seenEdges.add(edgeId)
     }
   }
 

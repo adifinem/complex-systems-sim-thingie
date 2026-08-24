@@ -84,14 +84,16 @@ describe('golden models', () => {
     expect(['s', 'boom']).toContain(frame.diverged?.path)
   })
 
-  it('history() returns the recent trajectory oldest-first', () => {
+  it('history() returns coherent eval-time rows, oldest-first', () => {
     const sim = new Simulation(flatModel([stock('s', '0'), flow('f', '1', { to: 's' })]))
     sim.tick(10)
+    // Each tick records the report row at its eval time (pre-integration), so
+    // after 10 ticks the rows are s(0)…s(0.9). The live frame shows s=1.0.
     const h = sim.history('s', 5)
     expect(h.length).toBe(5)
-    // last 5 recorded values: after ticks 6..10 → 0.6 … 1.0 — wait, dt=0.1, rate 1
-    expect(h[4]).toBeCloseTo(1.0, 9)
-    expect(h[0]).toBeCloseTo(0.6, 9)
+    expect(h[0]).toBeCloseTo(0.5, 9)
+    expect(h[4]).toBeCloseTo(0.9, 9)
+    expect(sim.getNode('s').value).toBeCloseTo(1.0, 9)
     for (let i = 1; i < h.length; i++) {
       expect((h[i] as number) > (h[i - 1] as number)).toBe(true)
     }

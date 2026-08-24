@@ -110,9 +110,14 @@ export function initState(compiled: Compiled): SimState {
     state.baselines[cn.slot] =
       cn.baseline.mode === 'fixed' ? cn.baseline.fixedValue : (state.values[cn.slot] as number)
     if (cn.everyTicks > 0) state.holdNext[cn.slot] = cn.everyTicks
+    if (!Number.isFinite(state.values[cn.slot] as number) && state.divergedSlot < 0) {
+      state.divergedSlot = cn.slot
+      state.divergedTick = 0
+    }
   }
   updateStats(compiled, state, false)
-  pushHistory(compiled, state)
+  // History stays empty until the first tick pushes the t=0 row — restore of a
+  // history-less snapshot must not present reset values as recorded samples.
   return state
 }
 
@@ -210,11 +215,15 @@ export function tick(compiled: Compiled, state: SimState): void {
   }
 
   // ---- phase 2: record (before integration: start-of-tick stock values) ----
+  // Overridden nodes are fully frozen: they read nothing (their inbound edges
+  // stay dormant) and their delay/smooth histories stop advancing until the
+  // override is released.
   const inputs = recordInputs
   const entries = compiled.recordEntries
   if (inputs.length < entries.length) recordInputs.length = entries.length
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i] as RecordEntry
+    if (state.overrides.has(e.nodeSlot)) continue
     const cn = compiled.nodes[e.nodeSlot] as CompiledNode
     setNodeCtx(ctx, state, compiled, cn)
     ctx.edgeRead = state.edgeActive
@@ -224,9 +233,14 @@ export function tick(compiled: Compiled, state: SimState): void {
   const dt = compiled.dt
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i] as RecordEntry
+    if (state.overrides.has(e.nodeSlot)) continue
     const st = state.funcState.get(e.callSiteId)
     if (!st) continue
     const x = inputs[i] as number
+    if (!Number.isFinite(x) && state.divergedSlot < 0) {
+      state.divergedSlot = e.nodeSlot
+      state.divergedTick = state.tickIndex
+    }
     switch (st.kind) {
       case 'ring':
         st.buf[st.cursor] = x
@@ -255,6 +269,11 @@ export function tick(compiled: Compiled, state: SimState): void {
     }
   }
 
+  // History records the coherent report row BEFORE integration: (t_eval,
+  // stocks(t_eval), aux(t_eval)) — the standard SD output row. The live frame
+  // afterwards shows post-integration stocks for animation.
+  pushHistory(compiled, state)
+
   // ---- phase 3: integrate ----
   for (const stock of compiled.stocks) {
     if (state.overrides.has(stock.slot)) continue
@@ -270,11 +289,10 @@ export function tick(compiled: Compiled, state: SimState): void {
     }
   }
 
-  // ---- phase 4/5: advance + stats + history ----
+  // ---- phase 4/5: advance + stats ----
   state.tickIndex += 1
   state.t = state.tickIndex * compiled.dt
   updateStats(compiled, state, true)
-  pushHistory(compiled, state)
 }
 
 function updateStats(compiled: Compiled, state: SimState, advanceEwma: boolean): void {
@@ -316,11 +334,20 @@ export interface Snapshot {
   tickIndex: number
   values: Record<string, number>
   baselines: Record<string, number>
+  /** Node type per path — restore skips values whose node changed kind. */
+  types: Record<string, string>
   funcState: Record<string, SerializedFuncState>
+  /**
+   * Per stateful call site: the owning node's formula source at snapshot time.
+   * Restore keeps state verbatim when unchanged (bit-identical restore even
+   * with time-varying taus) and re-samples taus only after a formula edit.
+   */
+  statefulSrc: Record<string, string>
   rng: RngState
   overrides: Record<string, number>
   holdNext: Record<string, number>
   edgeActive: Record<string, 0 | 1>
+  diverged: { path: string; tickIndex: number } | null
   history?: {
     cursor: number
     count: number
@@ -360,17 +387,32 @@ export function snapshotState(
   }
   const edgeActive: Record<string, 0 | 1> = {}
   for (const e of compiled.edges) edgeActive[e.id] = (state.edgeActive[e.idx] ?? 0) as 0 | 1
+  const types: Record<string, string> = {}
+  for (const cn of compiled.nodes) types[cn.path] = cn.type
+  const statefulSrc: Record<string, string> = {}
+  for (const e of compiled.recordEntries) {
+    statefulSrc[e.callSiteId] = (compiled.nodes[e.nodeSlot] as CompiledNode).formulaSrc
+  }
   const snap: Snapshot = {
     version: 1,
     t: state.t,
     tickIndex: state.tickIndex,
     values: byPath(state.values),
     baselines: byPath(state.baselines),
+    types,
     funcState,
+    statefulSrc,
     rng: state.rng.getState(),
     overrides,
     holdNext,
     edgeActive,
+    diverged:
+      state.divergedSlot >= 0
+        ? {
+            path: (compiled.nodes[state.divergedSlot] as CompiledNode).path,
+            tickIndex: state.divergedTick,
+          }
+        : null,
   }
   if (opts?.includeHistory) {
     const len = compiled.historyLength
@@ -388,9 +430,20 @@ export function snapshotState(
  * exists are dropped; nodes missing from the snapshot keep their reset values.
  * Returns the paths that could not be matched (for a UI warning).
  */
+export interface RestoreOpts {
+  /**
+   * applyModel passes true: the incoming document is the source of truth for
+   * constants, so their snapshot values are NOT overlaid (a dial edit in the
+   * document survives the hot-swap). Plain restore leaves it false: constants
+   * revert to their snapshot values and the model is synced to match.
+   */
+  constantsFromModel?: boolean
+}
+
 export function restoreState(
   compiled: Compiled,
   snap: Snapshot,
+  opts?: RestoreOpts,
 ): { state: SimState; unmatched: string[] } {
   const state = initState(compiled)
   const unmatched: string[] = []
@@ -398,25 +451,48 @@ export function restoreState(
   state.tickIndex = snap.tickIndex
   state.rng.setState(snap.rng)
 
-  const assign = (rec: Record<string, number>, arr: Float64Array): void => {
+  /** Paths whose node kind changed since the snapshot keep their reset values. */
+  const matches = (path: string, slot: number): boolean => {
+    const snapType = snap.types?.[path]
+    return snapType === undefined || snapType === (compiled.nodes[slot] as CompiledNode).type
+  }
+
+  const assign = (rec: Record<string, number>, arr: Float64Array, skipConstants: boolean): void => {
     for (const [path, v] of Object.entries(rec)) {
       const slot = compiled.slotOf.get(path)
-      if (slot === undefined) {
+      if (slot === undefined || !matches(path, slot)) {
         if (!unmatched.includes(path)) unmatched.push(path)
         continue
       }
+      if (skipConstants && (compiled.nodes[slot] as CompiledNode).type === 'constant') continue
       arr[slot] = v
     }
   }
-  assign(snap.values, state.values)
-  assign(snap.baselines, state.baselines)
+  assign(snap.values, state.values, opts?.constantsFromModel ?? false)
+  assign(snap.baselines, state.baselines, false)
+
+  if (!opts?.constantsFromModel) {
+    // Keep the engine self-consistent: restored constant values become the
+    // model's values too (otherwise clearOverride/reset would resurrect them).
+    for (const cn of compiled.nodes) {
+      if (cn.type !== 'constant') continue
+      const v = snap.values[cn.path]
+      if (v === undefined || !matches(cn.path, cn.slot)) continue
+      cn.constValue = v
+      const graph = compiled.model.graphs[compiled.model.mainGraph]
+      const raw = graph?.nodes.find((n) => n.id === cn.path)
+      if (raw && raw.type === 'constant') raw.value = v
+    }
+  }
+
   for (const [path, v] of Object.entries(snap.overrides)) {
     const slot = compiled.slotOf.get(path)
-    if (slot === undefined) {
+    if (slot === undefined || !matches(path, slot)) {
       unmatched.push(path)
       continue
     }
     state.overrides.set(slot, v)
+    state.values[slot] = v
   }
   for (const [path, v] of Object.entries(snap.holdNext)) {
     const slot = compiled.slotOf.get(path)
@@ -445,33 +521,49 @@ export function restoreState(
     if (idx !== undefined) state.edgeActive[idx] = bit
   }
   if (snap.history) {
-    state.historyCursor = snap.history.cursor
-    state.historyCount = snap.history.count
     const len = compiled.historyLength
+    state.historyCount = Math.min(snap.history.count, len)
+    state.historyCursor = ((snap.history.cursor % len) + len) % len
     for (const [path, data] of Object.entries(snap.history.data)) {
       const slot = compiled.slotOf.get(path)
       if (slot === undefined) continue
       state.history.set(data.slice(0, len), slot * len)
     }
+  } else {
+    state.historyCursor = 0
+    state.historyCount = 0
   }
-  resampleTaus(compiled, state)
+  if (snap.diverged) {
+    const slot = compiled.slotOf.get(snap.diverged.path)
+    if (slot !== undefined) {
+      state.divergedSlot = slot
+      state.divergedTick = snap.diverged.tickIndex
+    }
+  }
+  resampleTaus(compiled, state, snap.statefulSrc ?? {})
   updateStats(compiled, state, false)
   return { state, unmatched }
 }
 
 /**
- * Re-sample every stateful call site's time constant against the restored
- * values and reconcile the carried state. For an unchanged model this is a
- * no-op (same inputs → same tau), preserving bit-identical restore; after a
- * formula/dial edit it implements the documented "delay times re-sample on
- * hot-swap" behavior instead of silently keeping a stale buffer length.
+ * Reconcile stateful call sites whose OWNING FORMULA changed since the
+ * snapshot: re-evaluate the tau against restored values and re-seed/rescale
+ * the carried state. Call sites with an unchanged formula are left strictly
+ * verbatim, which is what keeps plain snapshot→restore bit-identical even
+ * when a tau expression is time-varying or stochastic.
  */
-function resampleTaus(compiled: Compiled, state: SimState): void {
+function resampleTaus(
+  compiled: Compiled,
+  state: SimState,
+  statefulSrc: Record<string, string>,
+): void {
   const ctx = makeCtx(state)
   for (const e of compiled.recordEntries) {
     if (!e.tauAst) continue
     const st = state.funcState.get(e.callSiteId)
     if (!st) continue
+    const srcNow = (compiled.nodes[e.nodeSlot] as CompiledNode).formulaSrc
+    if (statefulSrc[e.callSiteId] === srcNow) continue
     const cn = compiled.nodes[e.nodeSlot] as CompiledNode
     setNodeCtx(ctx, state, compiled, cn)
     const tauTicks = evalAst(e.tauAst, ctx) * cn.ratio
