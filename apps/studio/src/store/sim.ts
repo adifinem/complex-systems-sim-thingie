@@ -41,10 +41,14 @@ export interface UiState {
   selectedEdgeId: string | null
   /** Instance trail when the canvas shows the inside of a module. */
   breadcrumb: Crumb[]
+  /** Deviations side panel visibility. */
+  showDeviations: boolean
   select: (nodeId: string | null, edgeId?: string | null) => void
   pushCrumb: (crumb: Crumb) => void
   popToCrumb: (depth: number) => void
   clearCrumbs: () => void
+  setCrumbs: (crumbs: Crumb[]) => void
+  toggleDeviations: () => void
 }
 
 export const useUi = create<UiState>((set) => ({
@@ -56,6 +60,9 @@ export const useUi = create<UiState>((set) => ({
     set((s) => ({ breadcrumb: [...s.breadcrumb, crumb], selectedNodeId: null })),
   popToCrumb: (depth) => set((s) => ({ breadcrumb: s.breadcrumb.slice(0, depth) })),
   clearCrumbs: () => set({ breadcrumb: [] }),
+  setCrumbs: (crumbs) => set({ breadcrumb: crumbs }),
+  showDeviations: false,
+  toggleDeviations: () => set((s) => ({ showDeviations: !s.showDeviations })),
 }))
 
 /** "econ/labor/" — path prefix for the instance currently on the canvas. */

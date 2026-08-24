@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { GraphCanvas } from './canvas/GraphCanvas'
 import { Palette } from './canvas/Palette'
 import { controller } from './engine/controller'
+import { DeviationsPanel } from './panels/DeviationsPanel'
 import { FileBar } from './panels/FileBar'
 import { Inspector } from './panels/Inspector'
 import { TabBar } from './panels/TabBar'
@@ -92,6 +93,7 @@ export function App() {
           <FileBar />
           <TabBar />
           <Transport />
+          <DeviationsPanel />
         </div>
         <Inspector />
       </div>

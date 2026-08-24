@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { bridge } from '../engine/bridge'
 import { controller } from '../engine/controller'
-import { useSimUi } from '../store/sim'
+import { useSimUi, useUi } from '../store/sim'
 
 export function Transport() {
   const status = useSimUi((s) => s.status)
   const speed = useSimUi((s) => s.speed)
   const setUi = useSimUi((s) => s.set)
   const diverged = useSimUi((s) => s.diverged)
+  const showDeviations = useUi((s) => s.showDeviations)
   const timeRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
@@ -45,6 +46,14 @@ export function Transport() {
       <span ref={timeRef} className="time">
         t = 0.0
       </span>
+      <button
+        type="button"
+        className={showDeviations ? 'playing' : ''}
+        title="Toggle the Δ-from-baseline panel (what is high/low right now)"
+        onClick={() => useUi.getState().toggleDeviations()}
+      >
+        Δ
+      </button>
       {diverged && (
         <span className="diverged" title="Simulation produced a non-finite value">
           ⚠ {diverged.path} diverged @t{(diverged.tickIndex * (controller.sim?.dt ?? 1)).toFixed(1)}
